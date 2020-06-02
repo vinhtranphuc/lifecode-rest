@@ -5,8 +5,10 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -297,4 +299,12 @@ public class Utils {
             throw new RuntimeException(ex.getCause());
         }
     }
+	
+	public static String getCurrentTimeStamp() {
+	    return new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(getCurrentTimeStamp());
+	}
 }

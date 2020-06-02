@@ -4,11 +4,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
+import com.lifecode.common.Const;
 import com.lifecode.mybatis.mapper.ImageMapper;
 import com.lifecode.mybatis.mapper.PostMapper;
 import com.lifecode.mybatis.mapper.TagMapper;
@@ -17,6 +23,7 @@ import com.lifecode.mybatis.model.ImageVO;
 import com.lifecode.mybatis.model.PostVO;
 import com.lifecode.mybatis.model.TagVO;
 import com.lifecode.mybatis.model.UserVO;
+import com.lifecode.utils.FileUtil;
 import com.lifecode.utils.Utils;
 
 @Service
@@ -134,5 +141,21 @@ public class PostService {
 	public PostVO getPostById(String postId) {
 		PostVO post = postMapper.getPostById(postId);
 		return getDetailPost(post);
+	}
+
+	public void createPost(String content, String host) {
+		Document doc = Jsoup.parse(content, "UTF-8");
+		int i = 0;
+		for (Element element : doc.select("img")) {
+			i++;
+            String src = element.attr("src");
+            if (src != null && src.startsWith("data:")) {
+            	String fileName = FileUtil.saveBase64Image(src, Const.IMG_POST_CONTENT_PATH, Utils.getCurrentTimeStamp()+"_"+i);
+            	String fileUri = Const.getPostContentUri(host,fileName);
+            	element.attr("src", fileUri);
+            	System.out.println(fileUri);
+            }
+		}
+		System.out.println(doc.html());
 	}
 }

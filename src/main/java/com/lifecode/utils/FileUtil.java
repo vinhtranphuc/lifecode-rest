@@ -1,8 +1,6 @@
 package com.lifecode.utils;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,8 +27,12 @@ public class FileUtil {
 			  if(!FilenameUtils.isExtension(fileName, Const.imgExtensions)) {
 				  fileName = fileName+Const.DEFAULT_IMG_TYPE;
 			  }
-			  Path path = Paths.get(Const.UPLOAD_FOLDER_ROOT +"/"+subPath+"/"+fileName);
-			  Files.write(path, decodedImg);
+			  Path folderPath = Paths.get(Const.UPLOAD_FOLDER_ROOT +"/"+subPath);
+			  if (!Files.exists(folderPath)) {
+				  folderPath = Files.createDirectory(folderPath);
+			  }
+			  Path filePath = Paths.get(folderPath+"/"+fileName);
+			  Files.write(filePath, decodedImg);
 			  return fileName;
 			}
 		} catch (IOException e) {
@@ -49,10 +51,21 @@ public class FileUtil {
 		return null;
 	}
 
-	public static void main(String[] args) throws UnsupportedEncodingException {
-		String ext2 = FilenameUtils.getExtension("bar"); // returns "exe"
-		System.out.println(ext2);
-		System.out.println(URLEncoder.encode("phúcvinh", StandardCharsets.UTF_8.toString()));
+	public static void main(String[] args) throws IOException {
+//		String ext2 = FilenameUtils.getExtension("bar"); // returns "exe"
+//		System.out.println(ext2);
+//		System.out.println(URLEncoder.encode("phúcvinh", StandardCharsets.UTF_8.toString()));
+		String fileName = "upload/images/post/content";
 		
+        Path path = Paths.get(fileName);
+		 if (!Files.exists(path)) {
+			 Path x =  Files.createDirectory(path);
+			 System.out.println(x);
+	            System.out.println("Directory created");
+	        } else {
+	        	Path p = Files.createDirectories(path);
+	        	System.out.println(p);
+	            System.out.println("Directory already exists");
+	        }
 	}
 }

@@ -6,6 +6,9 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.hibernate.exception.ConstraintViolationException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -201,12 +205,12 @@ public class BlogController {
 		try {
 			String message = "";
 			String categoryName = (String) param.get("category");
-			String categoryImage = (String) param.get("categoryImg"); 
+			String base64Img = (String) param.get("categoryImg"); 
 			
 			if(StringUtils.isEmpty(categoryName)) {
 				message = "Please input category name";
 			}
-			if(StringUtils.isEmpty(categoryImage)) {
+			if(StringUtils.isEmpty(base64Img)) {
 				message = "Please select category image";
 			}
 
@@ -214,7 +218,7 @@ public class BlogController {
 				return ResponseEntity.ok().body(new Response(HttpStatus.CONFLICT,null,message));
 			}
 			
-			Category category = categoryService.saveCategory(categoryName,categoryImage);
+			Category category = categoryService.saveCategory(categoryName,base64Img);
 			return ResponseEntity.ok().body(new Response(HttpStatus.OK,category,"You're successfully add category."));
 		} catch(BusinessException e) {
 			return ResponseEntity.ok().body(new Response(HttpStatus.CONFLICT,null,e.getMessage()));
@@ -234,6 +238,21 @@ public class BlogController {
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	}
+	
+	@PostMapping("/create-post")
+	public ResponseEntity<Response> createPost(@RequestBody Map<String,Object> param, @RequestHeader String host) {
+		try {
+			String content = (String) param.get("content");
+			
+			postService.createPost(content,host);
+			
+			return ResponseEntity.ok().body(new Response(HttpStatus.OK,null,"You're successfully create post."));
+		} catch (Exception e) {
+			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
+		}
+
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
 }

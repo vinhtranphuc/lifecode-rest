@@ -10,10 +10,24 @@ public class Const {
     // file
     public static final String UPLOAD_FOLDER_ROOT = "upload";
     public static final String IMG_COMMON_PATH = "images/common";
-    public static final String IMG_CATEGORY_PATH = "images/category";
     public static final String IMG_NOT_FOUND_NAME = "not-found";
     public static final String IMG_NOT_FOUND_DIR = IMG_COMMON_PATH+"/"+IMG_NOT_FOUND_NAME+".png";
     public static final String DEFAULT_IMG_TYPE = ".png";
     
+    public static final String IMG_CATEGORY_PATH = "images/category";
+    public static final String IMG_POST_CONTENT_PATH = "images/post/content";
+    public static final String IMG_POST_FEATURES_PATH = "images/post/features";
+    
+    //uri
+    public static final String API_IMG_URI = "api/image";
+    public static final String VIEW_URI = "view";
+    public static final String IMG_COMMON_URI = "common";
+    public static final String IMG_CATEGORY_URI = "category";
+    public static final String IMG_POST_CONTENT_URI = "post-content";
+
     public static final String[] imgExtensions = {"png","jpg"};
+
+    public static final String getPostContentUri(String host,String fileName) {
+    	return host+"/"+API_IMG_URI+"/"+VIEW_URI+"/"+IMG_POST_CONTENT_URI+"/"+fileName;
+    }
 }

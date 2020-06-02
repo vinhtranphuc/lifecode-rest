@@ -36,13 +36,13 @@ public class CategoryService {
 		return categoryRepository.existsByCategory(category);
 	}
 	
-	public Category saveCategory(String categoryName, String categoryImage) throws BusinessException {
+	public Category saveCategory(String categoryName, String base64Img) throws BusinessException {
 		
 		if(StringUtils.isEmpty(categoryName) || categoryRepository.existsByCategory(categoryName)) {
 			throw new BusinessException("Category name \""+categoryName+"\" already exists !");
 		}
 		
-		String categoryImg = FileUtil.saveBase64Image(categoryImage, Const.IMG_CATEGORY_PATH,categoryName);
+		String categoryImg = FileUtil.saveBase64Image(base64Img, Const.IMG_CATEGORY_PATH,categoryName);
 		Category category = new Category(categoryName, categoryImg);
 		
 		return categoryRepository.save(category);

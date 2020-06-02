@@ -1,29 +1,12 @@
-2020-05-24 07:25:09.581  INFO 9484 --- [main] com.lifecode.LifeCodeApplication         : Starting LifeCodeApplication on VINHTP with PID 9484 (E:\projects\eclipse-workspace\lifecode-rest\target\classes started by Vinh in E:\projects\eclipse-workspace\lifecode-rest)
-2020-05-24 07:25:09.625 DEBUG 9484 --- [main] com.lifecode.LifeCodeApplication         : Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
-2020-05-24 07:25:09.633  INFO 9484 --- [main] com.lifecode.LifeCodeApplication         : No active profile set, falling back to default profiles: default
-2020-05-24 07:25:15.141  INFO 9484 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-05-24 07:25:15.143  INFO 9484 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.29]
-2020-05-24 07:25:15.399  INFO 9484 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2020-05-24 07:25:15.767  INFO 9484 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2020-05-24 07:25:15.909  INFO 9484 --- [main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.4.9.Final}
-2020-05-24 07:25:16.155  INFO 9484 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
-2020-05-24 07:25:17.292  INFO 9484 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-2020-05-24 07:25:18.462  INFO 9484 --- [main] org.hibernate.tuple.PojoInstantiator     : HHH000182: No default (no-argument) constructor for class: com.lifecode.jpa.entity.Tag (class must be instantiated by Interceptor)
-2020-05-24 07:25:20.936  INFO 9484 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2020-05-24 07:25:22.431 DEBUG 9484 --- [main] c.l.security.JwtAuthenticationFilter     : Filter 'jwtAuthenticationFilter' configured for use
-2020-05-24 07:25:24.119  WARN 9484 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2020-05-24 07:25:24.484  INFO 9484 --- [main] com.lifecode.LifeCodeApplication         : Started LifeCodeApplication in 15.78 seconds (JVM running for 16.619)
-2020-05-24 07:25:28.950  INFO 9484 --- [http-nio-8888-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2020-05-24 07:25:29.037 ERROR 9484 --- [http-nio-8888-exec-1] com.lifecode.security.JwtTokenProvider   : Invalid JWT token
-2020-05-24 07:25:29.391 DEBUG 9484 --- [http-nio-8888-exec-1] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_, user0_.created_at as created_2_10_, user0_.updated_at as updated_3_10_, user0_.address as address4_10_, user0_.avatar_path as avatar_p5_10_, user0_.city as city6_10_, user0_.company_name as company_7_10_, user0_.country as country8_10_, user0_.email as email9_10_, user0_.facebook as faceboo10_10_, user0_.instagram as instagr11_10_, user0_.join_date as join_da12_10_, user0_.linkedin as linkedi13_10_, user0_.name as name14_10_, user0_.note as note15_10_, user0_.occupation as occupat16_10_, user0_.password as passwor17_10_, user0_.phone as phone18_10_, user0_.twitter as twitter19_10_, user0_.type as type20_10_, user0_.user_type_cd as user_ty21_10_, user0_.username as usernam22_10_ from users user0_ where user0_.username=? or user0_.email=?
-2020-05-24 07:25:29.445 DEBUG 9484 --- [http-nio-8888-exec-1] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 07:25:29.864 DEBUG 9484 --- [http-nio-8888-exec-3] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 07:25:29.871 DEBUG 9484 --- [http-nio-8888-exec-3] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 07:25:31.541 DEBUG 9484 --- [http-nio-8888-exec-6] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 07:25:31.541 DEBUG 9484 --- [http-nio-8888-exec-7] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 07:25:31.544 DEBUG 9484 --- [http-nio-8888-exec-6] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 07:25:31.544 DEBUG 9484 --- [http-nio-8888-exec-7] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 07:25:31.641 DEBUG 9484 --- [http-nio-8888-exec-7] c.l.interceptor.MyBatisQueryIntercept    : 
+2020-05-31 09:08:34.411  WARN 284 --- [RMI TCP Connection(197)-127.0.0.1] javax.management.remote.misc             : The server has decided to close this client connection.
+2020-05-31 09:08:57.315 ERROR 284 --- [http-nio-8888-exec-5] com.lifecode.security.JwtTokenProvider   : Invalid JWT token
+2020-05-31 09:08:58.593 DEBUG 284 --- [http-nio-8888-exec-5] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_, user0_.created_at as created_2_10_, user0_.updated_at as updated_3_10_, user0_.address as address4_10_, user0_.avatar_path as avatar_p5_10_, user0_.city as city6_10_, user0_.company_name as company_7_10_, user0_.country as country8_10_, user0_.email as email9_10_, user0_.facebook as faceboo10_10_, user0_.instagram as instagr11_10_, user0_.join_date as join_da12_10_, user0_.linkedin as linkedi13_10_, user0_.name as name14_10_, user0_.note as note15_10_, user0_.occupation as occupat16_10_, user0_.password as passwor17_10_, user0_.phone as phone18_10_, user0_.twitter as twitter19_10_, user0_.type as type20_10_, user0_.user_type_cd as user_ty21_10_, user0_.username as usernam22_10_ from users user0_ where user0_.username=? or user0_.email=?
+2020-05-31 09:08:58.983 DEBUG 284 --- [http-nio-8888-exec-5] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
+2020-05-31 09:09:00.036 DEBUG 284 --- [http-nio-8888-exec-10] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
+2020-05-31 09:09:00.038 DEBUG 284 --- [http-nio-8888-exec-10] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
+2020-05-31 09:09:03.626 DEBUG 284 --- [http-nio-8888-exec-9] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
+2020-05-31 09:09:03.627 DEBUG 284 --- [http-nio-8888-exec-9] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
+2020-05-31 09:09:03.630 DEBUG 284 --- [http-nio-8888-exec-9] c.l.interceptor.MyBatisQueryIntercept    : 
 ==================== mapperId ====================
 com.lifecode.mybatis.mapper.TagMapper.selectTags
 ==================== query ====================
@@ -34,7 +17,12 @@ com.lifecode.mybatis.mapper.TagMapper.selectTags
 			TAGS A
 			GROUP BY A.TAG_ID
 
-2020-05-24 07:25:31.641 DEBUG 9484 --- [http-nio-8888-exec-6] c.l.interceptor.MyBatisQueryIntercept    : 
+2020-05-31 09:09:03.638 DEBUG 284 --- [http-nio-8888-exec-9] c.l.mybatis.mapper.TagMapper.selectTags  : ==>  Preparing: SELECT a.tag_id ,a.tag FROM TAGS A GROUP BY A.TAG_ID 
+2020-05-31 09:09:03.639 DEBUG 284 --- [http-nio-8888-exec-9] c.l.mybatis.mapper.TagMapper.selectTags  : ==> Parameters: 
+2020-05-31 09:09:03.640 DEBUG 284 --- [http-nio-8888-exec-9] c.l.mybatis.mapper.TagMapper.selectTags  : <==      Total: 16
+2020-05-31 09:09:03.663 DEBUG 284 --- [http-nio-8888-exec-3] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
+2020-05-31 09:09:03.665 DEBUG 284 --- [http-nio-8888-exec-3] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
+2020-05-31 09:09:03.668 DEBUG 284 --- [http-nio-8888-exec-3] c.l.interceptor.MyBatisQueryIntercept    : 
 ==================== mapperId ====================
 com.lifecode.mybatis.mapper.CategoryMapper.selectCategories
 ==================== query ====================
@@ -48,17 +36,25 @@ com.lifecode.mybatis.mapper.CategoryMapper.selectCategories
 			LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID
 			GROUP BY A.CATEGORY_ID
 
-2020-05-24 07:25:31.672 DEBUG 9484 --- [http-nio-8888-exec-6] c.l.m.m.CategoryMapper.selectCategories  : ==>  Preparing: SELECT A.CATEGORY_ID ,A.CATEGORY ,A.CATEGORY_IMG ,COUNT(B.POST_ID) AS NUMBER_OF_POSTS FROM CATEGORIES A LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID GROUP BY A.CATEGORY_ID 
-2020-05-24 07:25:31.672 DEBUG 9484 --- [http-nio-8888-exec-7] c.l.mybatis.mapper.TagMapper.selectTags  : ==>  Preparing: SELECT a.tag_id ,a.tag FROM TAGS A GROUP BY A.TAG_ID 
-2020-05-24 07:25:31.683 DEBUG 9484 --- [http-nio-8888-exec-7] c.l.mybatis.mapper.TagMapper.selectTags  : ==> Parameters: 
-2020-05-24 07:25:31.683 DEBUG 9484 --- [http-nio-8888-exec-6] c.l.m.m.CategoryMapper.selectCategories  : ==> Parameters: 
-2020-05-24 07:25:31.709 DEBUG 9484 --- [http-nio-8888-exec-6] c.l.m.m.CategoryMapper.selectCategories  : <==      Total: 4
-2020-05-24 07:25:31.717 DEBUG 9484 --- [http-nio-8888-exec-7] c.l.mybatis.mapper.TagMapper.selectTags  : <==      Total: 18
-2020-05-24 07:25:33.273 DEBUG 9484 --- [http-nio-8888-exec-8] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 07:25:33.273 DEBUG 9484 --- [http-nio-8888-exec-10] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 07:25:33.277 DEBUG 9484 --- [http-nio-8888-exec-10] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 07:25:33.277 DEBUG 9484 --- [http-nio-8888-exec-8] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 07:25:33.283 DEBUG 9484 --- [http-nio-8888-exec-10] c.l.interceptor.MyBatisQueryIntercept    : 
+2020-05-31 09:09:03.674 DEBUG 284 --- [http-nio-8888-exec-3] c.l.m.m.CategoryMapper.selectCategories  : ==>  Preparing: SELECT A.CATEGORY_ID ,A.CATEGORY ,A.CATEGORY_IMG ,COUNT(B.POST_ID) AS NUMBER_OF_POSTS FROM CATEGORIES A LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID GROUP BY A.CATEGORY_ID 
+2020-05-31 09:09:03.675 DEBUG 284 --- [http-nio-8888-exec-3] c.l.m.m.CategoryMapper.selectCategories  : ==> Parameters: 
+2020-05-31 09:09:03.676 DEBUG 284 --- [http-nio-8888-exec-3] c.l.m.m.CategoryMapper.selectCategories  : <==      Total: 6
+2020-05-31 09:15:40.029 DEBUG 284 --- [http-nio-8888-exec-5] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
+2020-05-31 09:15:40.029 DEBUG 284 --- [http-nio-8888-exec-8] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
+2020-05-31 09:15:40.335 DEBUG 284 --- [http-nio-8888-exec-8] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
+2020-05-31 09:15:40.335 DEBUG 284 --- [http-nio-8888-exec-5] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
+2020-05-31 09:15:40.338 DEBUG 284 --- [http-nio-8888-exec-5] c.l.interceptor.MyBatisQueryIntercept    : 
+==================== mapperId ====================
+com.lifecode.mybatis.mapper.TagMapper.selectTags
+==================== query ====================
+		SELECT
+		a.tag_id
+		,a.tag
+		FROM
+			TAGS A
+			GROUP BY A.TAG_ID
+
+2020-05-31 09:15:40.339 DEBUG 284 --- [http-nio-8888-exec-8] c.l.interceptor.MyBatisQueryIntercept    : 
 ==================== mapperId ====================
 com.lifecode.mybatis.mapper.CategoryMapper.selectCategories
 ==================== query ====================
@@ -72,63 +68,17 @@ com.lifecode.mybatis.mapper.CategoryMapper.selectCategories
 			LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID
 			GROUP BY A.CATEGORY_ID
 
-2020-05-24 07:25:33.283 DEBUG 9484 --- [http-nio-8888-exec-8] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.TagMapper.selectTags
-==================== query ====================
-		SELECT
-		a.tag_id
-		,a.tag
-		FROM
-			TAGS A
-			GROUP BY A.TAG_ID
-
-2020-05-24 07:25:33.296 DEBUG 9484 --- [http-nio-8888-exec-8] c.l.mybatis.mapper.TagMapper.selectTags  : ==>  Preparing: SELECT a.tag_id ,a.tag FROM TAGS A GROUP BY A.TAG_ID 
-2020-05-24 07:25:33.297 DEBUG 9484 --- [http-nio-8888-exec-8] c.l.mybatis.mapper.TagMapper.selectTags  : ==> Parameters: 
-2020-05-24 07:25:33.297 DEBUG 9484 --- [http-nio-8888-exec-10] c.l.m.m.CategoryMapper.selectCategories  : ==>  Preparing: SELECT A.CATEGORY_ID ,A.CATEGORY ,A.CATEGORY_IMG ,COUNT(B.POST_ID) AS NUMBER_OF_POSTS FROM CATEGORIES A LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID GROUP BY A.CATEGORY_ID 
-2020-05-24 07:25:33.297 DEBUG 9484 --- [http-nio-8888-exec-10] c.l.m.m.CategoryMapper.selectCategories  : ==> Parameters: 
-2020-05-24 07:25:33.299 DEBUG 9484 --- [http-nio-8888-exec-10] c.l.m.m.CategoryMapper.selectCategories  : <==      Total: 4
-2020-05-24 07:25:33.303 DEBUG 9484 --- [http-nio-8888-exec-8] c.l.mybatis.mapper.TagMapper.selectTags  : <==      Total: 18
-2020-05-24 07:26:10.942 DEBUG 9484 --- [http-nio-8888-exec-7] org.hibernate.SQL                        : delete from tags where tag_id in (?)
-2020-05-24 07:26:11.002 DEBUG 9484 --- [http-nio-8888-exec-10] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 07:26:11.005 DEBUG 9484 --- [http-nio-8888-exec-10] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 07:26:11.010 DEBUG 9484 --- [http-nio-8888-exec-10] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.TagMapper.selectTags
-==================== query ====================
-		SELECT
-		a.tag_id
-		,a.tag
-		FROM
-			TAGS A
-			GROUP BY A.TAG_ID
-
-2020-05-24 07:26:11.023 DEBUG 9484 --- [http-nio-8888-exec-10] c.l.mybatis.mapper.TagMapper.selectTags  : ==>  Preparing: SELECT a.tag_id ,a.tag FROM TAGS A GROUP BY A.TAG_ID 
-2020-05-24 07:26:11.023 DEBUG 9484 --- [http-nio-8888-exec-10] c.l.mybatis.mapper.TagMapper.selectTags  : ==> Parameters: 
-2020-05-24 07:26:11.027 DEBUG 9484 --- [http-nio-8888-exec-10] c.l.mybatis.mapper.TagMapper.selectTags  : <==      Total: 17
-2020-05-24 07:48:50.327  INFO 17040 --- [main] com.lifecode.LifeCodeApplication         : Starting LifeCodeApplication on VINHTP with PID 17040 (E:\projects\eclipse-workspace\lifecode-rest\target\classes started by Vinh in E:\projects\eclipse-workspace\lifecode-rest)
-2020-05-24 07:48:50.335 DEBUG 17040 --- [main] com.lifecode.LifeCodeApplication         : Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
-2020-05-24 07:48:50.336  INFO 17040 --- [main] com.lifecode.LifeCodeApplication         : No active profile set, falling back to default profiles: default
-2020-05-24 07:48:53.719  INFO 17040 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-05-24 07:48:53.720  INFO 17040 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.29]
-2020-05-24 07:48:53.936  INFO 17040 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2020-05-24 07:48:54.326  INFO 17040 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2020-05-24 07:48:54.480  INFO 17040 --- [main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.4.9.Final}
-2020-05-24 07:48:54.816  INFO 17040 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
-2020-05-24 07:48:56.086  INFO 17040 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-2020-05-24 07:48:57.306  INFO 17040 --- [main] org.hibernate.tuple.PojoInstantiator     : HHH000182: No default (no-argument) constructor for class: com.lifecode.jpa.entity.Tag (class must be instantiated by Interceptor)
-2020-05-24 07:48:58.086  INFO 17040 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2020-05-24 07:48:59.052 DEBUG 17040 --- [main] c.l.security.JwtAuthenticationFilter     : Filter 'jwtAuthenticationFilter' configured for use
-2020-05-24 07:49:00.738  WARN 17040 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2020-05-24 07:49:01.136  INFO 17040 --- [main] com.lifecode.LifeCodeApplication         : Started LifeCodeApplication in 11.952 seconds (JVM running for 12.837)
-2020-05-24 07:52:47.194  INFO 17040 --- [http-nio-8888-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2020-05-24 07:52:47.562 DEBUG 17040 --- [http-nio-8888-exec-2] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 07:52:47.562 DEBUG 17040 --- [http-nio-8888-exec-3] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 07:52:47.562 DEBUG 17040 --- [http-nio-8888-exec-1] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 07:52:47.727 DEBUG 17040 --- [http-nio-8888-exec-1] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 07:52:47.728 DEBUG 17040 --- [http-nio-8888-exec-2] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 07:52:47.728 DEBUG 17040 --- [http-nio-8888-exec-3] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 07:52:48.333 DEBUG 17040 --- [http-nio-8888-exec-2] c.l.interceptor.MyBatisQueryIntercept    : 
+2020-05-31 09:15:40.540 DEBUG 284 --- [http-nio-8888-exec-5] c.l.mybatis.mapper.TagMapper.selectTags  : ==>  Preparing: SELECT a.tag_id ,a.tag FROM TAGS A GROUP BY A.TAG_ID 
+2020-05-31 09:15:40.540 DEBUG 284 --- [http-nio-8888-exec-5] c.l.mybatis.mapper.TagMapper.selectTags  : ==> Parameters: 
+2020-05-31 09:15:40.541 DEBUG 284 --- [http-nio-8888-exec-5] c.l.mybatis.mapper.TagMapper.selectTags  : <==      Total: 16
+2020-05-31 09:15:40.548 DEBUG 284 --- [http-nio-8888-exec-10] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
+2020-05-31 09:15:40.549 DEBUG 284 --- [http-nio-8888-exec-10] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
+2020-05-31 09:15:40.565 DEBUG 284 --- [http-nio-8888-exec-8] c.l.m.m.CategoryMapper.selectCategories  : ==>  Preparing: SELECT A.CATEGORY_ID ,A.CATEGORY ,A.CATEGORY_IMG ,COUNT(B.POST_ID) AS NUMBER_OF_POSTS FROM CATEGORIES A LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID GROUP BY A.CATEGORY_ID 
+2020-05-31 09:15:40.565 DEBUG 284 --- [http-nio-8888-exec-8] c.l.m.m.CategoryMapper.selectCategories  : ==> Parameters: 
+2020-05-31 09:15:40.605 DEBUG 284 --- [http-nio-8888-exec-8] c.l.m.m.CategoryMapper.selectCategories  : <==      Total: 6
+2020-05-31 09:18:54.680 DEBUG 284 --- [http-nio-8888-exec-7] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
+2020-05-31 09:18:54.682 DEBUG 284 --- [http-nio-8888-exec-7] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
+2020-05-31 09:18:54.686 DEBUG 284 --- [http-nio-8888-exec-7] c.l.interceptor.MyBatisQueryIntercept    : 
 ==================== mapperId ====================
 com.lifecode.mybatis.mapper.CategoryMapper.selectCategories
 ==================== query ====================
@@ -142,7 +92,13 @@ com.lifecode.mybatis.mapper.CategoryMapper.selectCategories
 			LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID
 			GROUP BY A.CATEGORY_ID
 
-2020-05-24 07:52:48.361 DEBUG 17040 --- [http-nio-8888-exec-1] c.l.interceptor.MyBatisQueryIntercept    : 
+2020-05-31 09:18:54.844 DEBUG 284 --- [http-nio-8888-exec-3] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
+2020-05-31 09:18:54.845 DEBUG 284 --- [http-nio-8888-exec-3] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
+2020-05-31 09:18:54.850 DEBUG 284 --- [http-nio-8888-exec-2] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
+2020-05-31 09:18:54.851 DEBUG 284 --- [http-nio-8888-exec-2] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
+2020-05-31 09:18:54.862 DEBUG 284 --- [http-nio-8888-exec-7] c.l.m.m.CategoryMapper.selectCategories  : ==>  Preparing: SELECT A.CATEGORY_ID ,A.CATEGORY ,A.CATEGORY_IMG ,COUNT(B.POST_ID) AS NUMBER_OF_POSTS FROM CATEGORIES A LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID GROUP BY A.CATEGORY_ID 
+2020-05-31 09:18:54.862 DEBUG 284 --- [http-nio-8888-exec-7] c.l.m.m.CategoryMapper.selectCategories  : ==> Parameters: 
+2020-05-31 09:18:54.866 DEBUG 284 --- [http-nio-8888-exec-3] c.l.interceptor.MyBatisQueryIntercept    : 
 ==================== mapperId ====================
 com.lifecode.mybatis.mapper.TagMapper.selectTags
 ==================== query ====================
@@ -153,456 +109,7 @@ com.lifecode.mybatis.mapper.TagMapper.selectTags
 			TAGS A
 			GROUP BY A.TAG_ID
 
-2020-05-24 07:52:48.416 DEBUG 17040 --- [http-nio-8888-exec-2] c.l.m.m.CategoryMapper.selectCategories  : ==>  Preparing: SELECT A.CATEGORY_ID ,A.CATEGORY ,A.CATEGORY_IMG ,COUNT(B.POST_ID) AS NUMBER_OF_POSTS FROM CATEGORIES A LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID GROUP BY A.CATEGORY_ID 
-2020-05-24 07:52:48.461 DEBUG 17040 --- [http-nio-8888-exec-2] c.l.m.m.CategoryMapper.selectCategories  : ==> Parameters: 
-2020-05-24 07:52:48.524 DEBUG 17040 --- [http-nio-8888-exec-1] c.l.mybatis.mapper.TagMapper.selectTags  : ==>  Preparing: SELECT a.tag_id ,a.tag FROM TAGS A GROUP BY A.TAG_ID 
-2020-05-24 07:52:48.525 DEBUG 17040 --- [http-nio-8888-exec-1] c.l.mybatis.mapper.TagMapper.selectTags  : ==> Parameters: 
-2020-05-24 07:52:48.552 DEBUG 17040 --- [http-nio-8888-exec-2] c.l.m.m.CategoryMapper.selectCategories  : <==      Total: 4
-2020-05-24 07:52:48.566 DEBUG 17040 --- [http-nio-8888-exec-1] c.l.mybatis.mapper.TagMapper.selectTags  : <==      Total: 17
-2020-05-24 07:54:16.314 DEBUG 17040 --- [http-nio-8888-exec-7] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 07:54:16.321 DEBUG 17040 --- [http-nio-8888-exec-7] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 07:54:16.322 DEBUG 17040 --- [http-nio-8888-exec-8] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 07:54:16.325 DEBUG 17040 --- [http-nio-8888-exec-8] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 07:54:16.328 DEBUG 17040 --- [http-nio-8888-exec-7] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.TagMapper.selectTags
-==================== query ====================
-		SELECT
-		a.tag_id
-		,a.tag
-		FROM
-			TAGS A
-			GROUP BY A.TAG_ID
-
-2020-05-24 07:54:16.330 DEBUG 17040 --- [http-nio-8888-exec-9] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 07:54:16.332 DEBUG 17040 --- [http-nio-8888-exec-8] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.CategoryMapper.selectCategories
-==================== query ====================
-		SELECT
-		A.CATEGORY_ID
-		,A.CATEGORY
-		,A.CATEGORY_IMG
-			,COUNT(B.POST_ID) AS NUMBER_OF_POSTS
-		FROM
-			CATEGORIES A
-			LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID
-			GROUP BY A.CATEGORY_ID
-
-2020-05-24 07:54:16.334 DEBUG 17040 --- [http-nio-8888-exec-9] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 07:54:16.357 DEBUG 17040 --- [http-nio-8888-exec-8] c.l.m.m.CategoryMapper.selectCategories  : ==>  Preparing: SELECT A.CATEGORY_ID ,A.CATEGORY ,A.CATEGORY_IMG ,COUNT(B.POST_ID) AS NUMBER_OF_POSTS FROM CATEGORIES A LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID GROUP BY A.CATEGORY_ID 
-2020-05-24 07:54:16.357 DEBUG 17040 --- [http-nio-8888-exec-7] c.l.mybatis.mapper.TagMapper.selectTags  : ==>  Preparing: SELECT a.tag_id ,a.tag FROM TAGS A GROUP BY A.TAG_ID 
-2020-05-24 07:54:16.357 DEBUG 17040 --- [http-nio-8888-exec-7] c.l.mybatis.mapper.TagMapper.selectTags  : ==> Parameters: 
-2020-05-24 07:54:16.357 DEBUG 17040 --- [http-nio-8888-exec-8] c.l.m.m.CategoryMapper.selectCategories  : ==> Parameters: 
-2020-05-24 07:54:16.360 DEBUG 17040 --- [http-nio-8888-exec-7] c.l.mybatis.mapper.TagMapper.selectTags  : <==      Total: 17
-2020-05-24 07:54:16.360 DEBUG 17040 --- [http-nio-8888-exec-8] c.l.m.m.CategoryMapper.selectCategories  : <==      Total: 4
-2020-05-24 09:09:06.943 DEBUG 17040 --- [http-nio-8888-exec-9] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 09:09:06.945 DEBUG 17040 --- [http-nio-8888-exec-5] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 09:09:06.946 DEBUG 17040 --- [http-nio-8888-exec-7] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 09:09:06.948 DEBUG 17040 --- [http-nio-8888-exec-5] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 09:09:06.949 DEBUG 17040 --- [http-nio-8888-exec-7] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 09:09:06.949 DEBUG 17040 --- [http-nio-8888-exec-9] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 09:09:06.955 DEBUG 17040 --- [http-nio-8888-exec-5] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.TagMapper.selectTags
-==================== query ====================
-		SELECT
-		a.tag_id
-		,a.tag
-		FROM
-			TAGS A
-			GROUP BY A.TAG_ID
-
-2020-05-24 09:09:06.955 DEBUG 17040 --- [http-nio-8888-exec-7] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.CategoryMapper.selectCategories
-==================== query ====================
-		SELECT
-		A.CATEGORY_ID
-		,A.CATEGORY
-		,A.CATEGORY_IMG
-			,COUNT(B.POST_ID) AS NUMBER_OF_POSTS
-		FROM
-			CATEGORIES A
-			LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID
-			GROUP BY A.CATEGORY_ID
-
-2020-05-24 09:09:06.968 DEBUG 17040 --- [http-nio-8888-exec-5] c.l.mybatis.mapper.TagMapper.selectTags  : ==>  Preparing: SELECT a.tag_id ,a.tag FROM TAGS A GROUP BY A.TAG_ID 
-2020-05-24 09:09:06.969 DEBUG 17040 --- [http-nio-8888-exec-5] c.l.mybatis.mapper.TagMapper.selectTags  : ==> Parameters: 
-2020-05-24 09:09:06.972 DEBUG 17040 --- [http-nio-8888-exec-5] c.l.mybatis.mapper.TagMapper.selectTags  : <==      Total: 17
-2020-05-24 09:09:06.977 DEBUG 17040 --- [http-nio-8888-exec-7] c.l.m.m.CategoryMapper.selectCategories  : ==>  Preparing: SELECT A.CATEGORY_ID ,A.CATEGORY ,A.CATEGORY_IMG ,COUNT(B.POST_ID) AS NUMBER_OF_POSTS FROM CATEGORIES A LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID GROUP BY A.CATEGORY_ID 
-2020-05-24 09:09:06.978 DEBUG 17040 --- [http-nio-8888-exec-7] c.l.m.m.CategoryMapper.selectCategories  : ==> Parameters: 
-2020-05-24 09:09:06.980 DEBUG 17040 --- [http-nio-8888-exec-7] c.l.m.m.CategoryMapper.selectCategories  : <==      Total: 4
-2020-05-24 09:10:33.572 DEBUG 17040 --- [http-nio-8888-exec-2] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 09:10:33.575 DEBUG 17040 --- [http-nio-8888-exec-2] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 09:10:33.580 DEBUG 17040 --- [http-nio-8888-exec-2] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.TagMapper.selectTags
-==================== query ====================
-		SELECT
-		a.tag_id
-		,a.tag
-		FROM
-			TAGS A
-			GROUP BY A.TAG_ID
-
-2020-05-24 09:10:33.693 DEBUG 17040 --- [http-nio-8888-exec-6] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 09:10:33.695 DEBUG 17040 --- [http-nio-8888-exec-2] c.l.mybatis.mapper.TagMapper.selectTags  : ==>  Preparing: SELECT a.tag_id ,a.tag FROM TAGS A GROUP BY A.TAG_ID 
-2020-05-24 09:10:33.695 DEBUG 17040 --- [http-nio-8888-exec-2] c.l.mybatis.mapper.TagMapper.selectTags  : ==> Parameters: 
-2020-05-24 09:10:33.695 DEBUG 17040 --- [http-nio-8888-exec-1] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 09:10:33.696 DEBUG 17040 --- [http-nio-8888-exec-6] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 09:10:33.698 DEBUG 17040 --- [http-nio-8888-exec-2] c.l.mybatis.mapper.TagMapper.selectTags  : <==      Total: 17
-2020-05-24 09:10:33.699 DEBUG 17040 --- [http-nio-8888-exec-1] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 09:10:33.705 DEBUG 17040 --- [http-nio-8888-exec-1] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.CategoryMapper.selectCategories
-==================== query ====================
-		SELECT
-		A.CATEGORY_ID
-		,A.CATEGORY
-		,A.CATEGORY_IMG
-			,COUNT(B.POST_ID) AS NUMBER_OF_POSTS
-		FROM
-			CATEGORIES A
-			LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID
-			GROUP BY A.CATEGORY_ID
-
-2020-05-24 09:10:33.722 DEBUG 17040 --- [http-nio-8888-exec-1] c.l.m.m.CategoryMapper.selectCategories  : ==>  Preparing: SELECT A.CATEGORY_ID ,A.CATEGORY ,A.CATEGORY_IMG ,COUNT(B.POST_ID) AS NUMBER_OF_POSTS FROM CATEGORIES A LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID GROUP BY A.CATEGORY_ID 
-2020-05-24 09:10:33.722 DEBUG 17040 --- [http-nio-8888-exec-1] c.l.m.m.CategoryMapper.selectCategories  : ==> Parameters: 
-2020-05-24 09:10:33.726 DEBUG 17040 --- [http-nio-8888-exec-1] c.l.m.m.CategoryMapper.selectCategories  : <==      Total: 4
-2020-05-24 09:12:29.591 DEBUG 17040 --- [http-nio-8888-exec-8] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 09:12:29.592 DEBUG 17040 --- [http-nio-8888-exec-3] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 09:12:29.592 DEBUG 17040 --- [http-nio-8888-exec-9] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 09:12:29.593 DEBUG 17040 --- [http-nio-8888-exec-8] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 09:12:29.594 DEBUG 17040 --- [http-nio-8888-exec-3] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 09:12:29.595 DEBUG 17040 --- [http-nio-8888-exec-9] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 09:12:29.599 DEBUG 17040 --- [http-nio-8888-exec-8] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.CategoryMapper.selectCategories
-==================== query ====================
-		SELECT
-		A.CATEGORY_ID
-		,A.CATEGORY
-		,A.CATEGORY_IMG
-			,COUNT(B.POST_ID) AS NUMBER_OF_POSTS
-		FROM
-			CATEGORIES A
-			LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID
-			GROUP BY A.CATEGORY_ID
-
-2020-05-24 09:12:29.601 DEBUG 17040 --- [http-nio-8888-exec-9] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.TagMapper.selectTags
-==================== query ====================
-		SELECT
-		a.tag_id
-		,a.tag
-		FROM
-			TAGS A
-			GROUP BY A.TAG_ID
-
-2020-05-24 09:12:29.609 DEBUG 17040 --- [http-nio-8888-exec-8] c.l.m.m.CategoryMapper.selectCategories  : ==>  Preparing: SELECT A.CATEGORY_ID ,A.CATEGORY ,A.CATEGORY_IMG ,COUNT(B.POST_ID) AS NUMBER_OF_POSTS FROM CATEGORIES A LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID GROUP BY A.CATEGORY_ID 
-2020-05-24 09:12:29.610 DEBUG 17040 --- [http-nio-8888-exec-8] c.l.m.m.CategoryMapper.selectCategories  : ==> Parameters: 
-2020-05-24 09:12:29.611 DEBUG 17040 --- [http-nio-8888-exec-8] c.l.m.m.CategoryMapper.selectCategories  : <==      Total: 4
-2020-05-24 09:12:29.613 DEBUG 17040 --- [http-nio-8888-exec-9] c.l.mybatis.mapper.TagMapper.selectTags  : ==>  Preparing: SELECT a.tag_id ,a.tag FROM TAGS A GROUP BY A.TAG_ID 
-2020-05-24 09:12:29.613 DEBUG 17040 --- [http-nio-8888-exec-9] c.l.mybatis.mapper.TagMapper.selectTags  : ==> Parameters: 
-2020-05-24 09:12:29.616 DEBUG 17040 --- [http-nio-8888-exec-9] c.l.mybatis.mapper.TagMapper.selectTags  : <==      Total: 17
-2020-05-24 09:13:05.079 DEBUG 17040 --- [http-nio-8888-exec-2] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 09:13:05.082 DEBUG 17040 --- [http-nio-8888-exec-2] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 09:13:05.083 DEBUG 17040 --- [http-nio-8888-exec-10] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 09:13:05.083 DEBUG 17040 --- [http-nio-8888-exec-6] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 09:13:05.085 DEBUG 17040 --- [http-nio-8888-exec-10] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 09:13:05.085 DEBUG 17040 --- [http-nio-8888-exec-6] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 09:13:05.089 DEBUG 17040 --- [http-nio-8888-exec-2] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.CategoryMapper.selectCategories
-==================== query ====================
-		SELECT
-		A.CATEGORY_ID
-		,A.CATEGORY
-		,A.CATEGORY_IMG
-			,COUNT(B.POST_ID) AS NUMBER_OF_POSTS
-		FROM
-			CATEGORIES A
-			LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID
-			GROUP BY A.CATEGORY_ID
-
-2020-05-24 09:13:05.096 DEBUG 17040 --- [http-nio-8888-exec-10] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.TagMapper.selectTags
-==================== query ====================
-		SELECT
-		a.tag_id
-		,a.tag
-		FROM
-			TAGS A
-			GROUP BY A.TAG_ID
-
-2020-05-24 09:13:05.107 DEBUG 17040 --- [http-nio-8888-exec-2] c.l.m.m.CategoryMapper.selectCategories  : ==>  Preparing: SELECT A.CATEGORY_ID ,A.CATEGORY ,A.CATEGORY_IMG ,COUNT(B.POST_ID) AS NUMBER_OF_POSTS FROM CATEGORIES A LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID GROUP BY A.CATEGORY_ID 
-2020-05-24 09:13:05.107 DEBUG 17040 --- [http-nio-8888-exec-2] c.l.m.m.CategoryMapper.selectCategories  : ==> Parameters: 
-2020-05-24 09:13:05.110 DEBUG 17040 --- [http-nio-8888-exec-2] c.l.m.m.CategoryMapper.selectCategories  : <==      Total: 4
-2020-05-24 09:13:05.111 DEBUG 17040 --- [http-nio-8888-exec-10] c.l.mybatis.mapper.TagMapper.selectTags  : ==>  Preparing: SELECT a.tag_id ,a.tag FROM TAGS A GROUP BY A.TAG_ID 
-2020-05-24 09:13:05.113 DEBUG 17040 --- [http-nio-8888-exec-10] c.l.mybatis.mapper.TagMapper.selectTags  : ==> Parameters: 
-2020-05-24 09:13:05.115 DEBUG 17040 --- [http-nio-8888-exec-10] c.l.mybatis.mapper.TagMapper.selectTags  : <==      Total: 17
-2020-05-24 09:13:10.952 DEBUG 17040 --- [http-nio-8888-exec-1] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 09:13:10.955 DEBUG 17040 --- [http-nio-8888-exec-1] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 09:13:10.962 DEBUG 17040 --- [http-nio-8888-exec-4] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 09:13:10.964 DEBUG 17040 --- [http-nio-8888-exec-4] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 09:13:10.965 DEBUG 17040 --- [http-nio-8888-exec-1] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.TagMapper.selectTags
-==================== query ====================
-		SELECT
-		a.tag_id
-		,a.tag
-		FROM
-			TAGS A
-			GROUP BY A.TAG_ID
-
-2020-05-24 09:13:10.969 DEBUG 17040 --- [http-nio-8888-exec-5] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 09:13:10.970 DEBUG 17040 --- [http-nio-8888-exec-4] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.CategoryMapper.selectCategories
-==================== query ====================
-		SELECT
-		A.CATEGORY_ID
-		,A.CATEGORY
-		,A.CATEGORY_IMG
-			,COUNT(B.POST_ID) AS NUMBER_OF_POSTS
-		FROM
-			CATEGORIES A
-			LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID
-			GROUP BY A.CATEGORY_ID
-
-2020-05-24 09:13:10.971 DEBUG 17040 --- [http-nio-8888-exec-5] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 09:13:10.980 DEBUG 17040 --- [http-nio-8888-exec-1] c.l.mybatis.mapper.TagMapper.selectTags  : ==>  Preparing: SELECT a.tag_id ,a.tag FROM TAGS A GROUP BY A.TAG_ID 
-2020-05-24 09:13:10.980 DEBUG 17040 --- [http-nio-8888-exec-1] c.l.mybatis.mapper.TagMapper.selectTags  : ==> Parameters: 
-2020-05-24 09:13:10.982 DEBUG 17040 --- [http-nio-8888-exec-1] c.l.mybatis.mapper.TagMapper.selectTags  : <==      Total: 17
-2020-05-24 09:13:11.039 DEBUG 17040 --- [http-nio-8888-exec-4] c.l.m.m.CategoryMapper.selectCategories  : ==>  Preparing: SELECT A.CATEGORY_ID ,A.CATEGORY ,A.CATEGORY_IMG ,COUNT(B.POST_ID) AS NUMBER_OF_POSTS FROM CATEGORIES A LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID GROUP BY A.CATEGORY_ID 
-2020-05-24 09:13:11.040 DEBUG 17040 --- [http-nio-8888-exec-4] c.l.m.m.CategoryMapper.selectCategories  : ==> Parameters: 
-2020-05-24 09:13:11.042 DEBUG 17040 --- [http-nio-8888-exec-4] c.l.m.m.CategoryMapper.selectCategories  : <==      Total: 4
-2020-05-24 09:16:31.876 DEBUG 17040 --- [http-nio-8888-exec-9] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 09:16:31.876 DEBUG 17040 --- [http-nio-8888-exec-2] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 09:16:31.879 DEBUG 17040 --- [http-nio-8888-exec-6] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 09:16:31.879 DEBUG 17040 --- [http-nio-8888-exec-9] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 09:16:31.880 DEBUG 17040 --- [http-nio-8888-exec-2] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 09:16:31.882 DEBUG 17040 --- [http-nio-8888-exec-6] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 09:16:31.886 DEBUG 17040 --- [http-nio-8888-exec-9] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.TagMapper.selectTags
-==================== query ====================
-		SELECT
-		a.tag_id
-		,a.tag
-		FROM
-			TAGS A
-			GROUP BY A.TAG_ID
-
-2020-05-24 09:16:31.899 DEBUG 17040 --- [http-nio-8888-exec-9] c.l.mybatis.mapper.TagMapper.selectTags  : ==>  Preparing: SELECT a.tag_id ,a.tag FROM TAGS A GROUP BY A.TAG_ID 
-2020-05-24 09:16:31.900 DEBUG 17040 --- [http-nio-8888-exec-9] c.l.mybatis.mapper.TagMapper.selectTags  : ==> Parameters: 
-2020-05-24 09:16:31.904 DEBUG 17040 --- [http-nio-8888-exec-9] c.l.mybatis.mapper.TagMapper.selectTags  : <==      Total: 17
-2020-05-24 09:16:31.906 DEBUG 17040 --- [http-nio-8888-exec-6] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.CategoryMapper.selectCategories
-==================== query ====================
-		SELECT
-		A.CATEGORY_ID
-		,A.CATEGORY
-		,A.CATEGORY_IMG
-			,COUNT(B.POST_ID) AS NUMBER_OF_POSTS
-		FROM
-			CATEGORIES A
-			LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID
-			GROUP BY A.CATEGORY_ID
-
-2020-05-24 09:16:31.921 DEBUG 17040 --- [http-nio-8888-exec-6] c.l.m.m.CategoryMapper.selectCategories  : ==>  Preparing: SELECT A.CATEGORY_ID ,A.CATEGORY ,A.CATEGORY_IMG ,COUNT(B.POST_ID) AS NUMBER_OF_POSTS FROM CATEGORIES A LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID GROUP BY A.CATEGORY_ID 
-2020-05-24 09:16:31.922 DEBUG 17040 --- [http-nio-8888-exec-6] c.l.m.m.CategoryMapper.selectCategories  : ==> Parameters: 
-2020-05-24 09:16:31.925 DEBUG 17040 --- [http-nio-8888-exec-6] c.l.m.m.CategoryMapper.selectCategories  : <==      Total: 4
-2020-05-24 09:16:37.974 DEBUG 17040 --- [http-nio-8888-exec-10] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 09:16:37.977 DEBUG 17040 --- [http-nio-8888-exec-10] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 09:16:37.979 DEBUG 17040 --- [http-nio-8888-exec-5] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 09:16:37.979 DEBUG 17040 --- [http-nio-8888-exec-1] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 09:16:37.980 DEBUG 17040 --- [http-nio-8888-exec-5] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 09:16:37.980 DEBUG 17040 --- [http-nio-8888-exec-1] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 09:16:37.985 DEBUG 17040 --- [http-nio-8888-exec-5] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.CategoryMapper.selectCategories
-==================== query ====================
-		SELECT
-		A.CATEGORY_ID
-		,A.CATEGORY
-		,A.CATEGORY_IMG
-			,COUNT(B.POST_ID) AS NUMBER_OF_POSTS
-		FROM
-			CATEGORIES A
-			LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID
-			GROUP BY A.CATEGORY_ID
-
-2020-05-24 09:16:37.995 DEBUG 17040 --- [http-nio-8888-exec-5] c.l.m.m.CategoryMapper.selectCategories  : ==>  Preparing: SELECT A.CATEGORY_ID ,A.CATEGORY ,A.CATEGORY_IMG ,COUNT(B.POST_ID) AS NUMBER_OF_POSTS FROM CATEGORIES A LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID GROUP BY A.CATEGORY_ID 
-2020-05-24 09:16:37.996 DEBUG 17040 --- [http-nio-8888-exec-5] c.l.m.m.CategoryMapper.selectCategories  : ==> Parameters: 
-2020-05-24 09:16:37.998 DEBUG 17040 --- [http-nio-8888-exec-5] c.l.m.m.CategoryMapper.selectCategories  : <==      Total: 4
-2020-05-24 09:16:38.031 DEBUG 17040 --- [http-nio-8888-exec-10] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.TagMapper.selectTags
-==================== query ====================
-		SELECT
-		a.tag_id
-		,a.tag
-		FROM
-			TAGS A
-			GROUP BY A.TAG_ID
-
-2020-05-24 09:16:38.043 DEBUG 17040 --- [http-nio-8888-exec-10] c.l.mybatis.mapper.TagMapper.selectTags  : ==>  Preparing: SELECT a.tag_id ,a.tag FROM TAGS A GROUP BY A.TAG_ID 
-2020-05-24 09:16:38.044 DEBUG 17040 --- [http-nio-8888-exec-10] c.l.mybatis.mapper.TagMapper.selectTags  : ==> Parameters: 
-2020-05-24 09:16:38.045 DEBUG 17040 --- [http-nio-8888-exec-10] c.l.mybatis.mapper.TagMapper.selectTags  : <==      Total: 17
-2020-05-24 10:20:59.749 ERROR 17040 --- [http-nio-8888-exec-2] com.lifecode.security.JwtTokenProvider   : Invalid JWT token
-2020-05-24 10:20:59.993 DEBUG 17040 --- [http-nio-8888-exec-2] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_, user0_.created_at as created_2_10_, user0_.updated_at as updated_3_10_, user0_.address as address4_10_, user0_.avatar_path as avatar_p5_10_, user0_.city as city6_10_, user0_.company_name as company_7_10_, user0_.country as country8_10_, user0_.email as email9_10_, user0_.facebook as faceboo10_10_, user0_.instagram as instagr11_10_, user0_.join_date as join_da12_10_, user0_.linkedin as linkedi13_10_, user0_.name as name14_10_, user0_.note as note15_10_, user0_.occupation as occupat16_10_, user0_.password as passwor17_10_, user0_.phone as phone18_10_, user0_.twitter as twitter19_10_, user0_.type as type20_10_, user0_.user_type_cd as user_ty21_10_, user0_.username as usernam22_10_ from users user0_ where user0_.username=? or user0_.email=?
-2020-05-24 10:21:00.004 DEBUG 17040 --- [http-nio-8888-exec-2] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 10:21:00.346 DEBUG 17040 --- [http-nio-8888-exec-6] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 10:21:00.348 DEBUG 17040 --- [http-nio-8888-exec-6] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 10:21:02.330 DEBUG 17040 --- [http-nio-8888-exec-10] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 10:21:02.332 DEBUG 17040 --- [http-nio-8888-exec-10] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 10:21:02.334 DEBUG 17040 --- [http-nio-8888-exec-4] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 10:21:02.336 DEBUG 17040 --- [http-nio-8888-exec-4] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 10:21:02.337 DEBUG 17040 --- [http-nio-8888-exec-10] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.TagMapper.selectTags
-==================== query ====================
-		SELECT
-		a.tag_id
-		,a.tag
-		FROM
-			TAGS A
-			GROUP BY A.TAG_ID
-
-2020-05-24 10:21:02.341 DEBUG 17040 --- [http-nio-8888-exec-4] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.CategoryMapper.selectCategories
-==================== query ====================
-		SELECT
-		A.CATEGORY_ID
-		,A.CATEGORY
-		,A.CATEGORY_IMG
-			,COUNT(B.POST_ID) AS NUMBER_OF_POSTS
-		FROM
-			CATEGORIES A
-			LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID
-			GROUP BY A.CATEGORY_ID
-
-2020-05-24 10:21:02.347 DEBUG 17040 --- [http-nio-8888-exec-10] c.l.mybatis.mapper.TagMapper.selectTags  : ==>  Preparing: SELECT a.tag_id ,a.tag FROM TAGS A GROUP BY A.TAG_ID 
-2020-05-24 10:21:02.347 DEBUG 17040 --- [http-nio-8888-exec-10] c.l.mybatis.mapper.TagMapper.selectTags  : ==> Parameters: 
-2020-05-24 10:21:02.348 DEBUG 17040 --- [http-nio-8888-exec-10] c.l.mybatis.mapper.TagMapper.selectTags  : <==      Total: 17
-2020-05-24 10:21:02.349 DEBUG 17040 --- [http-nio-8888-exec-4] c.l.m.m.CategoryMapper.selectCategories  : ==>  Preparing: SELECT A.CATEGORY_ID ,A.CATEGORY ,A.CATEGORY_IMG ,COUNT(B.POST_ID) AS NUMBER_OF_POSTS FROM CATEGORIES A LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID GROUP BY A.CATEGORY_ID 
-2020-05-24 10:21:02.350 DEBUG 17040 --- [http-nio-8888-exec-4] c.l.m.m.CategoryMapper.selectCategories  : ==> Parameters: 
-2020-05-24 10:21:02.351 DEBUG 17040 --- [http-nio-8888-exec-4] c.l.m.m.CategoryMapper.selectCategories  : <==      Total: 4
-2020-05-24 10:21:19.598 DEBUG 17040 --- [http-nio-8888-exec-8] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 10:21:19.601 DEBUG 17040 --- [http-nio-8888-exec-8] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 10:21:19.606 DEBUG 17040 --- [http-nio-8888-exec-8] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.TagMapper.selectTags
-==================== query ====================
-		SELECT
-		a.tag_id
-		,a.tag
-		FROM
-			TAGS A
-			GROUP BY A.TAG_ID
-
-2020-05-24 10:21:19.999 DEBUG 17040 --- [http-nio-8888-exec-3] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 10:21:20.000 DEBUG 17040 --- [http-nio-8888-exec-8] c.l.mybatis.mapper.TagMapper.selectTags  : ==>  Preparing: SELECT a.tag_id ,a.tag FROM TAGS A GROUP BY A.TAG_ID 
-2020-05-24 10:21:20.000 DEBUG 17040 --- [http-nio-8888-exec-8] c.l.mybatis.mapper.TagMapper.selectTags  : ==> Parameters: 
-2020-05-24 10:21:20.001 DEBUG 17040 --- [http-nio-8888-exec-3] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 10:21:20.002 DEBUG 17040 --- [http-nio-8888-exec-8] c.l.mybatis.mapper.TagMapper.selectTags  : <==      Total: 17
-2020-05-24 10:21:20.003 DEBUG 17040 --- [http-nio-8888-exec-7] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 10:21:20.005 DEBUG 17040 --- [http-nio-8888-exec-7] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 10:21:20.405 DEBUG 17040 --- [http-nio-8888-exec-3] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.CategoryMapper.selectCategories
-==================== query ====================
-		SELECT
-		A.CATEGORY_ID
-		,A.CATEGORY
-		,A.CATEGORY_IMG
-			,COUNT(B.POST_ID) AS NUMBER_OF_POSTS
-		FROM
-			CATEGORIES A
-			LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID
-			GROUP BY A.CATEGORY_ID
-
-2020-05-24 10:21:20.417 DEBUG 17040 --- [http-nio-8888-exec-3] c.l.m.m.CategoryMapper.selectCategories  : ==>  Preparing: SELECT A.CATEGORY_ID ,A.CATEGORY ,A.CATEGORY_IMG ,COUNT(B.POST_ID) AS NUMBER_OF_POSTS FROM CATEGORIES A LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID GROUP BY A.CATEGORY_ID 
-2020-05-24 10:21:20.417 DEBUG 17040 --- [http-nio-8888-exec-3] c.l.m.m.CategoryMapper.selectCategories  : ==> Parameters: 
-2020-05-24 10:21:20.419 DEBUG 17040 --- [http-nio-8888-exec-3] c.l.m.m.CategoryMapper.selectCategories  : <==      Total: 4
-2020-05-24 10:21:25.921 DEBUG 17040 --- [http-nio-8888-exec-2] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 10:21:25.924 DEBUG 17040 --- [http-nio-8888-exec-2] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 10:21:25.939 DEBUG 17040 --- [http-nio-8888-exec-9] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 10:21:25.941 DEBUG 17040 --- [http-nio-8888-exec-6] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 10:21:25.942 DEBUG 17040 --- [http-nio-8888-exec-9] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 10:21:25.943 DEBUG 17040 --- [http-nio-8888-exec-6] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 10:21:26.010 DEBUG 17040 --- [http-nio-8888-exec-2] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.TagMapper.selectTags
-==================== query ====================
-		SELECT
-		a.tag_id
-		,a.tag
-		FROM
-			TAGS A
-			GROUP BY A.TAG_ID
-
-2020-05-24 10:21:26.010 DEBUG 17040 --- [http-nio-8888-exec-9] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.CategoryMapper.selectCategories
-==================== query ====================
-		SELECT
-		A.CATEGORY_ID
-		,A.CATEGORY
-		,A.CATEGORY_IMG
-			,COUNT(B.POST_ID) AS NUMBER_OF_POSTS
-		FROM
-			CATEGORIES A
-			LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID
-			GROUP BY A.CATEGORY_ID
-
-2020-05-24 10:21:26.024 DEBUG 17040 --- [http-nio-8888-exec-9] c.l.m.m.CategoryMapper.selectCategories  : ==>  Preparing: SELECT A.CATEGORY_ID ,A.CATEGORY ,A.CATEGORY_IMG ,COUNT(B.POST_ID) AS NUMBER_OF_POSTS FROM CATEGORIES A LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID GROUP BY A.CATEGORY_ID 
-2020-05-24 10:21:26.024 DEBUG 17040 --- [http-nio-8888-exec-9] c.l.m.m.CategoryMapper.selectCategories  : ==> Parameters: 
-2020-05-24 10:21:26.026 DEBUG 17040 --- [http-nio-8888-exec-9] c.l.m.m.CategoryMapper.selectCategories  : <==      Total: 4
-2020-05-24 10:21:26.027 DEBUG 17040 --- [http-nio-8888-exec-2] c.l.mybatis.mapper.TagMapper.selectTags  : ==>  Preparing: SELECT a.tag_id ,a.tag FROM TAGS A GROUP BY A.TAG_ID 
-2020-05-24 10:21:26.027 DEBUG 17040 --- [http-nio-8888-exec-2] c.l.mybatis.mapper.TagMapper.selectTags  : ==> Parameters: 
-2020-05-24 10:21:26.028 DEBUG 17040 --- [http-nio-8888-exec-2] c.l.mybatis.mapper.TagMapper.selectTags  : <==      Total: 17
-2020-05-24 10:23:32.867 DEBUG 17040 --- [http-nio-8888-exec-4] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 10:23:32.869 DEBUG 17040 --- [http-nio-8888-exec-8] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 10:23:32.870 DEBUG 17040 --- [http-nio-8888-exec-4] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 10:23:32.870 DEBUG 17040 --- [http-nio-8888-exec-8] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 10:23:32.874 DEBUG 17040 --- [http-nio-8888-exec-8] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.CategoryMapper.selectCategories
-==================== query ====================
-		SELECT
-		A.CATEGORY_ID
-		,A.CATEGORY
-		,A.CATEGORY_IMG
-			,COUNT(B.POST_ID) AS NUMBER_OF_POSTS
-		FROM
-			CATEGORIES A
-			LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID
-			GROUP BY A.CATEGORY_ID
-
-2020-05-24 10:23:32.874 DEBUG 17040 --- [http-nio-8888-exec-4] c.l.interceptor.MyBatisQueryIntercept    : 
-==================== mapperId ====================
-com.lifecode.mybatis.mapper.TagMapper.selectTags
-==================== query ====================
-		SELECT
-		a.tag_id
-		,a.tag
-		FROM
-			TAGS A
-			GROUP BY A.TAG_ID
-
-2020-05-24 10:23:32.885 DEBUG 17040 --- [http-nio-8888-exec-4] c.l.mybatis.mapper.TagMapper.selectTags  : ==>  Preparing: SELECT a.tag_id ,a.tag FROM TAGS A GROUP BY A.TAG_ID 
-2020-05-24 10:23:32.886 DEBUG 17040 --- [http-nio-8888-exec-4] c.l.mybatis.mapper.TagMapper.selectTags  : ==> Parameters: 
-2020-05-24 10:23:32.887 DEBUG 17040 --- [http-nio-8888-exec-4] c.l.mybatis.mapper.TagMapper.selectTags  : <==      Total: 17
-2020-05-24 10:23:32.979 DEBUG 17040 --- [http-nio-8888-exec-7] org.hibernate.SQL                        : select user0_.user_id as user_id1_10_0_, user0_.created_at as created_2_10_0_, user0_.updated_at as updated_3_10_0_, user0_.address as address4_10_0_, user0_.avatar_path as avatar_p5_10_0_, user0_.city as city6_10_0_, user0_.company_name as company_7_10_0_, user0_.country as country8_10_0_, user0_.email as email9_10_0_, user0_.facebook as faceboo10_10_0_, user0_.instagram as instagr11_10_0_, user0_.join_date as join_da12_10_0_, user0_.linkedin as linkedi13_10_0_, user0_.name as name14_10_0_, user0_.note as note15_10_0_, user0_.occupation as occupat16_10_0_, user0_.password as passwor17_10_0_, user0_.phone as phone18_10_0_, user0_.twitter as twitter19_10_0_, user0_.type as type20_10_0_, user0_.user_type_cd as user_ty21_10_0_, user0_.username as usernam22_10_0_ from users user0_ where user0_.user_id=?
-2020-05-24 10:23:32.980 DEBUG 17040 --- [http-nio-8888-exec-8] c.l.m.m.CategoryMapper.selectCategories  : ==>  Preparing: SELECT A.CATEGORY_ID ,A.CATEGORY ,A.CATEGORY_IMG ,COUNT(B.POST_ID) AS NUMBER_OF_POSTS FROM CATEGORIES A LEFT JOIN POSTS B ON A.CATEGORY_ID = B.CATEGORY_ID GROUP BY A.CATEGORY_ID 
-2020-05-24 10:23:32.980 DEBUG 17040 --- [http-nio-8888-exec-8] c.l.m.m.CategoryMapper.selectCategories  : ==> Parameters: 
-2020-05-24 10:23:32.981 DEBUG 17040 --- [http-nio-8888-exec-7] org.hibernate.SQL                        : select roles0_.user_id as user_id1_9_0_, roles0_.role_id as role_id2_9_0_, role1_.role_id as role_id1_7_1_, role1_.name as name2_7_1_ from user_roles roles0_ inner join roles role1_ on roles0_.role_id=role1_.role_id where roles0_.user_id=?
-2020-05-24 10:23:32.998 DEBUG 17040 --- [http-nio-8888-exec-8] c.l.m.m.CategoryMapper.selectCategories  : <==      Total: 4
+2020-05-31 09:18:54.890 DEBUG 284 --- [http-nio-8888-exec-7] c.l.m.m.CategoryMapper.selectCategories  : <==      Total: 6
+2020-05-31 09:18:55.051 DEBUG 284 --- [http-nio-8888-exec-3] c.l.mybatis.mapper.TagMapper.selectTags  : ==>  Preparing: SELECT a.tag_id ,a.tag FROM TAGS A GROUP BY A.TAG_ID 
+2020-05-31 09:18:55.051 DEBUG 284 --- [http-nio-8888-exec-3] c.l.mybatis.mapper.TagMapper.selectTags  : ==> Parameters: 
+2020-05-31 09:18:55.052 DEBUG 284 --- [http-nio-8888-exec-3] c.l.mybatis.mapper.TagMapper.selectTags  : <==      Total: 16
