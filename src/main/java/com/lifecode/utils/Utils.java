@@ -16,19 +16,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.persistence.Column;
-import javax.persistence.EntityManagerFactory;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.util.StringUtils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.lifecode.jpa.entity.Tag;
-import com.lifecode.mybatis.model.PostVO;
 
 public class Utils {
 
@@ -159,7 +152,6 @@ public class Utils {
 
 	/**
 	 * check json array
-	 * 
 	 * @param string
 	 * @return
 	 */
@@ -184,7 +176,6 @@ public class Utils {
 	public static Object fromJson(Object json) throws JSONException {
 
 		if (json == JSONObject.NULL) {
-
 			return null;
 		} else if (json instanceof JSONObject) {
 			return jsonObjectToMap((JSONObject) json);
@@ -235,63 +226,69 @@ public class Utils {
 		return mapList;
 	}
 	
-	@SuppressWarnings({ "unchecked" })
-	public static <V> V mapToEntity(Map<String,Object> map, Class<?> entity) throws Exception {
-		V v = (V) ((Class<? extends Object>) entity).newInstance();
+	/**
+	 * convert jpa entity to HashMap with key is column name
+	 * @param entity
+	 * @return
+	 * @throws Exception
+	 */
+	public static Map<String,Object> entityToMap(Object entity) throws Exception {
+		
+		if(isJpaEntity(entity)) {
 
-		if(isJpaEntity(v)) {
-			for (Field field : v.getClass().getDeclaredFields()) {
+			Map<String,Object> map = new HashMap<String,Object>();
+			
+			for (Field field : entity.getClass().getDeclaredFields()) {
 				
 		    	Annotation annotation = field.getAnnotation(javax.persistence.Column.class);
+		    	
 		    	String columnName = "";
 		        if(annotation instanceof javax.persistence.Column){
-		           Column column = (Column) annotation;
-		           columnName = column.name();
+
+		        	Column column = (Column) annotation;
+		        	columnName = column.name();
 		        } else {
 		           columnName = field.getName();
 		        }
-
-		        Object mapKeyObj = map.get(columnName).getClass();
-		        Object entityFieldObj = field.getType();
+		       
+		        boolean accessible = field.isAccessible();
+		        field.setAccessible(true);
 		        
-		        if (mapKeyObj.equals(entityFieldObj)) {
-		        	boolean accessible = field.isAccessible();
-			        field.setAccessible(true);
-			        field.set(v, map.get(columnName));
-			        field.setAccessible(accessible);
-		        } else {
-		        	throw new Exception("Column name ["+columnName+"] of "+entityFieldObj+" cannot set data from "+mapKeyObj);
-		        }
+		        map.put(columnName, field.get(entity));
+		        field.setAccessible(accessible);
 		    } 
-			return v;
+			return map;
 		}
 		return null;
 	}
  	
+	/**
+	 * check jsp entity
+	 * @param <V>
+	 * @param v
+	 * @return
+	 */
 	private static <V> boolean isJpaEntity(final V v) {
 	    return v.getClass().isAnnotationPresent(javax.persistence.Entity.class);
 	}
-
-//	public static void main(String[] args) throws Exception {
-//		Tag a = new Tag();
-//		PostVO p = new PostVO();
-//		System.out.println(isJpaEntity(p));
-//		Map<String,Object> map = new HashMap<String,Object>();
-//		Long x = (long) 2;
-//		map.put("tag_id",x);
-//		map.put("tag","test");
-//		String a1 = null;
-//		//System.out.println(map.get(a1));
-//		mapToEntity(map,Tag.class);
-//	}
-
+	
+	/**
+	 * convert List<String> to List<Long>
+	 * @param strList
+	 * @return
+	 */
 	public static List<Long> toListLong(List<String> strList) {
 		strList.removeAll(Collections.singleton(null));
 		List<Integer> intList = strList.stream().map(Integer::parseInt).collect(Collectors.toList());
 		List<Long> longList = intList.stream().mapToLong(Integer::longValue).boxed().collect(Collectors.toList());
 		return longList;
 	}
-
+	
+	/**
+	 * url encode
+	 * @param value
+	 * @return
+	 */
 	public static String urlEncode(final String value) {
         try {
             return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
@@ -300,11 +297,11 @@ public class Utils {
         }
     }
 	
+	/**
+	 * get current time
+	 * @return format: yyyyMMddHHmmssSSS
+	 */
 	public static String getCurrentTimeStamp() {
 	    return new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
-	}
-	
-	public static void main(String[] args) {
-		System.out.println(getCurrentTimeStamp());
 	}
 }

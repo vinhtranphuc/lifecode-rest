@@ -3,6 +3,8 @@ package com.lifecode.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.hibernate.exception.ConstraintViolationException;
@@ -31,6 +33,7 @@ import com.lifecode.jpa.entity.Tag;
 import com.lifecode.mybatis.model.CategoryVO;
 import com.lifecode.mybatis.model.PostVO;
 import com.lifecode.mybatis.model.TagVO;
+import com.lifecode.payload.PostRequest;
 import com.lifecode.payload.Response;
 import com.lifecode.service.CategoryService;
 import com.lifecode.service.PostService;
@@ -162,7 +165,7 @@ public class BlogController {
 			Tag tag = tagService.addTag(param);
 			return ResponseEntity.ok().body(new Response(HttpStatus.OK,tag,"You're successfully add tag."));
 		} catch(BusinessException e) {
-			return ResponseEntity.ok().body(new Response(HttpStatus.CONFLICT,null,e.getMessage()));
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(new Response(HttpStatus.CONFLICT,null,e.getMessage()));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}
@@ -221,7 +224,7 @@ public class BlogController {
 			Category category = categoryService.saveCategory(categoryName,base64Img);
 			return ResponseEntity.ok().body(new Response(HttpStatus.OK,category,"You're successfully add category."));
 		} catch(BusinessException e) {
-			return ResponseEntity.ok().body(new Response(HttpStatus.CONFLICT,null,e.getMessage()));
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(new Response(HttpStatus.CONFLICT,null,e.getMessage()));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}
@@ -241,21 +244,18 @@ public class BlogController {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
 	
-	@SuppressWarnings("unchecked")
 	@PostMapping("/create-post")
-	public ResponseEntity<Response> createPost(@RequestBody Map<String,Object> param, @RequestHeader String host) {
+	public ResponseEntity<Response> createPost(@Valid @RequestBody PostRequest post, @RequestHeader String host) {
 		try {
 			//,tags,level,postImages,title,content
-			String categoryId = (String) param.get("categoryId");
-			List<String> tags = (List<String>) param.get("tags");
-			String level = (String) param.get("level");
-			List<String> postImages = (List<String>) param.get("postImages");
-			String title = (String) param.get("title");
-			String content = (String) param.get("content");
+//			String categoryId = (String) param.get("categoryId");
+//			List<String> tags = (List<String>) param.get("tags");
+//			String level = (String) param.get("level");
+//			List<String> postImages = (List<String>) param.get("postImages");
+//			String title = (String) param.get("title");
+//			String content = (String) param.get("content");
 			
-			
-			postService.createPost(content,host);
-			
+			postService.createPost(post,host);
 			return ResponseEntity.ok().body(new Response(HttpStatus.OK,null,"You're successfully create post."));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));

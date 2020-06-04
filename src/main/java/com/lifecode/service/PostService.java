@@ -23,6 +23,7 @@ import com.lifecode.mybatis.model.ImageVO;
 import com.lifecode.mybatis.model.PostVO;
 import com.lifecode.mybatis.model.TagVO;
 import com.lifecode.mybatis.model.UserVO;
+import com.lifecode.payload.PostRequest;
 import com.lifecode.utils.FileUtil;
 import com.lifecode.utils.Utils;
 
@@ -143,8 +144,8 @@ public class PostService {
 		return getDetailPost(post);
 	}
 
-	public void createPost(String content, String host) {
-		Document doc = Jsoup.parse(content, "UTF-8");
+	public void createPost(PostRequest post, String host) {
+		Document doc = Jsoup.parse(post.content, "UTF-8");
 		int i = 0;
 		for (Element element : doc.select("img")) {
 			i++;
