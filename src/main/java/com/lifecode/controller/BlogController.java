@@ -241,10 +241,18 @@ public class BlogController {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
 	
+	@SuppressWarnings("unchecked")
 	@PostMapping("/create-post")
 	public ResponseEntity<Response> createPost(@RequestBody Map<String,Object> param, @RequestHeader String host) {
 		try {
+			//,tags,level,postImages,title,content
+			String categoryId = (String) param.get("categoryId");
+			List<String> tags = (List<String>) param.get("tags");
+			String level = (String) param.get("level");
+			List<String> postImages = (List<String>) param.get("postImages");
+			String title = (String) param.get("title");
 			String content = (String) param.get("content");
+			
 			
 			postService.createPost(content,host);
 			
