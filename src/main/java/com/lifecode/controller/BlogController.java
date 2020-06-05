@@ -8,9 +8,6 @@ import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.hibernate.exception.ConstraintViolationException;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +57,7 @@ public class BlogController {
 	public ResponseEntity<Response> getHotPosts() {
 		try {
 			List<PostVO> result = postService.getHotPosts();
-			return ResponseEntity.ok().body(new Response(HttpStatus.OK,result));
+			return ResponseEntity.ok().body(new Response(result));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}
@@ -73,7 +70,7 @@ public class BlogController {
 
 		try {
 			List<PostVO> result = postService.getRecentPosts();
-			return ResponseEntity.ok().body(new Response(HttpStatus.OK,result));
+			return ResponseEntity.ok().body(new Response(result));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}
@@ -86,7 +83,7 @@ public class BlogController {
 
 		try {
 			List<PostVO> result = postService.getPopularPosts();
-			return ResponseEntity.ok().body(new Response(HttpStatus.OK,result));
+			return ResponseEntity.ok().body(new Response(result));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}
@@ -99,7 +96,7 @@ public class BlogController {
 
 		try {
 			List<PostVO> result = postService.getOldPosts(param);
-			return ResponseEntity.ok().body(new Response(HttpStatus.OK,result));
+			return ResponseEntity.ok().body(new Response(result));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}
@@ -112,7 +109,7 @@ public class BlogController {
 
 		try {
 			Map<String,Object> result = postService.getPosts(param);
-			return ResponseEntity.ok().body(new Response(HttpStatus.OK,result));
+			return ResponseEntity.ok().body(new Response(result));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}
@@ -125,7 +122,7 @@ public class BlogController {
 
 		try {
 			PostVO result = postService.getPostById(postId);
-			return ResponseEntity.ok().body(new Response(HttpStatus.OK,result));
+			return ResponseEntity.ok().body(new Response(result));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}
@@ -138,7 +135,7 @@ public class BlogController {
 
 		try {
 			List<CategoryVO> result = categoryService.getCategories(param);
-			return ResponseEntity.ok().body(new Response(HttpStatus.OK,result));
+			return ResponseEntity.ok().body(new Response(result));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}
@@ -151,7 +148,7 @@ public class BlogController {
 
 		try {
 			List<TagVO> result = tagService.getTags(param);
-			return ResponseEntity.ok().body(new Response(HttpStatus.OK,result));
+			return ResponseEntity.ok().body(new Response(result));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}
@@ -163,9 +160,9 @@ public class BlogController {
 		
 		try {
 			Tag tag = tagService.addTag(param);
-			return ResponseEntity.ok().body(new Response(HttpStatus.OK,tag,"You're successfully add tag."));
+			return ResponseEntity.ok().body(new Response(tag,"You're successfully add tag."));
 		} catch(BusinessException e) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body(new Response(HttpStatus.CONFLICT,null,e.getMessage()));
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(new Response(null,e.getMessage()));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}
@@ -179,10 +176,10 @@ public class BlogController {
 		try {
 			List<String> list = (List<String>) param.get("tagIds");
 			tagService.removeTag(list);
-			return ResponseEntity.ok().body(new Response(HttpStatus.OK,null,"You're successfully remove tag."));
+			return ResponseEntity.ok().body(new Response(null,"You're successfully remove tag."));
 		} catch (Exception e) {
 			if (e.getCause() instanceof ConstraintViolationException) {
-				return ResponseEntity.ok().body(new Response(HttpStatus.CONFLICT,null,"Existing tags are being used in other posts"));
+				return ResponseEntity.status(HttpStatus.CONFLICT).body(new Response(null,"Existing tags are being used in other posts"));
 			}
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}
@@ -195,7 +192,7 @@ public class BlogController {
 
 		try {
 			Boolean isExists = categoryService.isExistsCategory(category);
-			return ResponseEntity.ok().body(new Response(HttpStatus.OK,isExists));
+			return ResponseEntity.ok().body(new Response(isExists));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}
@@ -218,26 +215,26 @@ public class BlogController {
 			}
 
 			if(StringUtils.isNotEmpty(message)) {
-				return ResponseEntity.ok().body(new Response(HttpStatus.CONFLICT,null,message));
+				return ResponseEntity.ok().body(new Response(null,message));
 			}
 			
 			Category category = categoryService.saveCategory(categoryName,base64Img);
-			return ResponseEntity.ok().body(new Response(HttpStatus.OK,category,"You're successfully add category."));
+			return ResponseEntity.ok().body(new Response(category,"You're successfully add category."));
 		} catch(BusinessException e) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body(new Response(HttpStatus.CONFLICT,null,e.getMessage()));
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(new Response(null,e.getMessage()));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}
 
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
-	
+
 	@RequestMapping(value  = "/remove-category", method = RequestMethod.DELETE, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Response> removeCategory(@RequestParam(value="categoryId") Long categoryId) {
 		try {
 			categoryService.removeCategory(categoryId);
-			return ResponseEntity.ok().body(new Response(HttpStatus.OK,null,"You're successfully remove category."));
+			return ResponseEntity.ok().body(new Response(null,"You're successfully remove category."));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}
@@ -256,7 +253,7 @@ public class BlogController {
 //			String content = (String) param.get("content");
 			
 			postService.createPost(post,host);
-			return ResponseEntity.ok().body(new Response(HttpStatus.OK,null,"You're successfully create post."));
+			return ResponseEntity.ok().body(new Response(null,"You're successfully create post."));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}

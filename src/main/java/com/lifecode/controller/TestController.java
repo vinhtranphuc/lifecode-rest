@@ -111,7 +111,7 @@ public class TestController {
 
 		try {
 			List<PostVO> result = testService.getPosts(param);
-			return ResponseEntity.ok().body(new Response(HttpStatus.OK,result));
+			return ResponseEntity.ok().body(new Response(result));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}
