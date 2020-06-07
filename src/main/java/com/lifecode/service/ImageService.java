@@ -22,13 +22,13 @@ public class ImageService {
 
 		String imagePath = null;
 		switch (subPath) {
-			case Const.IMG_COMMON_URI:
+			case Const.COMMON_URI:
 				imagePath = Const.IMG_COMMON_PATH+"/"+imageName;
 				break;
-			case Const.IMG_CATEGORY_URI:
+			case Const.CATEGORY_URI:
 				imagePath = Const.IMG_CATEGORY_PATH+"/"+imageName;
 				break;
-			case Const.IMG_POST_CONTENT_URI:
+			case Const.POST_CONTENT_URI:
 				imagePath = Const.IMG_POST_CONTENT_PATH+"/"+imageName;
 				break;
 			default:

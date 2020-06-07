@@ -37,14 +37,20 @@ public class ResponseFilter<T> implements ResponseBodyAdvice<Object>  {
 	public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
 			Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
 			ServerHttpResponse response) {
-		
-		if(body.getClass() != Response.class)
-			return body;
-				
+
 		// get status from response
 		ServletServerHttpResponse sshrs = (ServletServerHttpResponse) response;
 		HttpServletResponse hsrs = sshrs.getServletResponse();
 		int status = hsrs.getStatus();
+		
+		if(status == HttpStatus.INTERNAL_SERVER_ERROR.value() && body == null) {
+			Response resBody = new Response();
+			resBody.setMessage("An server error has occurred");
+			return resBody;
+		}
+
+		if(body==null || body.getClass() != Response.class)
+			return body;
 		
 		if(status == HttpStatus.OK.value()) {
 
@@ -52,12 +58,13 @@ public class ResponseFilter<T> implements ResponseBodyAdvice<Object>  {
 			ServletServerHttpRequest sshrq = (ServletServerHttpRequest) request;
 			HttpServletRequest hsrq = sshrq.getServletRequest();
 			String jwt = tokenProvider.getJwtFromRequest(hsrq);
+			
+			//save to Response
 			((Response) body).setAccessToken(jwt);
 		}
 
 		// set status to body
 		((Response) body).setStatus(hsrs.getStatus());
-		System.out.println(body);
 
 		return body;
 	}

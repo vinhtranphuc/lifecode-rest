@@ -29,8 +29,11 @@ public class Tag {
 		this.tag = tag;
 	}
 
-	public Tag(Long id,String tag) {
-		this.id = id;
-		this.tag = tag;
+//	public Tag(Long id,String tag) {
+//		this.id = id;
+//		this.tag = tag;
+//	}
+	
+	public Tag() {
 	}
 }

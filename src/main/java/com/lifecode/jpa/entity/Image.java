@@ -19,4 +19,9 @@ public class Image {
 	
 	@Size(max = 500)
 	private String path;
+
+	public Image(String path) {
+		super();
+		this.path = path;
+	}
 }

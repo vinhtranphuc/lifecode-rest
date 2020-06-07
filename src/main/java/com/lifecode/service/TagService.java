@@ -39,6 +39,6 @@ public class TagService {
 
 	@Transactional
 	public void removeTag(List<String> tagIds) {
-		tagRepository.deleteTagWithIds(Utils.toListLong(tagIds));
+		tagRepository.deleteTagByIds(Utils.toListLong(tagIds));
 	}
 }

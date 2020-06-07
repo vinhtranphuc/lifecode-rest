@@ -209,8 +209,7 @@ public class BlogController {
 			
 			if(StringUtils.isEmpty(categoryName)) {
 				message = "Please input category name";
-			}
-			if(StringUtils.isEmpty(base64Img)) {
+			} else if(StringUtils.isEmpty(base64Img)) {
 				message = "Please select category image";
 			}
 
@@ -244,14 +243,6 @@ public class BlogController {
 	@PostMapping("/create-post")
 	public ResponseEntity<Response> createPost(@Valid @RequestBody PostRequest post, @RequestHeader String host) {
 		try {
-			//,tags,level,postImages,title,content
-//			String categoryId = (String) param.get("categoryId");
-//			List<String> tags = (List<String>) param.get("tags");
-//			String level = (String) param.get("level");
-//			List<String> postImages = (List<String>) param.get("postImages");
-//			String title = (String) param.get("title");
-//			String content = (String) param.get("content");
-			
 			postService.createPost(post,host);
 			return ResponseEntity.ok().body(new Response(null,"You're successfully create post."));
 		} catch (Exception e) {

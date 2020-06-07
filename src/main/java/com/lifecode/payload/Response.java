@@ -1,5 +1,6 @@
 package com.lifecode.payload;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,10 +12,14 @@ public class Response {
 	private int status;
 	public Date timestamp;
 	public Object data;
-	public String message;
+	private String message;
 	public List<String> messages;
 	private String accessToken;
-
+	
+	public Response() {
+		this.timestamp = new Date();
+	}
+	
 	public Response(Object data) {
 		this.timestamp = new Date();
 		this.data = data;
@@ -24,18 +29,24 @@ public class Response {
 		this.timestamp = new Date();
 		this.data = data;
 		this.message = message;
+		messages = new ArrayList<String>();
+		messages.add(message);
 	}
 	
-	public Response(Object data, String message, String accessToken) {
-		this.data = data;
-		this.message = message;
-		this.accessToken = accessToken;
-	}
-
 	public Response(HttpStatus status, List<String> messages) {
 		this.timestamp = new Date();
 		this.status = status.value();
 		this.messages = messages;
+	}
+	
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+		messages = new ArrayList<String>();
+		messages.add(message);
 	}
 
 	public int getStatus() {
@@ -44,7 +55,7 @@ public class Response {
 
 	public void setStatus(int status) {
 		if(StringUtils.isEmpty(this.message)) {
-			this.message = status==HttpStatus.OK.value()?"Sucessfully":"An error occurred !";
+			this.message = status==HttpStatus.OK.value()?"Sucessfully":"An server error has occurred!";
 		}
 		this.status = status;
 	}

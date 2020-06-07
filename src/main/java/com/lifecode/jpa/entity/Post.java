@@ -17,7 +17,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -37,7 +36,7 @@ public class Post extends DateAudit {
 	@Column(name = "post_id")
 	private Long id;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
 	private Category category;
 	
@@ -60,8 +59,7 @@ public class Post extends DateAudit {
 	@JoinTable(name = "posts_authors", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private Set<User> users = new HashSet<>();
 
-	@Size(max = 2)
-	private int level;
+	public int level;
 	
 	@Lob
 	@Length(max = 65535)
@@ -75,10 +73,20 @@ public class Post extends DateAudit {
 	@Length(max = 65535)
 	private String content;
 	
-	@Size(max = 11)
-	private int times_of_view;
+	public int times_of_view;
 
 	public Long getId() {
 		return id;
+	}
+
+	public Post(Category category, Set<Image> images, Set<Tag> tags, int level,String title,String content, int time_of_view) {
+		super();
+		this.category = category;
+		this.images = images;
+		this.tags = tags;
+		this.level = level;
+		this.title = title;
+		this.content = content;
+		this.times_of_view = time_of_view;
 	}
 }

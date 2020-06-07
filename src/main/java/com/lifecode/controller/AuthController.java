@@ -77,10 +77,10 @@ public class AuthController {
     public ResponseEntity<Response> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         try {
         	 if(userRepository.existsByUsername(signUpRequest.getUsername())) {
-        		 return ResponseEntity.ok().body(new Response(HttpStatus.BAD_REQUEST,null,"Username is already taken!"));
+        		 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response(null,"Username is already taken!"));
              }
              if(userRepository.existsByEmail(signUpRequest.getEmail())) {
-            	 return ResponseEntity.ok().body(new Response(HttpStatus.BAD_REQUEST, null, "Email Address already in use!"));
+            	 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response(null, "Email Address already in use!"));
              }
              // Creating user's account
              User user = new User(signUpRequest.getName(), signUpRequest.getUsername(),
@@ -95,7 +95,7 @@ public class AuthController {
              URI location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/users/{username}")
 					.buildAndExpand(result.getUsername()).toUri();
 			 
-             return ResponseEntity.created(location).body(new Response(HttpStatus.OK, null, "User registered successfully"));
+             return ResponseEntity.created(location).body(new Response(null, "User registered successfully"));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}
