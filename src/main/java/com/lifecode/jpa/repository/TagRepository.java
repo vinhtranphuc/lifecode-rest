@@ -16,8 +16,8 @@ public interface TagRepository extends JpaRepository<Tag, Long>{
 	@Query("delete from Tag t where t.id in ?1")
 	void deleteTagByIds(List<Long> ids);
 
-	@Query("select t from Tag t where t.id in ?1")
-	List<Tag> findTagsByIds(List<Long> ids);
+//	@Query("select t from Tag t where t.id in ?1")
+//	List<Tag> findTagsByIds(List<Long> ids);
 
 	boolean existsByTag(String tag);   
 }

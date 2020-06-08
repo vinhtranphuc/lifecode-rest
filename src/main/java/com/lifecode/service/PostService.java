@@ -2,10 +2,8 @@ package com.lifecode.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -19,14 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
 
 import com.lifecode.common.Const;
-import com.lifecode.jpa.entity.Category;
-import com.lifecode.jpa.entity.Image;
-import com.lifecode.jpa.entity.Post;
-import com.lifecode.jpa.entity.Tag;
-import com.lifecode.jpa.repository.CategoryRepository;
-import com.lifecode.jpa.repository.ImageRepository;
 import com.lifecode.jpa.repository.PostRepository;
-import com.lifecode.jpa.repository.TagRepository;
 import com.lifecode.mybatis.mapper.ImageMapper;
 import com.lifecode.mybatis.mapper.PostMapper;
 import com.lifecode.mybatis.mapper.TagMapper;
@@ -55,9 +46,6 @@ public class PostService {
 	@Resource private TagMapper tagMapper;
 	@Resource private ImageMapper imageMapper;
 	
-	@Autowired private TagRepository tagRepository;
-	@Autowired private ImageRepository imageRepository;
-	@Autowired private CategoryRepository categoryRepository;
 	@Autowired private PostRepository postRepository;
 	
 	@PersistenceContext private EntityManager entityManager;
@@ -157,27 +145,9 @@ public class PostService {
 	}
 
 	public void createPost(PostRequest postReq, String host) {
-		
-		Set<Tag> tags = new HashSet<Tag>(tagRepository.findTagsByIds(postReq.tags));
-		Category category = categoryRepository.findById(postReq.categoryId).get();
-		Set<Image> postImages = savePostImages(postReq.postImages);
-		String content = getConvertContent(postReq.content,host);
-		Post post = new Post(category,postImages, tags,postReq.level,postReq.title, content, 0);
 
-		postRepository.save(post);
-	}
-	
-	private Set<Image> savePostImages(List<String> postImages) {
-		
-		List<Image> images = new ArrayList<Image>();
-		int i = 0;
-		for(String e:postImages) {
-			i++;
-			String fileName = FileUtil.saveBase64Image(e, Const.IMG_POST_FEATURES_PATH, Utils.getCurrentTimeStamp()+"_"+i);
-			images.add(new Image(fileName));
-		}
-		
-		return new HashSet<Image>(imageRepository.saveAll(images));
+		postReq.content = getConvertContent(postReq.content, host);
+		postRepository.save(postReq);
 	}
 
 	private String getConvertContent(String content, String host) {

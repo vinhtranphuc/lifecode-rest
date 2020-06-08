@@ -1,6 +1,7 @@
 package com.lifecode.jpa.entity;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -79,11 +80,11 @@ public class Post extends DateAudit {
 		return id;
 	}
 
-	public Post(Category category, Set<Image> images, Set<Tag> tags, int level,String title,String content, int time_of_view) {
+	public Post(Category category, List<Image> images, List<Tag> tags, int level,String title,String content, int time_of_view) {
 		super();
 		this.category = category;
-		this.images = images;
-		this.tags = tags;
+		this.images = new HashSet<>(images);
+		this.tags = new HashSet<>(tags);
 		this.level = level;
 		this.title = title;
 		this.content = content;
