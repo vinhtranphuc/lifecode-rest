@@ -28,6 +28,9 @@ public class ImageService {
 			case Const.CATEGORY_URI:
 				imagePath = Const.IMG_CATEGORY_PATH+"/"+imageName;
 				break;
+			case Const.POST_FEATURES_URI:
+				imagePath = Const.IMG_POST_FEATURES_PATH+"/"+imageName;
+				break;
 			case Const.POST_CONTENT_URI:
 				imagePath = Const.IMG_POST_CONTENT_PATH+"/"+imageName;
 				break;

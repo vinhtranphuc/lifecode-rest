@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -241,9 +240,9 @@ public class BlogController {
 	}
 	
 	@PostMapping("/create-post")
-	public ResponseEntity<Response> createPost(@Valid @RequestBody PostRequest post, @RequestHeader String host) {
+	public ResponseEntity<Response> createPost(@Valid @RequestBody PostRequest post) {
 		try {
-			postService.createPost(post,host);
+			postService.createPost(post);
 			return ResponseEntity.ok().body(new Response(null,"You're successfully create post."));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));

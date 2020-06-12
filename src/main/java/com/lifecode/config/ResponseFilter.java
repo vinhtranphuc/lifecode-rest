@@ -37,7 +37,7 @@ public class ResponseFilter<T> implements ResponseBodyAdvice<Object>  {
 	public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
 			Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
 			ServerHttpResponse response) {
-
+		
 		// get status from response
 		ServletServerHttpResponse sshrs = (ServletServerHttpResponse) response;
 		HttpServletResponse hsrs = sshrs.getServletResponse();

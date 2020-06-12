@@ -1,18 +1,23 @@
 package com.lifecode.service;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
 
@@ -33,6 +38,13 @@ import com.lifecode.utils.Utils;
 @Service
 public class PostService {
 	
+	protected Logger logger = LoggerFactory.getLogger(PostService.class);
+	
+	private String localIp;
+	
+	@Value("${server.port}")
+	private String severPost;
+	
 	private List<PostVO> list;
 	
 	private List<TagVO> tags;
@@ -46,10 +58,8 @@ public class PostService {
 	@Resource private TagMapper tagMapper;
 	@Resource private ImageMapper imageMapper;
 	
-	@Autowired private PostRepository postRepository;
+	@Autowired private PostRepository<?> postRepository;
 	
-	@PersistenceContext private EntityManager entityManager;
-
 	public List<PostVO> getPopularPosts() {
 		list = postMapper.selectPopularPosts();
 		return getDetailPosts(list);
@@ -123,7 +133,10 @@ public class PostService {
 		return posts;
 	}
 	
-	private PostVO getDetailPost(PostVO post) {
+	private PostVO getDetailPost(PostVO post){
+		
+		post.setContent(convertContentImgToUri(post.getContent()));
+		
 		Map<String,Object> param = new HashMap<String,Object>();
 		param.put("post_id",post.getPost_id());
 		
@@ -133,10 +146,42 @@ public class PostService {
 		users = userMapper.selectUsers(param);
 		post.setUsers(users);
 		
-		images = imageMapper.selectImages(param);
+		images = convertPostImagesToUri(imageMapper.selectImages(param));
+
 		post.setImages(images);
 		
 		return post;
+	}
+
+	private String convertContentImgToUri(String content) {
+
+		try {
+			localIp = InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e) {
+			logger.error("UnknownHostException : {}", ExceptionUtils.getStackTrace(e));
+		}
+		
+		Document doc = Jsoup.parse(content, "UTF-8");
+		for (Element element : doc.select("img")) {
+            String fileName = StringUtils.isEmpty(element.attr("src"))?"":element.attr("src");
+            String fileUri = Const.getPostContentUri(localIp+":"+severPost,fileName);
+        	element.attr("src", fileUri);
+		}
+		return HtmlUtils.htmlEscape(doc.html());
+	}
+	
+	private List<ImageVO> convertPostImagesToUri(List<ImageVO> postImages) {
+		try {
+			localIp = InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e) {
+			logger.error("UnknownHostException : {}", ExceptionUtils.getStackTrace(e));
+		}
+		
+		for(ImageVO img:postImages) {
+			String fileUri = Const.getPostFeaturesUri(localIp+":"+severPost,img.getPath());
+			img.setPath(fileUri);
+		}
+		return postImages;
 	}
 
 	public PostVO getPostById(String postId) {
@@ -144,13 +189,12 @@ public class PostService {
 		return getDetailPost(post);
 	}
 
-	public void createPost(PostRequest postReq, String host) {
-
-		postReq.content = getConvertContent(postReq.content, host);
+	public void createPost(PostRequest postReq) throws UnknownHostException {
+		postReq.content = getConvertContent(postReq.content);
 		postRepository.save(postReq);
 	}
 
-	private String getConvertContent(String content, String host) {
+	private String getConvertContent(String content) {
 		// update base64 img from content to url
 		Document doc = Jsoup.parse(content, "UTF-8");
 		int i = 0;
@@ -159,11 +203,9 @@ public class PostService {
             String src = element.attr("src");
             if (src != null && src.startsWith("data:")) {
             	String fileName = FileUtil.saveBase64Image(src, Const.IMG_POST_CONTENT_PATH, Utils.getCurrentTimeStamp()+"_"+i);
-            	String fileUri = Const.getPostContentUri(host,fileName);
-            	element.attr("src", fileUri);
-            	System.out.println(fileUri);
+            	element.attr("src", fileName);
             }
 		}
-		return HtmlUtils.htmlEscape(doc.html());
+		return doc.html();
 	}
 }

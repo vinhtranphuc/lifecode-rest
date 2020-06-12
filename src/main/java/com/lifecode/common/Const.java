@@ -25,6 +25,7 @@ public class Const {
     public static final String COMMON_URI = "common";
     public static final String CATEGORY_URI = "category";
     public static final String POST_CONTENT_URI = "post-content";
+    public static final String POST_FEATURES_URI = "post-features";
 
     public static final String[] imgExtensions = {"png","jpg"};
     
@@ -37,6 +38,6 @@ public class Const {
     }
 
     public static final String getPostFeaturesUri(String host,String fileName) {
-    	return HTTP+host+"/"+API_IMG_URI+"/"+VIEW_URI+"/"+IMG_POST_FEATURES_PATH+"/"+fileName;
+    	return HTTP+host+"/"+API_IMG_URI+"/"+VIEW_URI+"/"+POST_FEATURES_URI+"/"+fileName;
     }
 }

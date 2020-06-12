@@ -22,7 +22,6 @@ import com.lifecode.utils.Utils;
 
 @Repository
 public interface PostRepository<T> extends JpaRepository<Post, Long>, PostRepositoryCustom<T>{
-	
 }
 interface PostRepositoryCustom<T> {
 	void refresh(T t);
