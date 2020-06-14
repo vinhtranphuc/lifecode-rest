@@ -35,6 +35,8 @@ import com.lifecode.service.CategoryService;
 import com.lifecode.service.PostService;
 import com.lifecode.service.TagService;
 
+import javassist.NotFoundException;
+
 @RestController
 @RequestMapping(value = "api/blog")
 @CrossOrigin(origins = {"http://localhost:3000","http://localhost:3001"})
@@ -122,6 +124,8 @@ public class BlogController {
 		try {
 			PostVO result = postService.getPostById(postId);
 			return ResponseEntity.ok().body(new Response(result));
+		} catch(NotFoundException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response(null,e.getMessage()));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}
@@ -173,7 +177,7 @@ public class BlogController {
 	@PostMapping("/remove-tag")
 	public ResponseEntity<Response> removeTag(@RequestBody Map<String,Object> param) {
 		try {
-			List<String> list = (List<String>) param.get("tagIds");
+			List<Integer> list = (List<Integer>) param.get("tagIds");
 			tagService.removeTag(list);
 			return ResponseEntity.ok().body(new Response(null,"You're successfully remove tag."));
 		} catch (Exception e) {
@@ -233,6 +237,8 @@ public class BlogController {
 		try {
 			categoryService.removeCategory(categoryId);
 			return ResponseEntity.ok().body(new Response(null,"You're successfully remove category."));
+		} catch(BusinessException e) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(new Response(null,e.getMessage()));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}

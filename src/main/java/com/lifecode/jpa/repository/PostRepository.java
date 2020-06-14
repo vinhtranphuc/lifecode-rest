@@ -22,6 +22,7 @@ import com.lifecode.utils.Utils;
 
 @Repository
 public interface PostRepository<T> extends JpaRepository<Post, Long>, PostRepositoryCustom<T>{
+	boolean existsByCategoryId(Long categoryId);
 }
 interface PostRepositoryCustom<T> {
 	void refresh(T t);

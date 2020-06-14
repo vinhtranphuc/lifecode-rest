@@ -79,6 +79,10 @@ public class Post extends DateAudit {
 	public Long getId() {
 		return id;
 	}
+	
+	public Post() {
+		super();
+	}
 
 	public Post(Category category, List<Image> images, List<Tag> tags, int level,String title,String content, int time_of_view) {
 		super();

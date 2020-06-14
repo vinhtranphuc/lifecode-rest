@@ -13,6 +13,7 @@ import com.lifecode.common.Const;
 import com.lifecode.exception.BusinessException;
 import com.lifecode.jpa.entity.Category;
 import com.lifecode.jpa.repository.CategoryRepository;
+import com.lifecode.jpa.repository.PostRepository;
 import com.lifecode.mybatis.mapper.CategoryMapper;
 import com.lifecode.mybatis.model.CategoryVO;
 import com.lifecode.utils.FileUtil;
@@ -23,8 +24,9 @@ public class CategoryService {
 	@Resource
 	private CategoryMapper categoryMapper;
 	
-	@Autowired
-	private CategoryRepository categoryRepository;
+	@Autowired private CategoryRepository categoryRepository;
+	
+	@Autowired private PostRepository<?> postRepository;
 	
 	public List<CategoryVO> getCategories(Map<String, Object> param) {
 		return categoryMapper.selectCategories(param);
@@ -48,9 +50,11 @@ public class CategoryService {
 		return categoryRepository.save(category);
 	}
 
-	public void removeCategory(Long categoryId) {
+	public void removeCategory(Long categoryId) throws BusinessException {
 		String categoryImg = categoryRepository.findCategoryImgById(categoryId);
 		FileUtil.deleteImage(Const.IMG_CATEGORY_PATH,categoryImg);
-		categoryRepository.deleteById(categoryId);
+		if(!postRepository.existsByCategoryId(categoryId))
+			categoryRepository.deleteById(categoryId);
+		throw new BusinessException("This category are being used in other posts !");
 	}
 }

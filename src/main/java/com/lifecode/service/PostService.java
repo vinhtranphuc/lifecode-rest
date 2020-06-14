@@ -35,6 +35,8 @@ import com.lifecode.payload.PostRequest;
 import com.lifecode.utils.FileUtil;
 import com.lifecode.utils.Utils;
 
+import javassist.NotFoundException;
+
 @Service
 public class PostService {
 	
@@ -135,7 +137,8 @@ public class PostService {
 	
 	private PostVO getDetailPost(PostVO post){
 		
-		post.setContent(convertContentImgToUri(post.getContent()));
+		String content = StringUtils.isEmpty(post.getContent())?"":convertContentImgToUri(post.getContent());
+		post.setContent(content);
 		
 		Map<String,Object> param = new HashMap<String,Object>();
 		param.put("post_id",post.getPost_id());
@@ -154,7 +157,7 @@ public class PostService {
 	}
 
 	private String convertContentImgToUri(String content) {
-
+		
 		try {
 			localIp = InetAddress.getLocalHost().getHostAddress();
 		} catch (UnknownHostException e) {
@@ -184,8 +187,10 @@ public class PostService {
 		return postImages;
 	}
 
-	public PostVO getPostById(String postId) {
+	public PostVO getPostById(String postId) throws NotFoundException {
 		PostVO post = postMapper.getPostById(postId);
+		if(post == null)
+			throw new NotFoundException("This post ("+postId+") not exists !");
 		return getDetailPost(post);
 	}
 

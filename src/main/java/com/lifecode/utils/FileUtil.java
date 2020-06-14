@@ -44,7 +44,8 @@ public class FileUtil {
 	public static String deleteImage(String subPath, String fileName) {
 		try {
 			 Path path = Paths.get(Const.UPLOAD_FOLDER_ROOT +"/"+subPath+"/"+fileName);
-			 Files.delete(path);
+			 if(Files.exists(path))
+				 Files.delete(path);
 		} catch (IOException e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}

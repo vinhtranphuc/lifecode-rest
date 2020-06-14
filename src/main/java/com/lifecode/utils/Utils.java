@@ -277,9 +277,9 @@ public class Utils {
 	 * @param strList
 	 * @return
 	 */
-	public static List<Long> toListLong(List<String> strList) {
-		strList.removeAll(Collections.singleton(null));
-		List<Integer> intList = strList.stream().map(Integer::parseInt).collect(Collectors.toList());
+	public static List<Long> toListLong(List<Integer> intList) {
+		intList.removeAll(Collections.singleton(null));
+//		List<Integer> intList = strList.stream().map(Integer::parseInt).collect(Collectors.toList());
 		List<Long> longList = intList.stream().mapToLong(Integer::longValue).boxed().collect(Collectors.toList());
 		return longList;
 	}
