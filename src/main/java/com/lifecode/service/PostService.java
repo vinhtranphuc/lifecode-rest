@@ -3,11 +3,13 @@ package com.lifecode.service;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -19,7 +21,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.util.HtmlUtils;
 
 import com.lifecode.common.Const;
 import com.lifecode.jpa.repository.PostRepository;
@@ -170,7 +171,8 @@ public class PostService {
             String fileUri = Const.getPostContentUri(localIp+":"+severPost,fileName);
         	element.attr("src", fileUri);
 		}
-		return HtmlUtils.htmlEscape(doc.html());
+		//return HtmlUtils.htmlEscape(doc.html());
+		return doc.html();
 	}
 	
 	private List<ImageVO> convertPostImagesToUri(List<ImageVO> postImages) {
@@ -194,12 +196,18 @@ public class PostService {
 		return getDetailPost(post);
 	}
 
-	public void createPost(PostRequest postReq) throws UnknownHostException {
-		postReq.content = getConvertContent(postReq.content);
-		postRepository.save(postReq);
+	public Long createPost(PostRequest postReq) throws UnknownHostException {
+		postReq.content = getNewContent(postReq.content);
+		return postRepository.save(postReq);
+	}
+	
+	public Long editPost(@Valid PostRequest postReq) {
+		List<String> oldContentImgs = getOldContentImgs(postReq.postId);
+		postReq.content = getEditContent(postReq.content,oldContentImgs);
+		return postRepository.update(postReq);
 	}
 
-	private String getConvertContent(String content) {
+	private String getNewContent(String content) {
 		// update base64 img from content to url
 		Document doc = Jsoup.parse(content, "UTF-8");
 		int i = 0;
@@ -213,4 +221,77 @@ public class PostService {
 		}
 		return doc.html();
 	}
+	
+	private List<String> getOldContentImgs(Long postId) {
+		List<String> result = new ArrayList<String>();
+		
+		String content = postRepository.findContentById(postId);
+		Document doc = Jsoup.parse(content, "UTF-8");
+		
+		for (Element element : doc.select("img")) {
+            String src = element.attr("src");
+            if (src != null && !src.startsWith("data:")) {
+            	result.add(src);
+            }
+		}
+		return result;
+	}
+	
+	private String getEditContent(String content,List<String> oldContentImgs) {
+		
+		List<String> notEditFiles = new ArrayList<String>();
+		
+		// update base64 img from content to url
+		Document doc = Jsoup.parse(content, "UTF-8");
+		int i = 0;
+		for (Element element : doc.select("img")) {
+			i++;
+            String src = element.attr("src");
+            if (src != null && src.startsWith("data:")) {
+            	// create new file
+            	String fileName = FileUtil.saveBase64Image(src, Const.IMG_POST_CONTENT_PATH, Utils.getCurrentTimeStamp()+"_"+i);
+            	element.attr("src", fileName);
+            } else {
+            	// get file not edit
+            	notEditFiles.add(src.substring(src.lastIndexOf("/")+1));
+            }
+		}
+		
+		// get file not use
+		List<String> deleteFiles = new ArrayList<String>(oldContentImgs);
+		deleteFiles.removeAll(notEditFiles);
+
+		// delete file not use
+		for(String fileName:deleteFiles) {
+			FileUtil.deleteImage(Const.IMG_POST_CONTENT_PATH,fileName);
+		}
+		
+		return doc.html();
+	}
+	
+//	  public static void main(String args[]) {
+//	       String url = "xsadadasd/dsadasdsa/dasdas.png";
+//	       System.out.println(url.substring(url.lastIndexOf("/")+1));
+//	   }
+	public static void main(String[] args) {
+        ArrayList<String> languageList1 = new ArrayList<>(
+                        Arrays.asList("Java", "C++", "PHP", "NodeJS"));
+        System.out.println("ArrayList 1: " + languageList1);
+
+        ArrayList<String> languageList2 = new ArrayList<>(
+                        Arrays.asList("C++", "Python", "PHP", "JavaScript"));
+        System.out.println("ArrayList 2: " + languageList2);
+
+        ArrayList<String> sharedLanguageList = 
+                        findSharedElements(languageList1, languageList2);
+        System.out.println("After Compare two ArrayList:");
+        System.out.println("Shared Elements: " + sharedLanguageList);
+	}
+
+		private static <T> ArrayList<T> findSharedElements(ArrayList<T> arrayList1,
+		     ArrayList<T> arrayList2) {
+		       // ArrayList<T> arrayList3 = new ArrayList<>(arrayList1);
+			arrayList1.removeAll(arrayList2);
+		        return arrayList1;
+		}
 }

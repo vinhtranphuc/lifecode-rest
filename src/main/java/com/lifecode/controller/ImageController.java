@@ -7,6 +7,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.apache.tomcat.util.codec.binary.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,11 +46,16 @@ public class ImageController {
 	@PostMapping(value = "/preview")
 	public <T> ResponseEntity<T> preview(HttpServletResponse response, MultipartHttpServletRequest mRequest) {
 		try {
+			
 			List<MultipartFile> multipartFiles = mRequest.getMultiFileMap().get("files");
-			List<byte[]> resultList = new ArrayList<byte[]>();
+			List<String> resultList = new ArrayList<String>();
+			StringBuilder sb;
 		    for (MultipartFile multipartFile: multipartFiles) {
 		    	byte[] byteArr = multipartFile.getBytes();
-		    	resultList.add(byteArr);
+		    	sb = new StringBuilder();
+		    	sb.append("data:image/png;base64,");
+		    	sb.append(StringUtils.newStringUtf8(Base64.encodeBase64(byteArr, false)));
+		    	resultList.add(sb.toString());
 		    }
 			response.addHeader("Access-Control-Allow-Credentials", "true");
 			return (ResponseEntity<T>) ResponseEntity.ok().body(resultList);

@@ -22,11 +22,17 @@ import com.lifecode.utils.Utils;
 
 @Repository
 public interface PostRepository<T> extends JpaRepository<Post, Long>, PostRepositoryCustom<T>{
+	
 	boolean existsByCategoryId(Long categoryId);
+	
+	String findContentById(Long postId);
 }
 interface PostRepositoryCustom<T> {
 	void refresh(T t);
-	void save(PostRequest postReq);
+
+	Long save(PostRequest postReq);
+	
+	Long update(PostRequest postReq);
 }
 @Repository(value = "PostRepositoryImpl")
 @Transactional(rollbackFor = Exception.class)
@@ -43,8 +49,7 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 		entityManager.refresh(entity);
 	}
 
-	@Override
-	public void save(PostRequest postReq) {
+	public Long save(PostRequest postReq) {
 
 		session = entityManager.unwrap(Session.class);
 		
@@ -57,6 +62,8 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 		
 		session.save(post);
 		session.flush();
+		
+		return post.getId();
 	}
 
 	private List<Image> savePostImages(List<String> postImages) {
@@ -72,5 +79,10 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 			images.add(image);
 		}
 		return images;
+	}
+
+	@Override
+	public Long update(PostRequest postReq) {
+		return null;
 	}
 }

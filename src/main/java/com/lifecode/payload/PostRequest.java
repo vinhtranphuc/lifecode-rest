@@ -10,6 +10,8 @@ import javax.validation.constraints.Size;
 
 public class PostRequest {
 	
+	public Long postId;
+	
 	@NotNull(message="Category is required !")
 	public Long categoryId;
 	

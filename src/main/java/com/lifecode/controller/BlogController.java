@@ -39,7 +39,7 @@ import javassist.NotFoundException;
 
 @RestController
 @RequestMapping(value = "api/blog")
-@CrossOrigin(origins = {"http://localhost:3000","http://localhost:3001"})
+@CrossOrigin(origins = {"http://localhost:3000","http://localhost:3001","http://127.0.0.1:3000","http://127.0.0.1:3001"})
 public class BlogController {
 
 	protected Logger logger = LoggerFactory.getLogger(BlogController.class);
@@ -248,12 +248,22 @@ public class BlogController {
 	@PostMapping("/create-post")
 	public ResponseEntity<Response> createPost(@Valid @RequestBody PostRequest post) {
 		try {
-			postService.createPost(post);
-			return ResponseEntity.ok().body(new Response(null,"You're successfully create post."));
+			Long postId = postService.createPost(post);
+			return ResponseEntity.ok().body(new Response(postId,"You're successfully create post."));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}
-
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	}
+	
+	@PostMapping("/edit-post")
+	public ResponseEntity<Response> editPost(@Valid @RequestBody PostRequest post) {
+		try {
+			Long postId = postService.editPost(post);
+			return ResponseEntity.ok().body(new Response(postId,"You're successfully create post."));
+		} catch (Exception e) {
+			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
+		}
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
 }
