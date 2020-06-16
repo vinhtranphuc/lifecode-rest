@@ -41,7 +41,7 @@ public class FileUtil {
 		return null;
 	}
 	
-	public static String deleteImage(String subPath, String fileName) {
+	public static void deleteImage(String subPath, String fileName) {
 		try {
 			 Path path = Paths.get(Const.UPLOAD_FOLDER_ROOT +"/"+subPath+"/"+fileName);
 			 if(Files.exists(path))
@@ -49,24 +49,5 @@ public class FileUtil {
 		} catch (IOException e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}
-		return null;
-	}
-
-	public static void main(String[] args) throws IOException {
-//		String ext2 = FilenameUtils.getExtension("bar"); // returns "exe"
-//		System.out.println(ext2);
-//		System.out.println(URLEncoder.encode("phúcvinh", StandardCharsets.UTF_8.toString()));
-		String fileName = "upload/images/post/content";
-		
-        Path path = Paths.get(fileName);
-		 if (!Files.exists(path)) {
-			 Path x =  Files.createDirectory(path);
-			 System.out.println(x);
-	            System.out.println("Directory created");
-	        } else {
-	        	Path p = Files.createDirectories(path);
-	        	System.out.println(p);
-	            System.out.println("Directory already exists");
-	        }
 	}
 }

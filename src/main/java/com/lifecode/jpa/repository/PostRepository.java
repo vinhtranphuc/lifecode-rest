@@ -9,6 +9,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Session;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -99,25 +102,80 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 		
 		Post post = session.get(Post.class, postReq.postId);
 		
+		List<String> oldContentImgs = getOldContentImgs(post.getContent());
+		String newContent = getEditContent(postReq.content,oldContentImgs);
+		
 		List<String> oldPostImages = post.getImages().stream().map(t -> t.getPath()).collect(Collectors.toList());
+		
 		List<Image> editPostImages = editPostImages(postReq.postImages, oldPostImages);
+		
 		List<Tag> tags = session.createQuery("select t from Tag t where t.id in :tags", Tag.class)
 				.setParameter("tags", postReq.tags).getResultList();
+		
 		Category category = session.get(Category.class, postReq.categoryId);
 		
+		post.setContent(newContent);
 		post.setImages(new HashSet<>(editPostImages));
 		post.setTags(new HashSet<>(tags));
 		post.setCategory(category);
 		post.setLevel(postReq.level);
 		post.setTitle(postReq.title);
-		post.setContent(postReq.content);
 		
 		session.evict(post);
 		session.update(post);
 		
-		deleteFileNotUse(editPostImages,oldPostImages);
+		deletePostImagesNotUse(editPostImages,oldPostImages);
 		session.flush();
 		//this.refresh(post);
+	}
+	
+	private List<String> getOldContentImgs(String oldContent) {
+		List<String> result = new ArrayList<String>();
+		Document doc = Jsoup.parse(oldContent, "UTF-8");
+		for (Element element : doc.select("img")) {
+            String src = element.attr("src");
+            if (src != null && !src.startsWith("data:")) {
+            	result.add(src);
+            }
+		}
+		return result;
+	}
+	
+	private String getEditContent(String content,List<String> oldContentImgs) {
+		
+		List<String> notEditFiles = new ArrayList<String>();
+		try {
+			// update base64 img from content to url
+			Document doc = Jsoup.parse(content, "UTF-8");
+			int i = 0;
+			for (Element element : doc.select("img")) {
+				i++;
+				String src = element.attr("src");
+				String fileName = "";
+				if (src != null && src.startsWith("data:")) {
+					// create new file
+					fileName = FileUtil.saveBase64Image(src, Const.IMG_POST_CONTENT_PATH,
+							Utils.getCurrentTimeStamp() + "_" + i);
+				} else {
+					// get file not edit
+					fileName = src.substring(src.lastIndexOf("/") + 1);
+					notEditFiles.add(fileName);
+				}
+				element.attr("src", fileName);
+			}
+			
+			return doc.html();
+		} finally {
+			System.gc();
+			// get file not use
+			List<String> deleteFiles = new ArrayList<String>(oldContentImgs);
+			deleteFiles.removeAll(notEditFiles);
+
+			// delete file not use
+			for (String fileName : deleteFiles) {
+				FileUtil.deleteImage(Const.IMG_POST_CONTENT_PATH, fileName);
+			}
+		}
 	}
 
 	private List<Image> editPostImages(List<String> postImages, List<String> oldPostImages) {
@@ -149,7 +207,7 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 		return images;
 	}
 	
-	private void deleteFileNotUse(List<Image> images, List<String> oldImages) {
+	private void deletePostImagesNotUse(List<Image> images, List<String> oldImages) {
 		
 		List<String> newImages = images.stream().map(t->t.getPath()).collect(Collectors.toList());
 		
@@ -159,10 +217,11 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 
 		// delete file not use
 		for (String fileName : deleteFiles) {
-			FileUtil.deleteImage(Const.IMG_POST_FEATURES_PATH, fileName);
 			Image delImage = session.createQuery("select i from Image i where i.path =:fileName", Image.class)
 					.setParameter("fileName", fileName).getSingleResult();
 			session.remove(delImage);
 		}
+		System.gc();
+		deleteFiles.stream().forEach(t -> FileUtil.deleteImage(Const.IMG_POST_FEATURES_PATH, t));
 	}
 }

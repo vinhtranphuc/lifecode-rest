@@ -201,8 +201,6 @@ public class PostService {
 	}
 	
 	public PostVO editPost(@Valid PostRequest postReq) throws NotFoundException {
-		List<String> oldContentImgs = getOldContentImgs(postReq.postId);
-		postReq.content = getEditContent(postReq.content,oldContentImgs);
 		postRepository.update(postReq);
 		return getPostById(postReq.postId+"");
 	}
@@ -219,55 +217,6 @@ public class PostService {
             	element.attr("src", fileName);
             }
 		}
-		return doc.html();
-	}
-	
-	private List<String> getOldContentImgs(Long postId) {
-		List<String> result = new ArrayList<String>();
-		
-		String content = postRepository.findContentById(postId);
-		Document doc = Jsoup.parse(content, "UTF-8");
-		
-		for (Element element : doc.select("img")) {
-            String src = element.attr("src");
-            if (src != null && !src.startsWith("data:")) {
-            	result.add(src);
-            }
-		}
-		return result;
-	}
-	
-	private String getEditContent(String content,List<String> oldContentImgs) {
-		
-		List<String> notEditFiles = new ArrayList<String>();
-		
-		// update base64 img from content to url
-		Document doc = Jsoup.parse(content, "UTF-8");
-		int i = 0;
-		for (Element element : doc.select("img")) {
-			i++;
-            String src = element.attr("src");
-            String fileName = "";
-            if (src != null && src.startsWith("data:")) {
-            	// create new file
-            	fileName = FileUtil.saveBase64Image(src, Const.IMG_POST_CONTENT_PATH, Utils.getCurrentTimeStamp()+"_"+i);
-            } else {
-            	// get file not edit
-            	fileName = src.substring(src.lastIndexOf("/")+1);
-            	notEditFiles.add(fileName);
-            }
-            element.attr("src", fileName);
-		}
-		
-		// get file not use
-		List<String> deleteFiles = new ArrayList<String>(oldContentImgs);
-		deleteFiles.removeAll(notEditFiles);
-
-		// delete file not use
-		for(String fileName:deleteFiles) {
-			FileUtil.deleteImage(Const.IMG_POST_CONTENT_PATH,fileName);
-		}
-		
 		return doc.html();
 	}
 }
