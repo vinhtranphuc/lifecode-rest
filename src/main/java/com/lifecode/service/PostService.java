@@ -3,7 +3,6 @@ package com.lifecode.service;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -201,10 +200,11 @@ public class PostService {
 		return postRepository.save(postReq);
 	}
 	
-	public Long editPost(@Valid PostRequest postReq) {
+	public PostVO editPost(@Valid PostRequest postReq) throws NotFoundException {
 		List<String> oldContentImgs = getOldContentImgs(postReq.postId);
 		postReq.content = getEditContent(postReq.content,oldContentImgs);
-		return postRepository.update(postReq);
+		postRepository.update(postReq);
+		return getPostById(postReq.postId+"");
 	}
 
 	private String getNewContent(String content) {
@@ -247,14 +247,16 @@ public class PostService {
 		for (Element element : doc.select("img")) {
 			i++;
             String src = element.attr("src");
+            String fileName = "";
             if (src != null && src.startsWith("data:")) {
             	// create new file
-            	String fileName = FileUtil.saveBase64Image(src, Const.IMG_POST_CONTENT_PATH, Utils.getCurrentTimeStamp()+"_"+i);
-            	element.attr("src", fileName);
+            	fileName = FileUtil.saveBase64Image(src, Const.IMG_POST_CONTENT_PATH, Utils.getCurrentTimeStamp()+"_"+i);
             } else {
             	// get file not edit
-            	notEditFiles.add(src.substring(src.lastIndexOf("/")+1));
+            	fileName = src.substring(src.lastIndexOf("/")+1);
+            	notEditFiles.add(fileName);
             }
+            element.attr("src", fileName);
 		}
 		
 		// get file not use
@@ -268,30 +270,4 @@ public class PostService {
 		
 		return doc.html();
 	}
-	
-//	  public static void main(String args[]) {
-//	       String url = "xsadadasd/dsadasdsa/dasdas.png";
-//	       System.out.println(url.substring(url.lastIndexOf("/")+1));
-//	   }
-	public static void main(String[] args) {
-        ArrayList<String> languageList1 = new ArrayList<>(
-                        Arrays.asList("Java", "C++", "PHP", "NodeJS"));
-        System.out.println("ArrayList 1: " + languageList1);
-
-        ArrayList<String> languageList2 = new ArrayList<>(
-                        Arrays.asList("C++", "Python", "PHP", "JavaScript"));
-        System.out.println("ArrayList 2: " + languageList2);
-
-        ArrayList<String> sharedLanguageList = 
-                        findSharedElements(languageList1, languageList2);
-        System.out.println("After Compare two ArrayList:");
-        System.out.println("Shared Elements: " + sharedLanguageList);
-	}
-
-		private static <T> ArrayList<T> findSharedElements(ArrayList<T> arrayList1,
-		     ArrayList<T> arrayList2) {
-		       // ArrayList<T> arrayList3 = new ArrayList<>(arrayList1);
-			arrayList1.removeAll(arrayList2);
-		        return arrayList1;
-		}
 }

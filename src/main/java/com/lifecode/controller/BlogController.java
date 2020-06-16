@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lifecode.exception.BusinessException;
 import com.lifecode.jpa.entity.Category;
+import com.lifecode.jpa.entity.Post;
 import com.lifecode.jpa.entity.Tag;
 import com.lifecode.mybatis.model.CategoryVO;
 import com.lifecode.mybatis.model.PostVO;
@@ -259,8 +260,8 @@ public class BlogController {
 	@PostMapping("/edit-post")
 	public ResponseEntity<Response> editPost(@Valid @RequestBody PostRequest post) {
 		try {
-			Long postId = postService.editPost(post);
-			return ResponseEntity.ok().body(new Response(postId,"You're successfully create post."));
+			PostVO result = postService.editPost(post);
+			return ResponseEntity.ok().body(new Response(result,"You're successfully edit post."));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}

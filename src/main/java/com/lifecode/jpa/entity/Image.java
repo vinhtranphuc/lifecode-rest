@@ -19,9 +19,21 @@ public class Image {
 	
 	@Size(max = 500)
 	private String path;
+	
+	public Image() {
+		super();
+	}
 
 	public Image(String path) {
 		super();
+		this.path = path;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
 		this.path = path;
 	}
 }

@@ -24,7 +24,7 @@ public class PostRequest {
 	public int level;
 	
 	@NotEmpty(message="Post images is required !")
-	@Size(min=3, max=5, message = "Post images must be from 3 to 5 image !")
+	@Size(min=1, max=5, message = "Post images must be from 1 to 5 image !")
 	public List<String> postImages;
 	
 	@NotEmpty(message = "Level is required !")

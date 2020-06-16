@@ -32,7 +32,7 @@ public class Category {
 			mappedBy = "category",
 			cascade = CascadeType.ALL,
 			orphanRemoval = true,
-			fetch = FetchType.LAZY)
+			fetch = FetchType.EAGER)
 	private Set<Post> posts;
 
 	public Category(String categoryName, String categoryImg) {

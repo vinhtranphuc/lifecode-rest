@@ -21,6 +21,7 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.lifecode.jpa.entity.audit.DateAudit;
 
 @Entity
@@ -37,26 +38,27 @@ public class Post extends DateAudit {
 	@Column(name = "post_id")
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id")
 	private Category category;
 	
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
 	@OneToMany(
 			mappedBy = "post",
 			cascade = CascadeType.ALL,
 			orphanRemoval = true,
-			fetch = FetchType.LAZY)
+			fetch = FetchType.EAGER)
 	private Set<Comment> comments;
-
-	@ManyToMany(fetch = FetchType.LAZY)
+	
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "posts_images", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "image_id"))
 	private Set<Image> images = new HashSet<>();
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "posts_tags", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
 	private Set<Tag> tags = new HashSet<>();
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "posts_authors", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private Set<User> users = new HashSet<>();
 
@@ -93,5 +95,53 @@ public class Post extends DateAudit {
 		this.title = title;
 		this.content = content;
 		this.times_of_view = time_of_view;
+	}
+
+	public Set<Image> getImages() {
+		return images;
+	}
+
+	public void setImages(Set<Image> images) {
+		this.images = images;
+	}
+
+	public Set<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(Set<Tag> tags) {
+		this.tags = tags;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 }
