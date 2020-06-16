@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lifecode.exception.BusinessException;
 import com.lifecode.jpa.entity.Category;
-import com.lifecode.jpa.entity.Post;
 import com.lifecode.jpa.entity.Tag;
 import com.lifecode.mybatis.model.CategoryVO;
 import com.lifecode.mybatis.model.PostVO;
