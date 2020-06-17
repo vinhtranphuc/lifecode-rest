@@ -12,6 +12,7 @@ public class PostVO {
 	private String sumary;
 	private String content;
 	private String created_at;
+	private String updated_at;
 	private String times_of_view;
 	private String number_of_comments;
 	
@@ -66,6 +67,12 @@ public class PostVO {
 	}
 	public void setCreated_at(String created_at) {
 		this.created_at = created_at;
+	}
+	public String getUpdated_at() {
+		return updated_at;
+	}
+	public void setUpdated_at(String updated_at) {
+		this.updated_at = updated_at;
 	}
 	public String getTimes_of_view() {
 		return times_of_view;

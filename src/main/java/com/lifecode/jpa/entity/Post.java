@@ -61,8 +61,8 @@ public class Post extends DateAudit {
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "posts_authors", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private Set<User> users = new HashSet<>();
-
-	public int level;
+	
+	private int level;
 	
 	@Lob
 	@Length(max = 65535)

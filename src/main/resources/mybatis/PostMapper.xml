@@ -8,6 +8,7 @@
 			,a.level
 			,a.title
 			,a.created_at
+			,a.updated_at
 			,a.sumary
 			,a.content
 			,a.times_of_view
@@ -53,7 +54,7 @@
 			<include refid="sqlPostFields"></include>
 		FROM POSTS A
 		<include refid="sqlWherePosts"></include>
-		ORDER BY A.LEVEL ASC, A.CREATED_AT ASC
+		ORDER BY A.LEVEL ASC, A.UPDATED_AT DESC
 		LIMIT 3
 	</sql>
 	

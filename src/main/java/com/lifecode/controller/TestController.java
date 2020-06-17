@@ -38,7 +38,7 @@ import com.lifecode.service.TestService;
 
 @RestController
 @RequestMapping(value = "api/test")
-@CrossOrigin(origins = {"http://localhost:3000","http://localhost:3001"})
+@CrossOrigin(origins = {"http://localhost:3000","http://localhost:3001","http://127.0.0.1:3000","http://127.0.0.1:3001"})
 public class TestController {
 
 	//Save the uploaded file to this folder

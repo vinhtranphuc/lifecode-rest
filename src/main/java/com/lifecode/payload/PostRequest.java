@@ -19,11 +19,10 @@ public class PostRequest {
 	public List<Long> tags;
 	
 	@NotNull(message = "Level is required !")
-	@Min(value = 1,message = "Level must be from 1 to 5 image !")
+	@Min(value = 1,message = "Level must be from 1 to 6 image !")
 	@Max(5)
 	public int level;
 	
-	@NotEmpty(message="Post images is required !")
 	@Size(min=1, max=5, message = "Post images must be from 1 to 5 image !")
 	public List<String> postImages;
 	
