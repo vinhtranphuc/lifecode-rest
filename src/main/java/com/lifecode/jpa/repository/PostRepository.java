@@ -66,7 +66,7 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 	public Long save(PostRequest postReq) {
 
 		session = entityManager.unwrap(Session.class);
-
+		postReq.content = getNewContent(postReq.content);
 		List<Tag> tags = session.createQuery("select t from Tag t where t.id in :tags", Tag.class)
 				.setParameter("tags", postReq.tags).getResultList();
 
@@ -78,6 +78,21 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 		session.flush();
 
 		return post.getId();
+	}
+	
+	private String getNewContent(String content) {
+		// update base64 img from content to url
+		Document doc = Jsoup.parse(content, "UTF-8");
+		int i = 0;
+		for (Element element : doc.select("img")) {
+			i++;
+            String src = element.attr("src");
+            if (src != null && src.startsWith("data:")) {
+            	String fileName = FileUtil.saveBase64Image(src, Const.IMG_POST_CONTENT_PATH, Utils.getCurrentTimeStamp()+"_"+i);
+            	element.attr("src", fileName);
+            }
+		}
+		return doc.html();
 	}
 
 	private List<Image> savePostImages(List<String> postImages) {
@@ -103,18 +118,17 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 		Post post = session.get(Post.class, postReq.postId);
 		
 		List<String> oldContentImgs = getOldContentImgs(post.getContent());
-		String newContent = getEditContent(postReq.content,oldContentImgs);
-		
+		String editContent = getEditContent(postReq.content,oldContentImgs);
+
 		List<String> oldPostImages = post.getImages().stream().map(t -> t.getPath()).collect(Collectors.toList());
-		
 		List<Image> editPostImages = editPostImages(postReq.postImages, oldPostImages);
 		
 		List<Tag> tags = session.createQuery("select t from Tag t where t.id in :tags", Tag.class)
 				.setParameter("tags", postReq.tags).getResultList();
-		
+
 		Category category = session.get(Category.class, postReq.categoryId);
 		
-		post.setContent(newContent);
+		post.setContent(editContent);
 		post.setImages(new HashSet<>(editPostImages));
 		post.setTags(new HashSet<>(tags));
 		post.setCategory(category);
@@ -124,7 +138,7 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 		session.evict(post);
 		session.update(post);
 		
-		deletePostImagesNotUse(editPostImages,oldPostImages);
+		deletePostImagesUnused(editPostImages,oldPostImages);
 		session.flush();
 		//this.refresh(post);
 	}
@@ -157,7 +171,7 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 					fileName = FileUtil.saveBase64Image(src, Const.IMG_POST_CONTENT_PATH,
 							Utils.getCurrentTimeStamp() + "_" + i);
 				} else {
-					// get file not edit
+					// get file unedited
 					fileName = src.substring(src.lastIndexOf("/") + 1);
 					notEditFiles.add(fileName);
 				}
@@ -167,11 +181,11 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 			return doc.html();
 		} finally {
 			System.gc();
-			// get file not use
+			// get file unused
 			List<String> deleteFiles = new ArrayList<String>(oldContentImgs);
 			deleteFiles.removeAll(notEditFiles);
 
-			// delete file not use
+			// delete file unused
 			for (String fileName : deleteFiles) {
 				FileUtil.deleteImage(Const.IMG_POST_CONTENT_PATH, fileName);
 			}
@@ -207,7 +221,7 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 		return images;
 	}
 	
-	private void deletePostImagesNotUse(List<Image> images, List<String> oldImages) {
+	private void deletePostImagesUnused(List<Image> images, List<String> oldImages) {
 		
 		List<String> newImages = images.stream().map(t->t.getPath()).collect(Collectors.toList());
 		

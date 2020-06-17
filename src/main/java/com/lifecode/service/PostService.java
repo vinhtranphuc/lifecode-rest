@@ -32,7 +32,6 @@ import com.lifecode.mybatis.model.PostVO;
 import com.lifecode.mybatis.model.TagVO;
 import com.lifecode.mybatis.model.UserVO;
 import com.lifecode.payload.PostRequest;
-import com.lifecode.utils.FileUtil;
 import com.lifecode.utils.Utils;
 
 import javassist.NotFoundException;
@@ -196,27 +195,11 @@ public class PostService {
 	}
 
 	public Long createPost(PostRequest postReq) throws UnknownHostException {
-		postReq.content = getNewContent(postReq.content);
 		return postRepository.save(postReq);
 	}
-	
+
 	public PostVO editPost(@Valid PostRequest postReq) throws NotFoundException {
 		postRepository.update(postReq);
 		return getPostById(postReq.postId+"");
-	}
-
-	private String getNewContent(String content) {
-		// update base64 img from content to url
-		Document doc = Jsoup.parse(content, "UTF-8");
-		int i = 0;
-		for (Element element : doc.select("img")) {
-			i++;
-            String src = element.attr("src");
-            if (src != null && src.startsWith("data:")) {
-            	String fileName = FileUtil.saveBase64Image(src, Const.IMG_POST_CONTENT_PATH, Utils.getCurrentTimeStamp()+"_"+i);
-            	element.attr("src", fileName);
-            }
-		}
-		return doc.html();
 	}
 }
