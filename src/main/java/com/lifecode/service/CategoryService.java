@@ -10,13 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lifecode.common.Const;
+import com.lifecode.common.FileUtil;
 import com.lifecode.exception.BusinessException;
 import com.lifecode.jpa.entity.Category;
 import com.lifecode.jpa.repository.CategoryRepository;
 import com.lifecode.jpa.repository.PostRepository;
 import com.lifecode.mybatis.mapper.CategoryMapper;
 import com.lifecode.mybatis.model.CategoryVO;
-import com.lifecode.utils.FileUtil;
+import com.lifecode.payload.CategoryRequest;
 
 @Service
 public class CategoryService {
@@ -38,23 +39,25 @@ public class CategoryService {
 		return categoryRepository.existsByCategory(category);
 	}
 	
-	public Category saveCategory(String categoryName, String base64Img) throws BusinessException {
+	public Category saveCategory(CategoryRequest categoryRequest) throws BusinessException {
 		
-		if(StringUtils.isEmpty(categoryName) || categoryRepository.existsByCategory(categoryName)) {
-			throw new BusinessException("Category name \""+categoryName+"\" already exists !");
+		if(categoryRepository.existsByCategory(categoryRequest.category)) {
+			throw new BusinessException("Category name \""+categoryRequest.category+"\" already exists !");
 		}
 		
-		String categoryImg = FileUtil.saveBase64Image(base64Img, Const.IMG_CATEGORY_PATH,categoryName);
-		Category category = new Category(categoryName, categoryImg);
+		String categoryImg = FileUtil.saveBase64Image(categoryRequest.categoryImg, Const.IMG_CATEGORY_PATH,categoryRequest.category);
+		Category category = new Category(categoryRequest.category, categoryImg);
 		
 		return categoryRepository.save(category);
 	}
 
 	public void removeCategory(Long categoryId) throws BusinessException {
 		String categoryImg = categoryRepository.findCategoryImgById(categoryId);
-		FileUtil.deleteImage(Const.IMG_CATEGORY_PATH,categoryImg);
-		if(!postRepository.existsByCategoryId(categoryId))
+		if(!postRepository.existsByCategoryId(categoryId)) {
 			categoryRepository.deleteById(categoryId);
+			FileUtil.deleteImage(Const.IMG_CATEGORY_PATH,categoryImg);
+			return;
+		}
 		throw new BusinessException("This category are being used in other posts !");
 	}
 }

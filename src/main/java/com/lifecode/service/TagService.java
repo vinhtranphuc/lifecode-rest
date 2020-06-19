@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.lifecode.common.Utils;
 import com.lifecode.exception.BusinessException;
 import com.lifecode.jpa.entity.Tag;
 import com.lifecode.jpa.repository.TagRepository;
 import com.lifecode.mybatis.mapper.TagMapper;
 import com.lifecode.mybatis.model.TagVO;
-import com.lifecode.utils.Utils;
 
 @Service
 public class TagService {

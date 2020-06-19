@@ -20,13 +20,13 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lifecode.common.Const;
+import com.lifecode.common.FileUtil;
+import com.lifecode.common.Utils;
 import com.lifecode.jpa.entity.Category;
 import com.lifecode.jpa.entity.Image;
 import com.lifecode.jpa.entity.Post;
 import com.lifecode.jpa.entity.Tag;
 import com.lifecode.payload.PostRequest;
-import com.lifecode.utils.FileUtil;
-import com.lifecode.utils.Utils;
 
 @Repository
 public interface PostRepository<T> extends JpaRepository<Post, Long>, PostRepositoryCustom<T> {
@@ -101,7 +101,7 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 		Image image;
 		for (String e : postImages) {
 			i++;
-			String fileName = FileUtil.saveBase64Image(e, Const.IMG_POST_FEATURES_PATH,
+			String fileName = FileUtil.saveBase64Image(e, Const.IMG_POST_AVATAR_PATH,
 					Utils.getCurrentTimeStamp() + "_" + i);
 			image = new Image(fileName);
 			session.save(image);
@@ -200,7 +200,7 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 		for (String e : postImages) {
 			i++;
 			if (e != null && e.startsWith("data:")) {
-				String fileName = FileUtil.saveBase64Image(e, Const.IMG_POST_FEATURES_PATH,
+				String fileName = FileUtil.saveBase64Image(e, Const.IMG_POST_AVATAR_PATH,
 						Utils.getCurrentTimeStamp() + "_" + i);
 				image = new Image(fileName);
 				session.save(image);
@@ -236,6 +236,6 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 			session.remove(delImage);
 		}
 		System.gc();
-		deleteFiles.stream().forEach(t -> FileUtil.deleteImage(Const.IMG_POST_FEATURES_PATH, t));
+		deleteFiles.stream().forEach(t -> FileUtil.deleteImage(Const.IMG_POST_AVATAR_PATH, t));
 	}
 }

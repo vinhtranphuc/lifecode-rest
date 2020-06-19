@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
@@ -29,6 +28,7 @@ import com.lifecode.jpa.entity.Tag;
 import com.lifecode.mybatis.model.CategoryVO;
 import com.lifecode.mybatis.model.PostVO;
 import com.lifecode.mybatis.model.TagVO;
+import com.lifecode.payload.CategoryRequest;
 import com.lifecode.payload.PostRequest;
 import com.lifecode.payload.Response;
 import com.lifecode.service.CategoryService;
@@ -203,24 +203,10 @@ public class BlogController {
 	}
 	
 	@PostMapping("/add-category")
-	public ResponseEntity<Response> addCategory(@RequestBody Map<String,Object> param) {
+	public ResponseEntity<Response> addCategory(@RequestBody CategoryRequest categoryRequest) {
 		
 		try {
-			String message = "";
-			String categoryName = (String) param.get("category");
-			String base64Img = (String) param.get("categoryImg"); 
-			
-			if(StringUtils.isEmpty(categoryName)) {
-				message = "Please input category name";
-			} else if(StringUtils.isEmpty(base64Img)) {
-				message = "Please select category image";
-			}
-
-			if(StringUtils.isNotEmpty(message)) {
-				return ResponseEntity.ok().body(new Response(null,message));
-			}
-			
-			Category category = categoryService.saveCategory(categoryName,base64Img);
+			Category category = categoryService.saveCategory(categoryRequest);
 			return ResponseEntity.ok().body(new Response(category,"You're successfully add category."));
 		} catch(BusinessException e) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(new Response(null,e.getMessage()));

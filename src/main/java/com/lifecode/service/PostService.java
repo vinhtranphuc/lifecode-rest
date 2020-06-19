@@ -1,6 +1,5 @@
 package com.lifecode.service;
 
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,17 +10,18 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.lifecode.common.BaseService;
 import com.lifecode.common.Const;
+import com.lifecode.common.FileUtil;
+import com.lifecode.common.Utils;
 import com.lifecode.jpa.repository.PostRepository;
 import com.lifecode.mybatis.mapper.ImageMapper;
 import com.lifecode.mybatis.mapper.PostMapper;
@@ -32,19 +32,13 @@ import com.lifecode.mybatis.model.PostVO;
 import com.lifecode.mybatis.model.TagVO;
 import com.lifecode.mybatis.model.UserVO;
 import com.lifecode.payload.PostRequest;
-import com.lifecode.utils.Utils;
 
 import javassist.NotFoundException;
 
 @Service
-public class PostService {
+public class PostService extends BaseService {
 	
 	protected Logger logger = LoggerFactory.getLogger(PostService.class);
-	
-	private String localIp;
-	
-	@Value("${server.port}")
-	private String severPost;
 	
 	private List<PostVO> list;
 	
@@ -60,7 +54,7 @@ public class PostService {
 	@Resource private ImageMapper imageMapper;
 	
 	@Autowired private PostRepository<?> postRepository;
-	
+
 	public List<PostVO> getPopularPosts() {
 		list = postMapper.selectPopularPosts();
 		return getDetailPosts(list);
@@ -148,7 +142,7 @@ public class PostService {
 		users = userMapper.selectUsers(param);
 		post.setUsers(users);
 		
-		images = convertPostImagesToUri(imageMapper.selectImages(param));
+		images = FileUtil.convertPostImagesToUri(imageMapper.selectImages(param), severPost);
 
 		post.setImages(images);
 		
@@ -157,34 +151,14 @@ public class PostService {
 
 	private String convertContentImgToUri(String content) {
 		
-		try {
-			localIp = InetAddress.getLocalHost().getHostAddress();
-		} catch (UnknownHostException e) {
-			logger.error("UnknownHostException : {}", ExceptionUtils.getStackTrace(e));
-		}
-		
 		Document doc = Jsoup.parse(content, "UTF-8");
 		for (Element element : doc.select("img")) {
             String fileName = StringUtils.isEmpty(element.attr("src"))?"":element.attr("src");
-            String fileUri = Const.getPostContentUri(localIp+":"+severPost,fileName);
+            String fileUri = Const.getPostContentUri(Utils.getLocalIp()+":"+severPost,fileName);
         	element.attr("src", fileUri);
 		}
 		//return HtmlUtils.htmlEscape(doc.html());
 		return doc.html();
-	}
-	
-	private List<ImageVO> convertPostImagesToUri(List<ImageVO> postImages) {
-		try {
-			localIp = InetAddress.getLocalHost().getHostAddress();
-		} catch (UnknownHostException e) {
-			logger.error("UnknownHostException : {}", ExceptionUtils.getStackTrace(e));
-		}
-		
-		for(ImageVO img:postImages) {
-			String fileUri = Const.getPostFeaturesUri(localIp+":"+severPost,img.getPath());
-			img.setPath(fileUri);
-		}
-		return postImages;
 	}
 
 	public PostVO getPostById(String postId) throws NotFoundException {
