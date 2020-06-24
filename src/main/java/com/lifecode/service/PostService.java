@@ -2,9 +2,11 @@ package com.lifecode.service;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -176,4 +178,18 @@ public class PostService extends BaseService {
 		postRepository.update(postReq);
 		return getPostById(postReq.postId+"");
 	}
+	
+	private static boolean isEqual(String s) {
+		return "z".equals(s);
+	}
+	public static void main(String[] args) {
+
+        List<String> tests = Arrays.asList("x", "y", "z");
+
+        List<String> result = tests.stream()                
+                .filter(s -> !isEqual(s))     
+                .collect(Collectors.toList());              
+
+        result.forEach(System.out::println);                
+    }
 }

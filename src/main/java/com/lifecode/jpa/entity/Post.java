@@ -50,7 +50,7 @@ public class Post extends DateAudit {
 			fetch = FetchType.EAGER)
 	private Set<Comment> comments;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(cascade= {CascadeType.PERSIST}, fetch = FetchType.EAGER)
 	@JoinTable(name = "posts_images", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "image_id"))
 	private Set<Image> images = new HashSet<>();
 	
