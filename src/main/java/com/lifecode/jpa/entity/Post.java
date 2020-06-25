@@ -86,7 +86,7 @@ public class Post extends DateAudit {
 		super();
 	}
 
-	public Post(Category category, List<Image> images, List<Tag> tags, int level,String title,String content, int time_of_view) {
+	public Post(Category category, List<Image> images, List<Tag> tags, int level,String title,String content, int time_of_view, Set<User> users) {
 		super();
 		this.category = category;
 		this.images = new HashSet<>(images);
@@ -95,6 +95,7 @@ public class Post extends DateAudit {
 		this.title = title;
 		this.content = content;
 		this.times_of_view = time_of_view;
+		this.users = users;
 	}
 
 	public Set<Image> getImages() {
@@ -143,5 +144,13 @@ public class Post extends DateAudit {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
 }

@@ -2,11 +2,9 @@ package com.lifecode.service;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -25,6 +23,7 @@ import com.lifecode.common.Const;
 import com.lifecode.common.FileUtil;
 import com.lifecode.common.Utils;
 import com.lifecode.jpa.repository.PostRepository;
+import com.lifecode.jpa.repository.UserRepository;
 import com.lifecode.mybatis.mapper.ImageMapper;
 import com.lifecode.mybatis.mapper.PostMapper;
 import com.lifecode.mybatis.mapper.TagMapper;
@@ -56,6 +55,8 @@ public class PostService extends BaseService {
 	@Resource private ImageMapper imageMapper;
 	
 	@Autowired private PostRepository<?> postRepository;
+	
+	@Autowired private UserRepository userRepository;
 
 	public List<PostVO> getPopularPosts() {
 		list = postMapper.selectPopularPosts();
@@ -92,6 +93,8 @@ public class PostService extends BaseService {
 			int totalPosts = postMapper.selectPostsTotCnt(param);
 			if(totalPosts < recordsNoInt) {
 				list = postMapper.selectPosts(param);
+				result.put("page_of_post", 1);
+				result.put("last_page", 1);
 			} else {
 				lastPage = totalPosts/recordsNoInt + ((totalPosts%recordsNoInt)>0?1:0);
 				pageInt = Integer.parseInt(page);
@@ -106,7 +109,7 @@ public class PostService extends BaseService {
 			}
 		} else {
 			list =  postMapper.selectPosts(param);
-			result.put("page", 1);
+			result.put("page_of_post", 1);
 			result.put("last_page", 1);
 		}
 		
@@ -171,25 +174,15 @@ public class PostService extends BaseService {
 	}
 
 	public Long createPost(PostRequest postReq) throws UnknownHostException {
+		Long currentUserId = getCurrentUser().getId();
+		postReq.user = userRepository.findById(currentUserId).get();
 		return postRepository.save(postReq);
 	}
 
 	public PostVO editPost(@Valid PostRequest postReq) throws NotFoundException {
+		Long currentUserId = getCurrentUser().getId();
+		postReq.user = userRepository.findById(currentUserId).get();
 		postRepository.update(postReq);
 		return getPostById(postReq.postId+"");
 	}
-	
-	private static boolean isEqual(String s) {
-		return "z".equals(s);
-	}
-	public static void main(String[] args) {
-
-        List<String> tests = Arrays.asList("x", "y", "z");
-
-        List<String> result = tests.stream()                
-                .filter(s -> !isEqual(s))     
-                .collect(Collectors.toList());              
-
-        result.forEach(System.out::println);                
-    }
 }

@@ -4,7 +4,7 @@
 
 	<sql id="sqlUserFields">
 		a.user_id
-		,a.password
+		<!-- ,a.password -->
 		,a.type
 		,a.name
 		,a.email

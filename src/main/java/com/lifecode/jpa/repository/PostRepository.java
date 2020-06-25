@@ -1,16 +1,13 @@
 package com.lifecode.jpa.repository;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;
@@ -31,6 +28,7 @@ import com.lifecode.jpa.entity.Category;
 import com.lifecode.jpa.entity.Image;
 import com.lifecode.jpa.entity.Post;
 import com.lifecode.jpa.entity.Tag;
+import com.lifecode.jpa.entity.User;
 import com.lifecode.payload.PostRequest;
 
 @Repository
@@ -76,8 +74,13 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 				.setParameter("tags", postReq.tags).getResultList();
 
 		Category category = session.find(Category.class, postReq.categoryId);
+		
 		List<Image> postImages = savePostImages(postReq.postImages);
-		Post post = new Post(category, postImages, tags, postReq.level, postReq.title, postReq.content, 0);
+		
+		Set<User> users = new HashSet<User>();
+		users.add(postReq.user);
+		
+		Post post = new Post(category, postImages, tags, postReq.level, postReq.title, postReq.content, 0,users);
 
 		session.save(post);
 		session.flush();
@@ -99,22 +102,6 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 		}
 		return doc.html();
 	}
-
-//	private List<Image> savePostImages(List<String> postImages) {
-//		List<Image> images = new ArrayList<Image>();
-//		int i = 0;
-//		Image image;
-//		for (String e : postImages) {
-//			i++;
-//			String fileName = FileUtil.saveBase64Image(e, Const.IMG_POST_AVATAR_PATH,
-//					Utils.getCurrentTimeStamp() + "_" + i);
-//			image = new Image(fileName);
-//			session.save(image);
-//			// this.refresh(image);
-//			images.add(image);
-//		}
-//		return images;
-//	}
 
 	@Override
 	public void update(PostRequest postReq) {
@@ -139,6 +126,12 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 		post.setCategory(category);
 		post.setLevel(postReq.level);
 		post.setTitle(postReq.title);
+		
+		Set<User> newUsers = post.getUsers();
+		if(!newUsers.stream().anyMatch(t-> postReq.user.getId() == t.getId())) {
+			newUsers.add(postReq.user);
+			post.setUsers(newUsers);
+		}
 		
 		session.evict(post);
 		session.update(post);
@@ -171,15 +164,22 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 				i++;
 				String src = element.attr("src");
 				String fileName = "";
-				if (src != null && src.startsWith("data:")) {
+				
+				if(src == null)
+					continue;
+				
+				if (src.startsWith("data:")) {
 					// create new file
 					fileName = FileUtil.saveBase64Image(src, Const.IMG_POST_CONTENT_PATH,
 							Utils.getCurrentTimeStamp() + "_" + i);
-				} else {
+				}
+
+				if(src.startsWith("http:")) {
 					// get file unedited
 					fileName = src.substring(src.lastIndexOf("/") + 1);
 					notEditFiles.add(fileName);
 				}
+				
 				element.attr("src", fileName);
 			}
 			
@@ -204,14 +204,20 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 		Image image;
 		for (String e : postImages) {
 			i++;
-			if (e != null && e.startsWith("data:")) {
+			
+			if(StringUtils.isEmpty(e)) 
+				continue;
+			
+			if (e.startsWith("data:")) {
 				String fileName = FileUtil.saveBase64Image(e, Const.IMG_POST_AVATAR_PATH,
 						Utils.getCurrentTimeStamp() + "_" + i);
 				image = new Image(fileName);
 				session.save(image);
 				// this.refresh(image);
 				images.add(image);
-			} else {
+			}
+			
+			if(e.startsWith("http:")) {
 				String notEditFile = e.substring(e.lastIndexOf("/") + 1);
 				notEditFiles.add(notEditFile);
 			}
@@ -230,28 +236,26 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 		
 		List<String> newImages = images.stream().map(t->t.getPath()).collect(Collectors.toList());
 		
-		// get file not use
-		List<String> deleteFiles = new ArrayList<String>(oldImages);
-		deleteFiles.removeAll(newImages);
+		// get file unused
+		List<String> unusedFiles = new ArrayList<String>(oldImages);
+		unusedFiles.removeAll(newImages);
 
-		// delete file not use
-		deleteFiles.stream().filter(e -> isDeleteImage(e)).collect(Collectors.toList()); 
+		// delete file unused
+		List<String> deleteFiles = new ArrayList<String>();
+		for(String fileName:unusedFiles) {
+			List<Image> checkImages = session.createQuery("select i from Image i inner join i.posts where i.path =:fileName", Image.class)
+					.setParameter("fileName", fileName).list();
+			if(checkImages.size() < 1) {
+				Image delImage = session.createQuery("select i from Image i where i.path =:fileName", Image.class)
+						.setParameter("fileName", fileName).getSingleResult();
+				session.remove(delImage);
+				deleteFiles.add(fileName);
+			}
+		}
+		
 		System.gc();
+		deleteFiles.stream().filter(e-> e!=null).collect(Collectors.toList());
 		if(!deleteFiles.isEmpty())
 			deleteFiles.stream().forEach(t -> FileUtil.deleteImage(Const.IMG_POST_AVATAR_PATH, t));
-	}
-	
-	private boolean isDeleteImage(String fileName) {
-		if(fileName==null)
-			return false;
-		List<Image> checkImages = session.createQuery("select i from Image i inner join i.posts where i.path =:fileName", Image.class)
-				.setParameter("fileName", fileName).list();
-		if(checkImages.size() < 1) {
-			Image delImage = session.createQuery("select i from Image i where i.path =:fileName", Image.class)
-					.setParameter("fileName", fileName).getSingleResult();
-			session.remove(delImage);
-			return true;
-		}
-		return false;
 	}
 }

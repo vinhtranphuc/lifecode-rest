@@ -8,6 +8,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.lifecode.jpa.entity.User;
+
 public class PostRequest {
 	
 	public Long postId;
@@ -31,4 +33,6 @@ public class PostRequest {
 	
 	@NotEmpty(message = "Content is required !")
 	public String content;
+	
+	public User user;
 }
