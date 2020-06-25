@@ -16,6 +16,7 @@ public class PostVO {
 	private String times_of_view;
 	private String number_of_comments;
 	
+	private CategoryVO category;
 	private List<TagVO> tags;
 	private List<UserVO> users;
 	private List<ImageVO> images;
@@ -79,6 +80,12 @@ public class PostVO {
 	}
 	public void setTimes_of_view(String times_of_view) {
 		this.times_of_view = times_of_view;
+	}
+	public CategoryVO getCategory() {
+		return category;
+	}
+	public void setCategory(CategoryVO category) {
+		this.category = category;
 	}
 	public List<TagVO> getTags() {
 		return tags;

@@ -24,10 +24,12 @@ import com.lifecode.common.FileUtil;
 import com.lifecode.common.Utils;
 import com.lifecode.jpa.repository.PostRepository;
 import com.lifecode.jpa.repository.UserRepository;
+import com.lifecode.mybatis.mapper.CategoryMapper;
 import com.lifecode.mybatis.mapper.ImageMapper;
 import com.lifecode.mybatis.mapper.PostMapper;
 import com.lifecode.mybatis.mapper.TagMapper;
 import com.lifecode.mybatis.mapper.UserMapper;
+import com.lifecode.mybatis.model.CategoryVO;
 import com.lifecode.mybatis.model.ImageVO;
 import com.lifecode.mybatis.model.PostVO;
 import com.lifecode.mybatis.model.TagVO;
@@ -43,6 +45,8 @@ public class PostService extends BaseService {
 	
 	private List<PostVO> list;
 	
+	private CategoryVO category;
+	
 	private List<TagVO> tags;
 	
 	private List<UserVO> users;
@@ -51,6 +55,7 @@ public class PostService extends BaseService {
 
 	@Resource private PostMapper postMapper;
 	@Resource private UserMapper userMapper;
+	@Resource private CategoryMapper categoryMapper;
 	@Resource private TagMapper tagMapper;
 	@Resource private ImageMapper imageMapper;
 	
@@ -141,6 +146,10 @@ public class PostService extends BaseService {
 		Map<String,Object> param = new HashMap<String,Object>();
 		param.put("post_id",post.getPost_id());
 		
+		List<CategoryVO> categories = categoryMapper.selectCategories(param);
+		category = categories.size()>0?(CategoryVO) categories.get(0):null;
+		post.setCategory(category);
+
 		tags = tagMapper.selectTags(param);
 		post.setTags(tags);
 		
