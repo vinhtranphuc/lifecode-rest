@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -247,6 +248,17 @@ public class BlogController {
 		try {
 			PostVO result = postService.editPost(post);
 			return ResponseEntity.ok().body(new Response(result,"You're successfully edit post."));
+		} catch (Exception e) {
+			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
+		}
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	}
+	
+	@DeleteMapping("/delete-post")
+	public ResponseEntity<Response> deletePost(@RequestParam(value="postId") Long postId) {
+		try {
+			postService.deletePost(postId);
+			return ResponseEntity.ok().body(new Response(null,"You're successfully delete post."));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}

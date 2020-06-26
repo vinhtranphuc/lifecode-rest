@@ -86,6 +86,9 @@ public class PostService extends BaseService {
 		String recordsNo = (String) param.get("records_no");
 		int pageInt = 0;
 		int lastPage = 0;
+		
+		int totalPosts = postMapper.selectPostsTotCnt(param);
+		result.put("total_posts", totalPosts);
 
 		// get list of page
 		if(Utils.isInteger(page) && Utils.isInteger(recordsNo)) {
@@ -95,7 +98,7 @@ public class PostService extends BaseService {
 				return result;
 			}
 			
-			int totalPosts = postMapper.selectPostsTotCnt(param);
+			// int totalPosts = postMapper.selectPostsTotCnt(param);
 			if(totalPosts < recordsNoInt) {
 				list = postMapper.selectPosts(param);
 				result.put("page_of_post", 1);
@@ -193,5 +196,9 @@ public class PostService extends BaseService {
 		postReq.user = userRepository.findById(currentUserId).get();
 		postRepository.update(postReq);
 		return getPostById(postReq.postId+"");
+	}
+
+	public void deletePost(Long postId) {
+		postRepository.deleteById(postId);
 	}
 }

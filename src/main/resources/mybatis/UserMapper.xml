@@ -22,6 +22,7 @@
 		,a.avatar_path
 		,a.join_date
 		,a.note
+		,a.username
 	</sql>
 	
 	<select id="selectUsers" resultType="UserVO">

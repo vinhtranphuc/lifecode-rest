@@ -20,6 +20,7 @@ public class UserVO {
 	private String avatar_path;
 	private String join_date;
 	private String note;
+	private String username;
 
 	public String getUser_id() {
 		return user_id;
@@ -128,5 +129,11 @@ public class UserVO {
 	}
 	public void setNote(String note) {
 		this.note = note;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
 	}
 }
