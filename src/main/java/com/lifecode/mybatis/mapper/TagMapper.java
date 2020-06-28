@@ -9,4 +9,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface TagMapper {
 
 	<T> List<T> selectTags(Map<String, Object> param);
+	
+	int deletePostsTagsByPostId(Map<String,Object> param);
 }

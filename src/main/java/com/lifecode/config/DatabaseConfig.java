@@ -32,6 +32,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.lifecode.common.FieldMap;
+import com.lifecode.common.MybatisUtils;
 import com.lifecode.interceptor.MyBatisQueryIntercept;
 import com.lifecode.interceptor.MyBatisUpdateIntercept;
 
@@ -82,7 +83,7 @@ public class DatabaseConfig {
 	}
 	
     @Bean
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource,ApplicationContext applicationContext) throws Exception {
+    public SqlSessionFactory sqlSessionFactory(ApplicationContext applicationContext) throws Exception {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         
         // mybatis config
@@ -91,7 +92,7 @@ public class DatabaseConfig {
         configuration.setCallSettersOnNulls(true);
         configuration.setUseGeneratedKeys(true);
         configuration.setDefaultExecutorType(ExecutorType.REUSE);
-        registTypeAlias("com.lifecode.mybatis.model");
+        registTypeAlias("com.lifecode.mybatis.model", FieldMap.class, MybatisUtils.class);
         
         sessionFactory.setConfiguration(configuration);
         
@@ -99,7 +100,7 @@ public class DatabaseConfig {
         sessionFactory.setMapperLocations(applicationContext.getResources("classpath*:/mybatis/*Mapper.xml"));
         
         //data source
-        sessionFactory.setDataSource(dataSource);
+        sessionFactory.setDataSource(dataSource());
         
         MyBatisUpdateIntercept myBatisUpdateIntercept = new MyBatisUpdateIntercept();
         MyBatisQueryIntercept myBatisQueryIntercept = new MyBatisQueryIntercept();  
@@ -108,18 +109,20 @@ public class DatabaseConfig {
         return sessionFactory.getObject();
     }
 
-    private void registTypeAlias(final String packageScan) throws ClassNotFoundException {
+    private void registTypeAlias(final String packageScan,Class<?> ...classes) throws ClassNotFoundException {
     	final ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider(false);
     	provider.addIncludeFilter(new RegexPatternTypeFilter(Pattern.compile(".*")));
-    	final Set<BeanDefinition> classes = provider.findCandidateComponents(packageScan);
+    	final Set<BeanDefinition> packageScanClasses = provider.findCandidateComponents(packageScan);
     	
     	// model bean
-    	for (BeanDefinition bean: classes) {
+    	for (BeanDefinition bean: packageScanClasses) {
     	    Class<?> clazz = Class.forName(bean.getBeanClassName());
     	    configuration.getTypeAliasRegistry().registerAlias(clazz);
     	}
-    	// Map with lowerCase field
-    	configuration.getTypeAliasRegistry().registerAlias(FieldMap.class);
+    	for(Class<?> clazz : classes){
+		// register with lowerCase field
+		 configuration.getTypeAliasRegistry().registerAlias(clazz);
+	   }
     }
 
     @Bean

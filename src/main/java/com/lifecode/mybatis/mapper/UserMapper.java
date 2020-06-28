@@ -10,4 +10,6 @@ public interface UserMapper {
 	<T> T getUserById(Map<String,Object> param);
 
 	<T> List<T> selectUsers(Map<String, Object> param);
+	
+	int deletePostsAuthorsByPostId(Map<String, Object> param);
 }

@@ -28,7 +28,7 @@ public class Image {
 	@Size(max = 500)
 	private String path;
 	
-	@ManyToMany(cascade= {CascadeType.REMOVE}, fetch = FetchType.EAGER)
+	@ManyToMany(cascade= {CascadeType.PERSIST}, fetch = FetchType.EAGER)
 	@JoinTable(name = "posts_images", joinColumns = @JoinColumn(name = "image_id"), inverseJoinColumns = @JoinColumn(name = "post_id"))
 	public Set<Post> posts = new HashSet<>();
 

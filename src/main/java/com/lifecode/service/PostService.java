@@ -5,18 +5,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
-import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lifecode.common.BaseService;
 import com.lifecode.common.Const;
@@ -41,41 +42,36 @@ import javassist.NotFoundException;
 @Service
 public class PostService extends BaseService {
 	
-	protected Logger logger = LoggerFactory.getLogger(PostService.class);
-	
-	private List<PostVO> list;
-	
-	private CategoryVO category;
-	
+	private List<PostVO> posts;
 	private List<TagVO> tags;
-	
 	private List<UserVO> users;
-	
 	private List<ImageVO> images;
+	private CategoryVO category;
 
 	@Resource private PostMapper postMapper;
 	@Resource private UserMapper userMapper;
 	@Resource private CategoryMapper categoryMapper;
 	@Resource private TagMapper tagMapper;
 	@Resource private ImageMapper imageMapper;
-	
+
 	@Autowired private PostRepository<?> postRepository;
-	
 	@Autowired private UserRepository userRepository;
+	
+	@Autowired SqlSessionFactory sqlSessionFactory;
 
 	public List<PostVO> getPopularPosts() {
-		list = postMapper.selectPopularPosts();
-		return getDetailPosts(list);
+		posts = postMapper.selectPopularPosts();
+		return getDetailPosts(posts);
 	}
 
 	public List<PostVO> getHotPosts() {
-		list = postMapper.selectHotPosts();
-		return getDetailPosts(list);
+		posts = postMapper.selectHotPosts();
+		return getDetailPosts(posts);
 	}
 
 	public List<PostVO> getRecentPosts() {
-		list = postMapper.selectRecentPosts();
-		return getDetailPosts(list);
+		posts = postMapper.selectRecentPosts();
+		return getDetailPosts(posts);
 	}
 	
 	public Map<String,Object> getPosts(Map<String, Object> param) {
@@ -100,7 +96,7 @@ public class PostService extends BaseService {
 			
 			// int totalPosts = postMapper.selectPostsTotCnt(param);
 			if(totalPosts < recordsNoInt) {
-				list = postMapper.selectPosts(param);
+				posts = postMapper.selectPosts(param);
 				result.put("page_of_post", 1);
 				result.put("last_page", 1);
 			} else {
@@ -110,25 +106,25 @@ public class PostService extends BaseService {
 				
 				int startPost = (pageInt-1)*recordsNoInt;
 				param.put("start_post", startPost);
-				list = postMapper.selectPosts(param);
+				posts = postMapper.selectPosts(param);
 				
 				result.put("page_of_post", pageInt);
 				result.put("last_page", lastPage);
 			}
 		} else {
-			list =  postMapper.selectPosts(param);
+			posts =  postMapper.selectPosts(param);
 			result.put("page_of_post", 1);
 			result.put("last_page", 1);
 		}
 		
-		result.put("list", getDetailPosts(list));
+		result.put("list", getDetailPosts(posts));
 		return result;
 	}
 	
 	public List<PostVO> getOldPosts(Map<String, Object> param) {
 		param.put("start_post", 1);
-		list = postMapper.selectOldPosts(param);
-		return getDetailPosts(list);
+		posts = postMapper.selectOldPosts(param);
+		return getDetailPosts(posts);
 	}
 
 	private List<PostVO> getDetailPosts(List<PostVO> posts) {
@@ -191,14 +187,57 @@ public class PostService extends BaseService {
 		return postRepository.save(postReq);
 	}
 
-	public PostVO editPost(@Valid PostRequest postReq) throws NotFoundException {
+	public PostVO editPost(PostRequest postReq) throws NotFoundException {
 		Long currentUserId = getCurrentUser().getId();
 		postReq.user = userRepository.findById(currentUserId).get();
 		postRepository.update(postReq);
 		return getPostById(postReq.postId+"");
-	}
+	} 
+	
+	//@Transactional(propagation = Propagation.REQUIRED)
+	@Transactional(value = "transactionManager", isolation = Isolation.READ_COMMITTED) //specific to roll back (throw Exception ...)
+	public void deletePost(Long postId) throws Exception {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("post_id", postId);
 
-	public void deletePost(Long postId) {
-		postRepository.deleteById(postId);
+		// get related images
+		List<Map<String, Object>> relatedImages = imageMapper.selectRelatedImagesByPostId(param);
+
+		// check images of this post exists in another posts
+		if (relatedImages.stream().anyMatch(t -> t.get("post_id") != postId)) {
+
+			// delete posts_images
+			param.put("isDeleteImg", "false");
+			imageMapper.deletePostsImagesByPostId(param);
+			
+			// get images exists in another posts
+			List<Long> anotherPostImages = relatedImages.stream().filter(t -> t.get("post_id") != postId)
+					.map(t -> (Long) t.get("image_id")).collect(Collectors.toList());
+
+			// delete image unused
+			relatedImages.stream().filter(t -> t.get("post_id") == postId).forEach(t -> {
+
+				// delete image of this post not exists in another post
+				if (!anotherPostImages.contains(t.get("image_id"))) {
+					param.put("image_id", t.get("image_id"));
+					imageMapper.deleteImageByImageId(param);
+					FileUtil.deleteImage(Const.IMG_POST_AVATAR_PATH, t.get("path") + "");
+				}
+			});
+		} else {
+			// delete all images by post id
+			param.put("isDeleteImg", "true");
+			imageMapper.deletePostsImagesByPostId(param);
+			relatedImages.stream().forEach(t -> FileUtil.deleteImage(Const.IMG_POST_AVATAR_PATH, t.get("path") + ""));
+		}
+
+		// delete posts_tags
+		tagMapper.deletePostsTagsByPostId(param);
+
+		// delete posts_authors
+		userMapper.deletePostsAuthorsByPostId(param);
+
+		// delete post
+		postMapper.deletePostByPostId(param);
 	}
 }

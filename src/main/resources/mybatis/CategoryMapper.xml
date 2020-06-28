@@ -3,9 +3,9 @@
 <mapper namespace="com.lifecode.mybatis.mapper.CategoryMapper">
 
 	<sql id = "sqlCategoryFields">
-		A.CATEGORY_ID
-		,A.CATEGORY
-		,A.CATEGORY_IMG
+		a.category_id
+		,a.category
+		,a.category_img
 	</sql>
 
 	<select id="selectCategories" resultType="CategoryVO">

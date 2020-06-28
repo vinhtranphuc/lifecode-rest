@@ -27,4 +27,9 @@
 			<include refid="sqlWhereTags"></include>
 			GROUP BY A.TAG_ID
 	</select>
+	
+	<delete id="deletePostsTagsByPostId">
+		DELETE FROM POSTS_TAGS
+		WHERE POST_ID = #{post_id}
+	</delete>
 </mapper>

@@ -21,4 +21,6 @@ public interface PostMapper {
 	<T> List<T> selectOldPosts(Map<String, Object> param);
 
 	<T> T getPostById(String postId);
+	
+	int deletePostByPostId(Map<String,Object> parm);
 }

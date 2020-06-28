@@ -4,8 +4,8 @@
 	
 	<select id="selectImages" resultType="ImageVO">
 		SELECT
-			A.IMAGE_ID
-			,A.PATH
+			a.image_id
+			,a.path
 		FROM
 			IMAGES A
 			<if test='post_id != null and post_id != ""'>
@@ -19,4 +19,39 @@
 		</where>
 		GROUP BY A.IMAGE_ID
 	</select>
+	
+	<select id="selectRelatedImagesByPostId" resultType="Map">
+		SELECT
+			a.post_id,
+			b.image_id,
+			b.path
+		FROM
+			POSTS_IMAGES A JOIN IMAGES B
+			ON A.IMAGE_ID = B.IMAGE_ID
+		WHERE
+			B.IMAGE_ID IN (
+							SELECT
+								B1.IMAGE_ID
+							 FROM POSTS_IMAGES A1 
+							 JOIN IMAGES B1 ON A1.IMAGE_ID = B1.IMAGE_ID
+							 WHERE A1.POST_ID = #{post_id}
+						)
+	</select>
+
+	<delete id="deletePostsImagesByPostId">
+		DELETE
+			A
+			<if test="isDeleteImg == 'true'.toString()">
+			,B
+			</if>
+		FROM POSTS_IMAGES A
+		JOIN IMAGES B ON A.IMAGE_ID = B.IMAGE_ID
+		WHERE A.POST_ID = #{post_id}
+	</delete>
+	
+	<delete id="deleteImageByImageId">
+		DELETE FROM IMAGES
+		WHERE IMAGE_ID = #{image_id}
+	</delete>
+	
 </mapper>
