@@ -34,9 +34,6 @@
 			<if test="category_id != null and category_id != ''">
 				AND B.CATEGORY_ID = #{category_id}
 			</if>
-			<if test="tag_id != null and tag_id != ''">
-				AND C.TAG_ID = #{tag_id}
-			</if>
 			<if test="@com.lifecode.common.MybatisUtils@isExistCollection(tag_ids)">
 				<foreach item="item" index="index" collection="tag_ids" open="AND C.TAG_ID IN (" separator="," close=")">
 			        #{item}
@@ -102,7 +99,7 @@
 			<if test="category_id != null and category_id != ''">
 				LEFT JOIN CATEGORIES B ON A.CATEGORY_ID = B.CATEGORY_ID
 			</if>
-			<if test="tag_id != null and tag_id != ''">
+			<if test="@com.lifecode.common.MybatisUtils@isExistCollection(tag_ids)">
 				LEFT JOIN POSTS_TAGS C ON A.POST_ID = C.POST_ID
 				LEFT JOIN TAGS D ON C.TAG_ID = D.TAG_ID
 			</if>
@@ -122,7 +119,7 @@
 		<if test="category_id != null and category_id != ''">
 			LEFT JOIN CATEGORIES B ON A.CATEGORY_ID = B.CATEGORY_ID
 		</if>
-		<if test="tag_id != null and tag_id != ''">
+		<if test="@com.lifecode.common.MybatisUtils@isExistCollection(tag_ids)">
 			LEFT JOIN POSTS_TAGS C ON A.POST_ID = C.POST_ID
 			LEFT JOIN TAGS D ON C.TAG_ID = D.TAG_ID
 		</if>

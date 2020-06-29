@@ -1,10 +1,12 @@
 package com.lifecode.controller;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
@@ -110,6 +112,10 @@ public class BlogController {
 	public ResponseEntity<Response> getPosts(@RequestParam Map<String,Object> param) {
 
 		try {
+			String tagsStr = (String) param.get("tag_ids");
+			if(StringUtils.isNotEmpty(tagsStr)) {
+				param.put("tag_ids", Arrays.asList(tagsStr.split("\\s*,\\s*")));
+			}
 			Map<String,Object> result = postService.getPosts(param);
 			return ResponseEntity.ok().body(new Response(result));
 		} catch (Exception e) {

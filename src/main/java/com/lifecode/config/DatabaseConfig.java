@@ -32,7 +32,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.lifecode.common.FieldMap;
-import com.lifecode.common.MybatisUtils;
 import com.lifecode.interceptor.MyBatisQueryIntercept;
 import com.lifecode.interceptor.MyBatisUpdateIntercept;
 
@@ -92,7 +91,7 @@ public class DatabaseConfig {
         configuration.setCallSettersOnNulls(true);
         configuration.setUseGeneratedKeys(true);
         configuration.setDefaultExecutorType(ExecutorType.REUSE);
-        registTypeAlias("com.lifecode.mybatis.model", FieldMap.class, MybatisUtils.class);
+        registTypeAlias("com.lifecode.mybatis.model", FieldMap.class);
         
         sessionFactory.setConfiguration(configuration);
         
