@@ -40,7 +40,7 @@
 			  	</foreach>
 			</if>
 			<if test="userNameOrEmail != null and userNameOrEmail != ''">
-				AND (F.USERNAME = #{userNameOrEmail} OR F.EMAIL = #{userNameOrEmail})
+				AND (F.USERNAME LIKE CONCAT('%', #{userNameOrEmail}, '%') OR F.EMAIL LIKE CONCAT('%',#{userNameOrEmail},'%'))
 			</if>
 			<include refid="sqlWhereTypePost"></include>
 		</where>
