@@ -28,12 +28,15 @@
 
 	<sql id="sqlWherePosts">
 		<where>
-			<if test="@com.lifecode.common.MybatisUtils@isExistCollection(levels)">
+			<if test="title != null and title != ''">
+				AND A.TITLE LIKE CONCAT('%',#{title},'%'))
+			</if>
+			<if test="levels != null and levels != '' and @com.lifecode.common.MybatisUtils@isExistCollection(levels)">
 				<foreach item="item" index="index" collection="levels" open="AND A.LEVEL IN (" separator="," close=")">
 			        #{item}
 			  	</foreach>
 			</if>
-			<if test="@com.lifecode.common.MybatisUtils@isValidDate('yyyy-mm-dd',created_at)">
+			<if test="created_at != null and created_at != '' and @com.lifecode.common.MybatisUtils@isValidDate('yyyy-mm-dd',created_at)">
 				AND DATE(A.CREATED_AT) = #{created_at}
 			</if>
 			<if test="category_id != null and category_id != ''">
