@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,9 +45,11 @@ public class MybatisUtils {
 	}
 	
 	/**
-	 * parameter is collection and not null ex. <if test="@com.lifecode.common.MybatisUtils@isValidFormat(parameter)">
+	 * parameter is collection and not null ex. <if test="@com.lifecode.common.MybatisUtils@isValidDate(...parameter)">
 	 */
-	public static boolean isValidFormat(String format, String value) {
+	public static boolean isValidDate(String format, String value) {
+		if(StringUtils.isEmpty(format) || StringUtils.isEmpty(value)) 
+			return false;
         Date date = null;
         try {
             SimpleDateFormat sdf = new SimpleDateFormat(format);
@@ -59,4 +62,21 @@ public class MybatisUtils {
         }
         return date != null;
     }
+	
+	/**
+	 * parameter is collection and not null ex. <if test="@com.lifecode.common.MybatisUtils@isInteger(parameter)">
+	 */
+	public static boolean isInteger(Object obj) {
+		if(obj instanceof Integer) {
+			return true;
+		} else {
+			String string = obj==null?"":obj.toString();
+			try {
+				Integer.parseInt(string);
+			} catch(Exception e) {
+				return false;
+			}	
+		}
+	    return true;
+	}
 }

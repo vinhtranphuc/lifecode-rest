@@ -113,8 +113,12 @@ public class BlogController {
 
 		try {
 			String tagsStr = (String) param.get("tag_ids");
+			String levelStr = (String) param.get("levels");
 			if(StringUtils.isNotEmpty(tagsStr)) {
 				param.put("tag_ids", Arrays.asList(tagsStr.split("\\s*,\\s*")));
+			}
+			if(StringUtils.isNotEmpty(levelStr)) {
+				param.put("levels", Arrays.asList(levelStr.split("\\s*,\\s*")));
 			}
 			Map<String,Object> result = postService.getPosts(param);
 			return ResponseEntity.ok().body(new Response(result));

@@ -28,8 +28,13 @@
 
 	<sql id="sqlWherePosts">
 		<where>
-			<if test="created_at != null and created_at != '' and @com.lifecode.common.MybatisUtils@isValidFormat('yyyy-mm-dd HH:mm:ss',created_at)">
-				AND A.CREATED_AT = #{created_at}
+			<if test="@com.lifecode.common.MybatisUtils@isExistCollection(levels)">
+				<foreach item="item" index="index" collection="levels" open="AND A.LEVEL IN (" separator="," close=")">
+			        #{item}
+			  	</foreach>
+			</if>
+			<if test="@com.lifecode.common.MybatisUtils@isValidDate('yyyy-mm-dd',created_at)">
+				AND DATE(A.CREATED_AT) = #{created_at}
 			</if>
 			<if test="category_id != null and category_id != ''">
 				AND B.CATEGORY_ID = #{category_id}
