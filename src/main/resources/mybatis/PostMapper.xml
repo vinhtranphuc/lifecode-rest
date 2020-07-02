@@ -29,7 +29,7 @@
 	<sql id="sqlWherePosts">
 		<where>
 			<if test="title != null and title != ''">
-				AND A.TITLE LIKE CONCAT('%',#{title},'%'))
+				AND A.TITLE LIKE CONCAT('%',#{title},'%')
 			</if>
 			<if test="levels != null and levels != '' and @com.lifecode.common.MybatisUtils@isExistCollection(levels)">
 				<foreach item="item" index="index" collection="levels" open="AND A.LEVEL IN (" separator="," close=")">
