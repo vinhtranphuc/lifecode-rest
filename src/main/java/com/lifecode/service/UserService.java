@@ -53,4 +53,14 @@ public class UserService {
 		Optional<User> user = userRepository.findByUsernameOrEmail(usernameOrEmail,usernameOrEmail);
 		return user.isPresent() && !user.get().isEnabled();
 	}
+	
+	public Optional<ConfirmationToken> findByConfirmationToken(String token) {
+		return confirmationTokenRepository.findByToken(token);
+	}
+	
+	public void setEnabledUserByToken(ConfirmationToken confirmationToken) {
+		User user = userRepository.findByEmailIgnoreCase(confirmationToken.getUser().getEmail()).get();
+		user.setEnabled(true);
+		userRepository.save(user);
+	}
 }

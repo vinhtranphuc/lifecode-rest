@@ -2,6 +2,7 @@ package com.lifecode.controller;
 
 import java.net.URI;
 import java.util.Collections;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -17,6 +18,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,10 +27,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.lifecode.common.BaseController;
+import com.lifecode.common.Utils;
 import com.lifecode.exception.AppException;
 import com.lifecode.jpa.entity.ConfirmationToken;
 import com.lifecode.jpa.entity.Role;
@@ -43,11 +45,11 @@ import com.lifecode.security.JwtTokenProvider;
 import com.lifecode.service.EmailSenderService;
 import com.lifecode.service.UserService;
 
-@RestController
+@Controller
 @RequestMapping("/api/auth")
 @CrossOrigin(origins = { "http://localhost:3000", "http://localhost:3001", "http://127.0.0.1:3000",
 		"http://127.0.0.1:3001" })
-public class AuthController {
+public class AuthController extends BaseController {
 
 	protected Logger logger = LoggerFactory.getLogger(AuthController.class);
 
@@ -68,8 +70,8 @@ public class AuthController {
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-		
-		if(userService.isUserDisabled(loginRequest.getUsernameOrEmail())) {
+
+		if (userService.isUserDisabled(loginRequest.getUsernameOrEmail())) {
 			return ResponseEntity.status(HttpStatus.FORBIDDEN)
 					.body(new Response(null, "This account not yet confirm, please confirm at your email !"));
 		}
@@ -78,13 +80,6 @@ public class AuthController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = tokenProvider.generateToken(authentication);
 		return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
-	}
-	
-	@RequestMapping(value = { "/test" }, method = RequestMethod.GET)
-	public String test(Model model)
-	{
-		model.addAttribute("test","test");
-		 return "test";
 	}
 
 	@PostMapping("/signup")
@@ -115,8 +110,7 @@ public class AuthController {
 			SimpleMailMessage mailMessage = new SimpleMailMessage();
 			mailMessage.setTo(newUser.getEmail());
 			mailMessage.setSubject("Complete Registration!");
-			mailMessage.setText("To confirm your account, please click here : "
-					+ "http://localhost:8082/confirm-account?token=" + confirmationToken.getConfirmationToken());
+			mailMessage.setText("To confirm your account, please click here : http://" + Utils.getLocalIp()+ ":"+severPost+"/api/auth/confirm-account?token=" + confirmationToken.getConfirmationToken());
 
 			emailSenderService.sendEmail(mailMessage);
 
@@ -140,5 +134,20 @@ public class AuthController {
 	public UserIdentityAvailability checkEmailAvailability(@RequestParam(value = "email") String email) {
 		Boolean isAvailable = !userService.isExistsByEmail(email);
 		return new UserIdentityAvailability(isAvailable);
+	}
+	
+	@RequestMapping(value = { "/confirm-account" }, method = RequestMethod.GET)
+	public String confirmAccount(Model model,  @RequestParam("token") String token) {
+		
+		Optional<ConfirmationToken> confirmationToken = userService.findByConfirmationToken(token);
+		if(confirmationToken.isPresent()) {
+			userService.setEnabledUserByToken(confirmationToken.get());
+			model.addAttribute("title", "Congratulations !");
+			model.addAttribute("content","Congratulations! Your account has been activated and email is verified!");
+		} else{
+			model.addAttribute("title", "Errors !");
+			model.addAttribute("content","The link is invalid or broken!");
+		}
+		return "confirmAccount";
 	}
 }
