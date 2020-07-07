@@ -60,6 +60,8 @@ public class User extends DateAudit {
 	@Size(max = 100)
 	private String password;
 	
+	private boolean enabled;
+	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
@@ -159,5 +161,11 @@ public class User extends DateAudit {
 	}
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+	public boolean isEnabled() {
+		return enabled;
+	}
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 }
