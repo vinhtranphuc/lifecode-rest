@@ -19,7 +19,7 @@
 		,a.twitter
 		,a.instagram
 		,a.user_type_cd
-		,a.avatar_path
+		,a.avatar_img
 		,a.join_date
 		,a.note
 		,a.username

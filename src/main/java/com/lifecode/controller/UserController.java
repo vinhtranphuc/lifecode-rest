@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lifecode.exception.ResourceNotFoundException;
 import com.lifecode.jpa.entity.User;
 import com.lifecode.jpa.repository.UserRepository;
+import com.lifecode.mybatis.model.UserVO;
 import com.lifecode.payload.UserProfile;
-import com.lifecode.payload.UserSummary;
 import com.lifecode.security.UserPrincipal;
+import com.lifecode.service.UserService;
 
 @RestController
 @RequestMapping("/api/users")
@@ -25,16 +26,19 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private UserService userService;
 
     @SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @GetMapping("/me")
     @PreAuthorize("hasRole('USER')")
-    public UserSummary getCurrentUser(Authentication authentication) {
+    public UserVO getCurrentUser(Authentication authentication) {
     	UserPrincipal currentUser = (UserPrincipal) authentication.getPrincipal();
-        UserSummary userSummary = new UserSummary(currentUser.getId(), currentUser.getUsername(), currentUser.getName());
-        return userSummary;
+//        UserSummary userSummary = new UserSummary(currentUser.getId(), currentUser.getUsername(), currentUser.getName());
+        return userService.getUserById(currentUser.getId());
     }
 
     @GetMapping("/{username}")

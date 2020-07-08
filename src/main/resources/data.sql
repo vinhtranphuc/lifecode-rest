@@ -56,13 +56,13 @@ CREATE TABLE IF NOT EXISTS `comments` (
 -- Dumping structure for table lifecode.images
 CREATE TABLE IF NOT EXISTS `images` (
   `image_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `path` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `file_name` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`image_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table lifecode.images: ~22 rows (approximately)
 /*!40000 ALTER TABLE `images` DISABLE KEYS */;
-INSERT IGNORE INTO `images` (`image_id`, `path`) VALUES
+INSERT IGNORE INTO `images` (`image_id`, `file_name`) VALUES
 	(24, '20200617011718972_1.png'),
 	(32, '20200617012549834_1.png'),
 	(36, '20200617012719939_1.png'),
@@ -275,7 +275,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `address` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `avatar_path` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `avatar_img` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `city` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `company_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `country` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -300,7 +300,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 -- Dumping data for table lifecode.users: ~4 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT IGNORE INTO `users` (`user_id`, `created_at`, `updated_at`, `address`, `avatar_path`, `city`, `company_name`, `country`, `email`, `facebook`, `instagram`, `join_date`, `linkedin`, `name`, `note`, `occupation`, `password`, `phone`, `twitter`, `type`, `user_type_cd`, `username`) VALUES
+INSERT IGNORE INTO `users` (`user_id`, `created_at`, `updated_at`, `address`, `avatar_img`, `city`, `company_name`, `country`, `email`, `facebook`, `instagram`, `join_date`, `linkedin`, `name`, `note`, `occupation`, `password`, `phone`, `twitter`, `type`, `user_type_cd`, `username`) VALUES
 	(1, '2020-01-05 04:18:56', '2020-01-05 04:18:56', NULL, NULL, NULL, NULL, NULL, 'vinhtran@gmail.com', NULL, NULL, NULL, NULL, 'Tran Phuc Vinh', NULL, NULL, '$2a$10$5ERgZqDh0NwGqVA2qbwE0.oRfkSRrS.v.TkfIXaNP2Z6W16YYcvSa', 0, NULL, '0', '0', 'admin'),
 	(2, '2020-02-08 14:06:39', '2020-02-08 14:06:39', NULL, NULL, NULL, NULL, NULL, 'vinhtran123@gmail.com', NULL, NULL, '2020-02-08 14:06:39', NULL, 'Tran Phuc Vinh', NULL, NULL, '$2a$10$LFN01fnOwOj5dU4U73PNi.g8wP.9ZrJ1ptdPPmrkOVj5UpJWYk1Sm', 0, NULL, NULL, NULL, 'vinhtran123'),
 	(3, '2020-02-15 14:30:21', '2020-02-15 14:30:21', NULL, NULL, NULL, NULL, NULL, 'vinhtranphuc@gmail.com', NULL, NULL, '2020-02-15 14:30:21', NULL, 'Tran Phuc Vinh', NULL, NULL, '$2a$10$tzc6Pa6uOM0yzSZG8S/lYuDtVsQIN.X8OwyiPcLj5hnDKKZgnvasq', 0, NULL, NULL, NULL, 'tranphucvinh'),

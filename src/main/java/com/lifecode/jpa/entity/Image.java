@@ -25,8 +25,8 @@ public class Image {
 	@Column(name = "image_id")
 	private Long id;
 	
-	@Size(max = 500)
-	private String path;
+	@Size(max = 30)
+	private String file_name;
 	
 	@ManyToMany(cascade= {CascadeType.PERSIST}, fetch = FetchType.EAGER)
 	@JoinTable(name = "posts_images", joinColumns = @JoinColumn(name = "image_id"), inverseJoinColumns = @JoinColumn(name = "post_id"))
@@ -36,9 +36,9 @@ public class Image {
 		super();
 	}
 	
-	public Image(String path) {
+	public Image(String file_name) {
 		super();
-		this.path = path;
+		this.file_name = file_name;
 	}
 	
 	public Long getId() {
@@ -49,11 +49,11 @@ public class Image {
 		this.id = id;
 	}
 
-	public String getPath() {
-		return path;
+	public String getFile_name() {
+		return file_name;
 	}
 
-	public void setPath(String path) {
-		this.path = path;
+	public void setFile_name(String file_name) {
+		this.file_name = file_name;
 	}
 }

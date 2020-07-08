@@ -17,7 +17,8 @@ public class UserVO {
 	private String twitter;
 	private String instagram;
 	private String user_type_cd;
-	private String avatar_path;
+	private String avatar_img;
+	private String avatar_uri;
 	private String join_date;
 	private String note;
 	private String username;
@@ -112,11 +113,17 @@ public class UserVO {
 	public void setUser_type_cd(String user_type_cd) {
 		this.user_type_cd = user_type_cd;
 	}
-	public String getAvatar_path() {
-		return avatar_path;
+	public String getAvatar_img() {
+		return avatar_img;
 	}
-	public void setAvatar_path(String avatar_path) {
-		this.avatar_path = avatar_path;
+	public void setAvatar_img(String avatar_img) {
+		this.avatar_img = avatar_img;
+	}
+	public String getAvatar_uri() {
+		return avatar_uri;
+	}
+	public void setAvatar_uri(String avatar_uri) {
+		this.avatar_uri = avatar_uri;
 	}
 	public String getJoin_date() {
 		return join_date;

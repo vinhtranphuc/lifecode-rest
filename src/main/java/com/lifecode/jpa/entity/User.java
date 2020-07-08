@@ -109,8 +109,8 @@ public class User extends DateAudit {
 	@Size(max = 1)
 	private String user_type_cd;
 	
-	@Size(max = 200)
-	private String avatar_path;
+	@Size(max = 30)
+	private String avatar_img;
 	
 	@CreatedDate
 	private Instant join_date;

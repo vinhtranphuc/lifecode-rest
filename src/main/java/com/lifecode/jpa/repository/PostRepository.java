@@ -112,7 +112,7 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 		List<String> oldContentImgs = getOldContentImgs(post.getContent());
 		String editContent = getEditContent(postReq.content,oldContentImgs);
 
-		List<String> oldPostImages = post.getImages().stream().map(t -> t.getPath()).collect(Collectors.toList());
+		List<String> oldPostImages = post.getImages().stream().map(t -> t.getFile_name()).collect(Collectors.toList());
 		List<Image> editPostImages = savePostImages(postReq.postImages);
 		
 		List<Tag> tags = session.createQuery("select t from Tag t where t.id in :tags", Tag.class)
@@ -224,7 +224,7 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 		}
 
 		if(notEditFiles.size() > 0) {
-			List<Image> notEditImages = session.createQuery("select i from Image i where i.path in :images", Image.class)
+			List<Image> notEditImages = session.createQuery("select i from Image i where i.file_name in :images", Image.class)
 					.setParameter("images", notEditFiles).getResultList();
 			images.addAll(notEditImages);
 		}
@@ -234,7 +234,7 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 	
 	private void deletePostImagesUnused(List<Image> images, List<String> oldImages) {
 		
-		List<String> newImages = images.stream().map(t->t.getPath()).collect(Collectors.toList());
+		List<String> newImages = images.stream().map(t->t.getFile_name()).collect(Collectors.toList());
 		
 		// get file unused
 		List<String> unusedFiles = new ArrayList<String>(oldImages);
@@ -243,10 +243,10 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 		// delete file unused
 		List<String> deleteFiles = new ArrayList<String>();
 		for(String fileName:unusedFiles) {
-			List<Image> checkImages = session.createQuery("select i from Image i inner join i.posts where i.path =:fileName", Image.class)
+			List<Image> checkImages = session.createQuery("select i from Image i inner join i.posts where i.file_name =:fileName", Image.class)
 					.setParameter("fileName", fileName).list();
 			if(checkImages.size() < 1) {
-				Image delImage = session.createQuery("select i from Image i where i.path =:fileName", Image.class)
+				Image delImage = session.createQuery("select i from Image i where i.file_name =:fileName", Image.class)
 						.setParameter("fileName", fileName).getSingleResult();
 				session.remove(delImage);
 				deleteFiles.add(fileName);

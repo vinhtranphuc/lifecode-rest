@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.jsoup.Jsoup;
@@ -167,6 +168,9 @@ public class PostService extends BaseService {
 		Document doc = Jsoup.parse(content, "UTF-8");
 		for (Element element : doc.select("img")) {
             String fileName = StringUtils.isEmpty(element.attr("src"))?"":element.attr("src");
+            if(!FilenameUtils.isExtension(fileName, Const.imgExtensions)) {
+            	fileName = fileName+Const.DEFAULT_IMG_TYPE;
+    		}
             String fileUri = Const.getPostContentUri(Utils.getLocalIp()+":"+severPost,fileName);
         	element.attr("src", fileUri);
 		}
@@ -221,14 +225,14 @@ public class PostService extends BaseService {
 				if (!anotherPostImages.contains(t.get("image_id"))) {
 					param.put("image_id", t.get("image_id"));
 					imageMapper.deleteImageByImageId(param);
-					FileUtil.deleteImage(Const.IMG_POST_AVATAR_PATH, t.get("path") + "");
+					FileUtil.deleteImage(Const.IMG_POST_AVATAR_PATH, t.get("file_name") + "");
 				}
 			});
 		} else {
 			// delete all images by post id
 			param.put("isDeleteImg", "true");
 			imageMapper.deletePostsImagesByPostId(param);
-			relatedImages.stream().forEach(t -> FileUtil.deleteImage(Const.IMG_POST_AVATAR_PATH, t.get("path") + ""));
+			relatedImages.stream().forEach(t -> FileUtil.deleteImage(Const.IMG_POST_AVATAR_PATH, t.get("file_name") + ""));
 		}
 
 		// delete posts_tags

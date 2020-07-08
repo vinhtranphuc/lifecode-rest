@@ -24,8 +24,8 @@ public class Category {
 
 	@Size(max = 50)
 	private String category;
-	
-	@Size(max = 70)
+
+	@Size(max = 30)
 	private String category_img;
 
 	@OneToMany(

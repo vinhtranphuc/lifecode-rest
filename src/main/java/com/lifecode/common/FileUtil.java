@@ -54,8 +54,12 @@ public class FileUtil {
 	
 	public static List<ImageVO> convertPostImagesToUri(List<ImageVO> postImages, String serverPost) {
 		for(ImageVO img:postImages) {
-			String fileUri = Const.getPostAvatarUri(Utils.getLocalIp()+":"+serverPost,img.getPath());
-			img.setPath(fileUri);
+			String fileName = img.getFile_name();
+			if(!FilenameUtils.isExtension(fileName, Const.imgExtensions)) {
+            	fileName = fileName+Const.DEFAULT_IMG_TYPE;
+    		}
+			String fileUri = Const.getPostAvatarUri(Utils.getLocalIp()+":"+serverPost,fileName);
+			img.setFile_name(fileUri);
 		}
 		return postImages;
 	}
