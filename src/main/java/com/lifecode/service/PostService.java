@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lifecode.common.BaseService;
 import com.lifecode.common.Const;
-import com.lifecode.common.FileUtil;
+import com.lifecode.common.FileUtils;
 import com.lifecode.common.Utils;
 import com.lifecode.jpa.repository.PostRepository;
 import com.lifecode.jpa.repository.UserRepository;
@@ -156,7 +156,7 @@ public class PostService extends BaseService {
 		users = userMapper.selectUsers(param);
 		post.setUsers(users);
 		
-		images = FileUtil.convertPostImagesToUri(imageMapper.selectImages(param), severPost);
+		images = FileUtils.convertPostImagesToUri(imageMapper.selectImages(param), severPost);
 
 		post.setImages(images);
 		
@@ -225,14 +225,14 @@ public class PostService extends BaseService {
 				if (!anotherPostImages.contains(t.get("image_id"))) {
 					param.put("image_id", t.get("image_id"));
 					imageMapper.deleteImageByImageId(param);
-					FileUtil.deleteImage(Const.IMG_POST_AVATAR_PATH, t.get("file_name") + "");
+					FileUtils.deleteImage(Const.IMG_POST_AVATAR_PATH, t.get("file_name") + "");
 				}
 			});
 		} else {
 			// delete all images by post id
 			param.put("isDeleteImg", "true");
 			imageMapper.deletePostsImagesByPostId(param);
-			relatedImages.stream().forEach(t -> FileUtil.deleteImage(Const.IMG_POST_AVATAR_PATH, t.get("file_name") + ""));
+			relatedImages.stream().forEach(t -> FileUtils.deleteImage(Const.IMG_POST_AVATAR_PATH, t.get("file_name") + ""));
 		}
 
 		// delete posts_tags

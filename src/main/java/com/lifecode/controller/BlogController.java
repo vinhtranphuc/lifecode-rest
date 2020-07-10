@@ -91,7 +91,7 @@ public class BlogController {
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}
-		return ResponseEntity.badRequest().body(new Response(HttpStatus.INTERNAL_SERVER_ERROR));
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
 
 	@RequestMapping(value = "/old-posts", method = RequestMethod.GET, produces = {
@@ -140,7 +140,7 @@ public class BlogController {
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
 		}
-		return ResponseEntity.badRequest().body(new Response(HttpStatus.INTERNAL_SERVER_ERROR));
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
 	
 	@RequestMapping(value = "/categories", method = RequestMethod.GET, produces = {
@@ -243,9 +243,9 @@ public class BlogController {
 	}
 	
 	@PostMapping("/create-post")
-	public ResponseEntity<Response> createPost(@Valid @RequestBody PostRequest post) {
+	public ResponseEntity<Response> createPost(@Valid @RequestBody PostRequest postRequest) {
 		try {
-			Long postId = postService.createPost(post);
+			Long postId = postService.createPost(postRequest);
 			return ResponseEntity.ok().body(new Response(postId,"You're successfully create post."));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));
@@ -254,9 +254,9 @@ public class BlogController {
 	}
 	
 	@PostMapping("/edit-post")
-	public ResponseEntity<Response> editPost(@Valid @RequestBody PostRequest post) {
+	public ResponseEntity<Response> editPost(@Valid @RequestBody PostRequest postRequest) {
 		try {
-			PostVO result = postService.editPost(post);
+			PostVO result = postService.editPost(postRequest);
 			return ResponseEntity.ok().body(new Response(result,"You're successfully edit post."));
 		} catch (Exception e) {
 			logger.error("Excecption : {}", ExceptionUtils.getStackTrace(e));

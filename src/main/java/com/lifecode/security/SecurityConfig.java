@@ -1,4 +1,4 @@
-package com.lifecode.config;
+package com.lifecode.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,9 +16,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.lifecode.security.CustomUserDetailsService;
-import com.lifecode.security.JwtAuthenticationEntryPoint;
-import com.lifecode.security.JwtAuthenticationFilter;
+import com.lifecode.security.oauth2.CustomOAuth2UserService;
+import com.lifecode.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.lifecode.security.oauth2.OAuth2AuthenticationFailureHandler;
+import com.lifecode.security.oauth2.OAuth2AuthenticationSuccessHandler;
+
 
 @Configuration
 @EnableWebSecurity
@@ -30,14 +32,34 @@ import com.lifecode.security.JwtAuthenticationFilter;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     CustomUserDetailsService customUserDetailsService;
+    
+    @Autowired
+    private CustomOAuth2UserService customOAuth2UserService;
 
     @Autowired
     private JwtAuthenticationEntryPoint unauthorizedHandler;
+    
+    @Autowired
+    private OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
+
+    @Autowired
+    private OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
         return new JwtAuthenticationFilter();
     }
+    
+	/*
+	 * By default, Spring OAuth2 uses
+	 * HttpSessionOAuth2AuthorizationRequestRepository to save the authorization
+	 * request. But, since our service is stateless, we can't save it in the
+	 * session. We'll save the request in a Base64 encoded cookie instead.
+	 */
+	@Bean
+	public HttpCookieOAuth2AuthorizationRequestRepository cookieAuthorizationRequestRepository() {
+		return new HttpCookieOAuth2AuthorizationRequestRepository();
+	}
 
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
@@ -82,7 +104,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/api/blog/**")
                         .permitAll()
                     .anyRequest()
-                        .authenticated();
+                        .authenticated()
+                    .and()
+                    .oauth2Login()
+                        .authorizationEndpoint()
+                            .baseUri("/oauth2/authorize")
+                            .authorizationRequestRepository(cookieAuthorizationRequestRepository())
+                            .and()
+                        .redirectionEndpoint()
+                            .baseUri("/oauth2/callback/*")
+                            .and()
+                        .userInfoEndpoint()
+                            .userService(customOAuth2UserService)
+                            .and()
+                        .successHandler(oAuth2AuthenticationSuccessHandler)
+                        .failureHandler(oAuth2AuthenticationFailureHandler);
 
         // Add our custom JWT security filter
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

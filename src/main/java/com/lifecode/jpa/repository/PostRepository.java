@@ -22,7 +22,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lifecode.common.Const;
-import com.lifecode.common.FileUtil;
+import com.lifecode.common.FileUtils;
 import com.lifecode.common.Utils;
 import com.lifecode.jpa.entity.Category;
 import com.lifecode.jpa.entity.Image;
@@ -96,7 +96,7 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 			i++;
             String src = element.attr("src");
             if (src != null && src.startsWith("data:")) {
-            	String fileName = FileUtil.saveBase64Image(src, Const.IMG_POST_CONTENT_PATH, Utils.getCurrentTimeStamp()+"_"+i);
+            	String fileName = FileUtils.saveBase64Image(src, Const.IMG_POST_CONTENT_PATH, Utils.getCurrentTimeStamp()+"_"+i);
             	element.attr("src", fileName);
             }
 		}
@@ -170,7 +170,7 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 				
 				if (src.startsWith("data:")) {
 					// create new file
-					fileName = FileUtil.saveBase64Image(src, Const.IMG_POST_CONTENT_PATH,
+					fileName = FileUtils.saveBase64Image(src, Const.IMG_POST_CONTENT_PATH,
 							Utils.getCurrentTimeStamp() + "_" + i);
 				}
 
@@ -192,7 +192,7 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 
 			// delete file unused
 			for (String fileName : deleteFiles) {
-				FileUtil.deleteImage(Const.IMG_POST_CONTENT_PATH, fileName);
+				FileUtils.deleteImage(Const.IMG_POST_CONTENT_PATH, fileName);
 			}
 		}
 	}
@@ -209,7 +209,7 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 				continue;
 			
 			if (e.startsWith("data:")) {
-				String fileName = FileUtil.saveBase64Image(e, Const.IMG_POST_AVATAR_PATH,
+				String fileName = FileUtils.saveBase64Image(e, Const.IMG_POST_AVATAR_PATH,
 						Utils.getCurrentTimeStamp() + "_" + i);
 				image = new Image(fileName);
 				session.save(image);
@@ -256,6 +256,6 @@ class PostRepositoryImpl<T> implements PostRepositoryCustom<T> {
 		System.gc();
 		deleteFiles.stream().filter(e-> e!=null).collect(Collectors.toList());
 		if(!deleteFiles.isEmpty())
-			deleteFiles.stream().forEach(t -> FileUtil.deleteImage(Const.IMG_POST_AVATAR_PATH, t));
+			deleteFiles.stream().forEach(t -> FileUtils.deleteImage(Const.IMG_POST_AVATAR_PATH, t));
 	}
 }

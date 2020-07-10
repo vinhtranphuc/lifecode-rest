@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,6 +21,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.NaturalId;
@@ -46,7 +49,6 @@ public class User extends DateAudit {
 	@Size(max = 40)
 	private String name;
 	
-	@NotBlank
 	@Size(max = 15)
 	private String username;
 	
@@ -56,11 +58,17 @@ public class User extends DateAudit {
 	@Email
 	private String email;
 	
-	@NotBlank
 	@Size(max = 100)
 	private String password;
 	
 	private boolean enabled;
+	
+	@NotNull
+    @Enumerated(EnumType.STRING)
+    private AuthProvider provider;
+
+	@Column(name = "provider_id")
+    private String providerId;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -111,6 +119,8 @@ public class User extends DateAudit {
 	
 	@Size(max = 30)
 	private String avatar_img;
+	
+	private String social_avatar_url;
 	
 	@CreatedDate
 	private Instant join_date;
@@ -167,5 +177,23 @@ public class User extends DateAudit {
 	}
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+	public AuthProvider getProvider() {
+		return provider;
+	}
+	public void setProvider(AuthProvider provider) {
+		this.provider = provider;
+	}
+	public String getProviderId() {
+		return providerId;
+	}
+	public void setProviderId(String providerId) {
+		this.providerId = providerId;
+	}
+	public String getSocial_avatar_url() {
+		return social_avatar_url;
+	}
+	public void setSocial_avatar_url(String social_avatar_url) {
+		this.social_avatar_url = social_avatar_url;
 	}
 }

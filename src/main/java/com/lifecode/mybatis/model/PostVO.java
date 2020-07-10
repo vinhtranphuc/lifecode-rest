@@ -5,7 +5,7 @@ import java.util.List;
 public class PostVO {
 	
 	private String post_id;
-	private String category_id;
+	private String categoryId;
 	private String post_image;
 	private String level;
 	private String title;
@@ -27,11 +27,11 @@ public class PostVO {
 	public void setPost_id(String post_id) {
 		this.post_id = post_id;
 	}
-	public String getCategory_id() {
-		return category_id;
+	public String getCategoryId() {
+		return categoryId;
 	}
-	public void setCategory_id(String category_id) {
-		this.category_id = category_id;
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
 	}
 	public String getPost_image() {
 		return post_image;

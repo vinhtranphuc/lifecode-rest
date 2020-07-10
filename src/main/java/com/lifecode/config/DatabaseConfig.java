@@ -91,6 +91,7 @@ public class DatabaseConfig {
         configuration.setCallSettersOnNulls(true);
         configuration.setUseGeneratedKeys(true);
         configuration.setDefaultExecutorType(ExecutorType.REUSE);
+        //configuration.setMapUnderscoreToCamelCase(true);
         registTypeAlias("com.lifecode.mybatis.model", FieldMap.class);
         
         sessionFactory.setConfiguration(configuration);

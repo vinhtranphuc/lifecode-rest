@@ -6,13 +6,15 @@ import com.lifecode.jpa.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class UserPrincipal implements UserDetails {
+public class UserPrincipal implements OAuth2User, UserDetails {
 	
     /**
 	 * 
@@ -21,7 +23,7 @@ public class UserPrincipal implements UserDetails {
 
 	private Long id;
 
-    private String name;
+    private String dispName;
 
     private String username;
 
@@ -32,10 +34,12 @@ public class UserPrincipal implements UserDetails {
     private String password;
 
     private Collection<? extends GrantedAuthority> authorities;
+    
+    private Map<String, Object> attributes;
 
     public UserPrincipal(Long id, String name, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
-        this.name = name;
+        this.dispName = name;
         this.username = username;
         this.email = email;
         this.password = password;
@@ -56,16 +60,26 @@ public class UserPrincipal implements UserDetails {
                 authorities
         );
     }
+    
+    public static UserPrincipal create(User user, Map<String, Object> attributes) {
+        UserPrincipal userPrincipal = UserPrincipal.create(user);
+        userPrincipal.setAttributes(attributes);
+        return userPrincipal;
+    }
 
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getDispName() {
+		return dispName;
+	}
 
-    public String getEmail() {
+	public void setDispName(String dispName) {
+		this.dispName = dispName;
+	}
+
+	public String getEmail() {
         return email;
     }
 
@@ -116,4 +130,18 @@ public class UserPrincipal implements UserDetails {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    public void setAttributes(Map<String, Object> attributes) {
+        this.attributes = attributes;
+    }
+
+	@Override
+	public Map<String, Object> getAttributes() {
+		return attributes;
+	}
+
+	@Override
+	public String getName() {
+		return String.valueOf(id);
+	}
 }

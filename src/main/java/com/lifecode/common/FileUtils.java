@@ -15,9 +15,9 @@ import org.slf4j.LoggerFactory;
 
 import com.lifecode.mybatis.model.ImageVO;
 
-public class FileUtil {
+public class FileUtils {
 	
-	protected static Logger logger = LoggerFactory.getLogger(FileUtil.class);
+	protected static Logger logger = LoggerFactory.getLogger(FileUtils.class);
 
 	public static String saveBase64Image(String encodedString, String subPath, String fileName) {
 		try {

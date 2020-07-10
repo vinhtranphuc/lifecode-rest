@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lifecode.common.Const;
-import com.lifecode.common.FileUtil;
+import com.lifecode.common.FileUtils;
 import com.lifecode.exception.BusinessException;
 import com.lifecode.jpa.entity.Category;
 import com.lifecode.jpa.repository.CategoryRepository;
@@ -45,7 +45,7 @@ public class CategoryService {
 			throw new BusinessException("Category name \""+categoryRequest.category+"\" already exists !");
 		}
 		
-		String categoryImg = FileUtil.saveBase64Image(categoryRequest.categoryImg, Const.IMG_CATEGORY_PATH,categoryRequest.category);
+		String categoryImg = FileUtils.saveBase64Image(categoryRequest.categoryImg, Const.IMG_CATEGORY_PATH,categoryRequest.category);
 		Category category = new Category(categoryRequest.category, categoryImg);
 		
 		return categoryRepository.save(category);
@@ -55,7 +55,7 @@ public class CategoryService {
 		String categoryImg = categoryRepository.findCategoryImgById(categoryId);
 		if(!postRepository.existsByCategoryId(categoryId)) {
 			categoryRepository.deleteById(categoryId);
-			FileUtil.deleteImage(Const.IMG_CATEGORY_PATH,categoryImg);
+			FileUtils.deleteImage(Const.IMG_CATEGORY_PATH,categoryImg);
 			return;
 		}
 		throw new BusinessException("This category are being used in other posts !");

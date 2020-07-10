@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 
 import com.lifecode.common.BaseService;
 import com.lifecode.common.Const;
-import com.lifecode.common.FileUtil;
+import com.lifecode.common.FileUtils;
 import com.lifecode.mybatis.mapper.ImageMapper;
 import com.lifecode.mybatis.model.ImageVO;
 
@@ -93,7 +93,7 @@ public class ImageService extends BaseService {
 	}
 
 	public List<String> getUriImages(Map<String, Object> param) {
-		List<ImageVO> images = FileUtil.convertPostImagesToUri(imageMapper.selectImages(param), severPost);
+		List<ImageVO> images = FileUtils.convertPostImagesToUri(imageMapper.selectImages(param), severPost);
 		List<String> uriImages = images.stream().filter(t -> t instanceof ImageVO)
 				.map(t -> ((ImageVO) t).getFile_name()).collect(Collectors.toList());
 		return uriImages;
