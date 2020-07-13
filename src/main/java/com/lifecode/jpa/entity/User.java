@@ -45,7 +45,6 @@ public class User extends DateAudit {
 	@Column(name = "user_id")
 	private Long id;
 	
-	@NotBlank
 	@Size(max = 40)
 	private String name;
 	
@@ -70,7 +69,7 @@ public class User extends DateAudit {
 	@Column(name = "provider_id")
     private String providerId;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 	

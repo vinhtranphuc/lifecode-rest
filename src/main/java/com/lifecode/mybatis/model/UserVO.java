@@ -22,6 +22,8 @@ public class UserVO {
 	private String join_date;
 	private String note;
 	private String username;
+	private String provider;
+	private String social_avatar_url;
 
 	public String getUser_id() {
 		return user_id;
@@ -142,5 +144,17 @@ public class UserVO {
 	}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	public String getProvider() {
+		return provider;
+	}
+	public void setProvider(String provider) {
+		this.provider = provider;
+	}
+	public String getSocial_avatar_url() {
+		return social_avatar_url;
+	}
+	public void setSocial_avatar_url(String social_avatar_url) {
+		this.social_avatar_url = social_avatar_url;
 	}
 }

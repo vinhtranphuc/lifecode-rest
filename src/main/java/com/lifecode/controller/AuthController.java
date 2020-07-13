@@ -32,6 +32,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.lifecode.common.BaseController;
 import com.lifecode.common.Utils;
 import com.lifecode.exception.AppException;
+import com.lifecode.jpa.entity.AuthProvider;
 import com.lifecode.jpa.entity.ConfirmationToken;
 import com.lifecode.jpa.entity.Role;
 import com.lifecode.jpa.entity.RoleName;
@@ -101,7 +102,7 @@ public class AuthController extends BaseController {
 			Role userRole = userService.getRoleByName(RoleName.ROLE_USER)
 					.orElseThrow(() -> new AppException("User Role not set."));
 			user.setRoles(Collections.singleton(userRole));
-
+			user.setProvider(AuthProvider.local);
 			User newUser = userService.saveUser(user);
 
 			ConfirmationToken confirmationToken = new ConfirmationToken(user);

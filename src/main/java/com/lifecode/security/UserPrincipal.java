@@ -15,8 +15,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class UserPrincipal implements OAuth2User, UserDetails {
-	
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -25,7 +24,8 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 
     private String dispName;
 
-    private String username;
+    @SuppressWarnings("unused")
+	private String username;
 
     @JsonIgnore
     private String email;
@@ -85,7 +85,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
     @Override

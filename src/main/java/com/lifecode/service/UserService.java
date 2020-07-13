@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -79,7 +80,11 @@ public class UserService extends BaseService {
 		Map<String,Object> param = new HashMap<String,Object>();
 		param.put("user_id",userId);
 		UserVO user = userMapper.getUserById(param);
-		user.setAvatar_uri(convertAvatarImgToUri(user.getAvatar_img()));
+		if(StringUtils.equals("local", user.getProvider())) {
+			user.setAvatar_uri(convertAvatarImgToUri(user.getAvatar_img()));
+		} else {
+			user.setAvatar_uri(user.getSocial_avatar_url());
+		}
 		return user;
 	}
 
